@@ -8,7 +8,7 @@ export interface IPlacement extends Document {
 const PlacementSchema: Schema = new Schema(
   {
     name: { type: String, required: true },
-    business_id: { type: Number, required: true },
+    business_id: { type: Schema.Types.ObjectId, ref: 'Business', required: true },
   },
   { timestamps: true }
 );

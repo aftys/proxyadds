@@ -11,12 +11,12 @@ export interface IBusiness extends Document {
 
 const BusinessSchema: Schema = new Schema(
   {
-    user_id: { type: Number, required: true },
-    location_id: { type: Number, required: true },
-    longitude: { type: Number, required: true },
-    altitude: { type: Number, required: true },
-    business_type_id: { type: Number, required: true },
-    business_activity_id: { type: Number, required: true },
+    user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true, length: 11 },
+    location_id: { type: Schema.Types.ObjectId, ref: 'Location', required: true, length: 11},
+    longitude: { type: Number, required: true, length: 11 },
+    altitude: { type: Number, required: true, length: 11 },
+    business_type_id: { type: Schema.Types.ObjectId, ref: 'BusinessType', length: 11},
+    business_activity_id: { type: Schema.Types.ObjectId, ref: 'BusinessActivity', length: 11},
   },
   { timestamps: true }
 );

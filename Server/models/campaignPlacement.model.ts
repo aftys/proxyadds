@@ -8,8 +8,8 @@ export interface ICampaignPlacement extends Document {
 
 const CampaignPlacementSchema: Schema = new Schema(
   {
-    campaign_id: { type: Number, required: true },
-    placement_id: { type: Number, required: true },
+    campaign_id: { type: Schema.Types.ObjectId, ref: 'Campaign', required: true },
+    placement_id: {type: Schema.Types.ObjectId, ref: 'Placement', required: true },
     tracking_id: { type: Number, required: true },
   },
   { timestamps: true }

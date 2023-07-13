@@ -11,8 +11,9 @@ const ScheduleSchema: Schema = new Schema(
   {
     opening_hour: { type: String, required: true },
     closing_hour: { type: String, required: true },
-    day: { type: String, required: true },
-    business_id: { type: Number, required: true },
+    day: { type: String, required: true, length: 10 },
+    business_id: { type: Schema.Types.ObjectId, ref: 'Business', length: 11, required: true },
+
   },
   { timestamps: true }
 );

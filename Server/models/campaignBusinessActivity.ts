@@ -9,8 +9,8 @@ export interface ICampaignBusinessActivity extends Document {
 
 const CampaignBusinessActivitySchema: Schema = new Schema(
   {
-    businessActivity_id: { type: Number, required: true },
-    campaign_id: { type: Number, required: true },
+    businessActivity_id: { type: Schema.Types.ObjectId, ref: 'BusinessActivity', required: true },
+    campaign_id: { type: Schema.Types.ObjectId, ref: 'Campaign', required: true },
     campaign_name: { type: String, required: true },
     activity_name: { type: String, required: true },
   },

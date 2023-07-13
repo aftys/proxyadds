@@ -7,8 +7,8 @@ export interface IAdvertiser extends Document {
 
 const AdvertiserSchema: Schema = new Schema(
   {
-    user_id: { type: Number, required: true },
-    act_id: { type: Number, required: true },
+    user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    act_id: { type: Schema.Types.ObjectId, ref: 'Location', required: true },
   },
   { timestamps: true }
 );

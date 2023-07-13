@@ -8,8 +8,8 @@ export interface ICampaignLocation extends Document {
 
 const CampaignLocationSchema: Schema = new Schema(
   {
-    campaign_id: { type: Number, required: true },
-    location_id: { type: Number, required: true },
+    campaign_id: { type: Schema.Types.ObjectId, ref: 'Campaign', required: true },
+    location_id: { type: Schema.Types.ObjectId, ref: 'BusinessActivity', required: true },
     radius: { type: Number, required: true },
   },
   { timestamps: true }
