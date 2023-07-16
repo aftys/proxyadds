@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
     return (
         <>
             <nav
-                className="fixed flex gap-6 justify-end w-full py-2 px-12    z-40 bg-white dark:bg-dark-bg-main border-b-[1px] dark:border-gray-700 border-gray-200"
+                className="fixed top-0 flex gap-6 justify-end w-full py-2 px-12    z-40 bg-white dark:bg-dark-bg-main border-b-[1px] dark:border-gray-700 border-gray-200"
             >
                     <BsSearch onClick={() => handleClick('search')} className="fill-[#10b981] w-[34px] h-[34px] p-[6px] rounded-full border-2 overflow-visible border-gray-300 dark:border-blue-950" />
                     <IoIosNotificationsOutline onClick={() => handleClick('notif')} className="fill-[#10b981] w-[34px] h-[34px] p-[2px] rounded-full border-2 overflow-visible border-gray-300 dark:border-blue-950" />

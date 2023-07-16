@@ -15,7 +15,7 @@ const Notification: React.FC<NotificationProps> = ({ close }) => {
   
   return (
     <motion.div
-      className="nav-item z-40  fixed border-[1px] right-4 top-[80px] bg-white dark:bg-dark-bg-main  dark:border-gray-700 rounded-xl notif-container"
+      className="nav-item z-40  fixed border-[1px] right-4 top-[60px] h-[500px] bg-white dark:bg-dark-bg-main  dark:border-gray-700 rounded-xl notif-container"
       animate={{ y: 0, opacity: 1, transition: { default: { duration: 1, ease: [0, 0.71, 0.2, 1.01] } } }} initial={{ y: +60, opacity: 0 }} exit={{ y: -60, opacity: 0 }}
     >
       <div className="sticky top-0 flex justify-between items-center px-4 bg-white dark:bg-dark-bg-main border-b-[1px] border-gray-200 dark:border-gray-700">
@@ -39,7 +39,7 @@ const Notification: React.FC<NotificationProps> = ({ close }) => {
                 alt={item.title}
               />
 
-              <div className='w-[300px]'>
+              <div className='w-[250px]'>
                 <p className="font-semibold text-sm dark:text-gray-400 ">{item.title}</p>
                 <p className="text-gray-500 dark:text-gray-200 text-sm">{item.message}</p>
                 <p className="text-[#10b981] text-xs">

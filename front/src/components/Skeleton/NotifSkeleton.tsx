@@ -11,7 +11,7 @@ export default function NotifSkeleton() {
                     borderRadius={"100%"}
                 />
 
-                <div className='w-[300px]'>
+                <div className='w-[250px]'>
                     <Skeleton width={'200px'} className="font-semibold text-sm dark:text-gray-400 " />
                     <Skeleton className="text-gray-500 dark:text-gray-200 text-sm" />
                 </div>

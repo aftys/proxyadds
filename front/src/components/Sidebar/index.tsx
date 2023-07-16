@@ -9,7 +9,7 @@ const Sidebar: React.FC = () => {
   return (
     <div
       className={`${open ? "w-[230px]" : "w-[70px] "
-        } bg-white dark:bg-dark-bg-main border-r-[1px] dark:border-gray-700 border-gray-200 h-screen p-3  pt-8 flex flex-col gap-4 fixed left-0 z-50 duration-300`}
+        } bg-white dark:bg-dark-bg-main border-r-[1px] dark:border-gray-700 border-gray-200 h-screen p-3  pt-8 flex flex-col gap-4 fixed left-0 top-0 z-50 duration-300`}
     >
       {open ?
         <BsFillArrowLeftCircleFill

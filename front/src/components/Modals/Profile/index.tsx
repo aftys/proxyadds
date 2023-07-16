@@ -14,7 +14,7 @@ const Profile: React.FC<ProfileProps> = ({ close }) => {
   
   return (
     <motion.div
-      className="nav-item z-40  fixed border-[1px] right-4 top-[80px] bg-white dark:bg-dark-bg-main  dark:border-gray-700 rounded-xl "
+      className="nav-item z-40  fixed border-[1px] right-4 top-[60px] bg-white dark:bg-dark-bg-main  dark:border-gray-700 rounded-xl "
       animate={{ y: 0, opacity: 1, transition: { default: { duration: 1, ease: [0, 0.71, 0.2, 1.01] } } }} initial={{ y: +60, opacity: 0 }} exit={{ y: -60, opacity: 0 }}
     >
       <div className="flex justify-between items-center px-4">
@@ -25,7 +25,7 @@ const Profile: React.FC<ProfileProps> = ({ close }) => {
           bgHoverColor={"gray-200"}
           size="2xl"
           borderRadius="50%"
-          close={() => close()}
+          close={() => close()} bgColor={''} text={''} width={''}        
         />
       </div>
       <div className="border-b-[1px] border-gray-200 dark:border-gray-700 w-full " />
@@ -44,7 +44,7 @@ const Profile: React.FC<ProfileProps> = ({ close }) => {
       <div className="border-b-[1px] dark:border-gray-700  border-gray-200 w-full" />
       <div className="grid grid-cols-2 p-2 gap-2">
         {userProfileData.map((item, index) => (
-          <div key={index} className="flex gap-2 p-2 hover:bg-gray-200 dark:hover:bg-dark-bg-second rounded-lg cursor-pointer">
+          <div key={index} className="flex items-center  gap-2 p-2 hover:bg-gray-200 dark:hover:bg-dark-bg-second rounded-full border-b-[1px] border-t-[1px] dark:border-gray-700  border-gray-200 cursor-pointer">
             <button
               type="button"
               style={{ color: item.iconColor, backgroundColor: item.iconBg }}
@@ -52,10 +52,10 @@ const Profile: React.FC<ProfileProps> = ({ close }) => {
             >
               {item.icon}
             </button>
-            <p className="dark:text-gray-200">{item.title}</p>
+            <p className=" text-sm dark:text-gray-200">{item.title}</p>
           </div>
         ))}
-        <div key={",dpozed"} className="flex gap-2 p-2 hover:bg-gray-200 dark:hover:bg-dark-bg-second rounded-lg cursor-pointer">
+        <div  className="flex items-center  gap-2 p-2 hover:bg-gray-200 dark:hover:bg-dark-bg-second rounded-full border-b-[1px] border-t-[1px] dark:border-gray-700  border-gray-200 cursor-pointer">
           <button
             type="button"
             style={{ color: '#03C9D7', backgroundColor: '#E5FAFB' }}
@@ -63,7 +63,7 @@ const Profile: React.FC<ProfileProps> = ({ close }) => {
           >
             <HiLogout />
           </button>
-          <p className="text-md dark:text-gray-200">logout</p>
+          <p className="text-sm dark:text-gray-200">logout</p>
         </div>
       </div>
     </motion.div>
