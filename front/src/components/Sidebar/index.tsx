@@ -8,8 +8,8 @@ const Sidebar: React.FC = () => {
 
   return (
     <div
-      className={`${open ? "w-72" : "w-[70px] "
-        } bg-dark-purple h-screen p-5  pt-8 flex flex-col gap-4 fixed left-0 z-50 duration-300`}
+      className={`${open ? "w-[230px]" : "w-[70px] "
+        } bg-white dark:bg-dark-bg-main border-r-[1px] dark:border-gray-700 border-gray-200 h-screen p-3  pt-8 flex flex-col gap-4 fixed left-0 z-50 duration-300`}
     >
       {open ?
         <BsFillArrowLeftCircleFill
@@ -30,7 +30,7 @@ const Sidebar: React.FC = () => {
             }`}
         />
         <h1
-          className={`text-white origin-left font-medium text-xl duration-200 ${!open && "scale-0"
+          className={`dark:text-white text-gray-700 origin-left font-medium text-xl duration-200 ${!open && "scale-0"
             }`}
         >
           Designer
@@ -40,14 +40,14 @@ const Sidebar: React.FC = () => {
         {sidebarLinks.map((link, index) => (
           <li
             key={index}
-            className={`flex  rounded-md p-2 h-8 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
-               ${index === 0 && "bg-light-white"
+            className={`flex   rounded-md p-2 pl-4 h-8 cursor-pointer hover:bg-light-white dark:text-gray-300 text-gray-500 text-sm items-center gap-x-4 
+               ${index === 0 && "bg-gray-200 dark:bg-light-white"
               } `}
           >
             {link.icon}
-           {open &&  <span className="origin-left duration-200">
-              {link.title}
-            </span>}
+            <span className={`${!open && "hidden"} origin-left duration-400`}>
+                {link.title}
+              </span>
           </li>
         ))}
       </ul>
