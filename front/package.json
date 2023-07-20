@@ -9,10 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
+    "antd": "^5.7.2",
     "framer-motion": "^10.12.21",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-highlight-words": "^0.20.0",
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.14.2"
   },
