@@ -1,25 +1,26 @@
-import { BsFillPersonFill, BsShield } from 'react-icons/bs';
+import { BsFillPersonFill, BsShield ,BsBarChartLine,BsActivity} from 'react-icons/bs';
 import { AiOutlineSetting } from 'react-icons/ai'
-import { LuLayoutDashboard } from 'react-icons/lu'
+import { IoMdBusiness } from 'react-icons/io'
 import { BsInboxes } from 'react-icons/bs'
-import { FaRegUser } from 'react-icons/fa'
-import { BsCalendarEvent} from 'react-icons/bs'
-import { BiSearchAlt2 } from 'react-icons/bi'
-import { AiOutlineBarChart } from 'react-icons/ai'
-import { AiOutlineFolderOpen } from 'react-icons/ai'
+import { MdOutlinePlace } from 'react-icons/md'
+import { VscTypeHierarchySub } from 'react-icons/vsc'
+import { AiOutlineBarChart,AiOutlineCalendar,AiOutlineNotification } from 'react-icons/ai'
+import {RiLogoutCircleRLine} from 'react-icons/ri'
+
 
 export const sidebarLinks = [
-    { title: "Dashboard", icon: <LuLayoutDashboard /> },
-    { title: "Inbox", icon: <BsInboxes /> },
-    { title: "Accounts", icon: <FaRegUser /> },
-    { title: "Schedule ", icon: <BsCalendarEvent /> },
-    { title: "Search", icon: <BiSearchAlt2 /> },
-    { title: "Analytics", icon: <AiOutlineBarChart /> },
-    { title: "Files ", icon: <AiOutlineFolderOpen /> },
-    { title: "Setting", icon: <AiOutlineSetting /> },
+    { title: "Businesses", icon: <IoMdBusiness /> ,link:'/businesses'},
+    { title: "Placements", icon: <BsInboxes /> ,link:'/placements'},
+    { title: "Schedules", icon: <AiOutlineCalendar />,link:'/schedules' },
+    { title: "Advertisers ", icon: <AiOutlineNotification /> ,link:'/advertisers'},
+    { title: "Locations", icon: <MdOutlinePlace /> ,link:'/locations'},
+    { title: "Campaigns", icon: <AiOutlineBarChart />,link:'/campaigns' },
+    { title: "Business types ", icon: <VscTypeHierarchySub /> ,link:'/types'},
+    { title: "Business activities", icon: <BsActivity /> ,link:'/activities'},
+    { title: "Parameters", icon: <AiOutlineSetting /> ,link:'/parameters'},
+    { title: "Tracking", icon: <BsBarChartLine /> ,link:'/tracking'},
+    { title: "Logout", icon: <RiLogoutCircleRLine /> ,link:'/logout'},
   ];
-
-
 
 
 export const notifData = [

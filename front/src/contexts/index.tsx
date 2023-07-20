@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState,HTMLAttributes } from 'react';
 
 interface StateContextType {
   darkMode: boolean;
@@ -7,7 +7,10 @@ interface StateContextType {
 
 const StateContext = createContext<StateContextType | undefined>(undefined);
 
-export const ContextProvider: React.FC = ({ children }) => {
+interface Props extends HTMLAttributes<HTMLDivElement> {
+  children: React.ReactElement;
+}
+export const ContextProvider: React.FC<Props> = ({ children }) => {
   const [darkMode, setDarkMode] = useState(true);
 
   const toggleDarkMode = () => {

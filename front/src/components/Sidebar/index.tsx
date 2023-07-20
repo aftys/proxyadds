@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import {  BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs'
+import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs'
 import { sidebarLinks } from "../../assets";
-
+import { NavLink } from "react-router-dom"
 const Sidebar: React.FC = () => {
   const [open, setOpen] = useState<boolean>(true);
- 
+
 
   return (
     <div
       className={`${open ? "w-[230px]" : "w-[70px] "
-        } bg-white dark:bg-dark-bg-main border-r-[1px] dark:border-gray-700 border-gray-200 h-screen p-3  pt-8 flex flex-col gap-4 fixed left-0 top-0 z-50 duration-300`}
+        } bg-white dark:bg-dark-bg-main  border-r-[1px] dark:border-gray-700 border-gray-200 h-screen p-3  pt-8 flex flex-col gap-4 fixed left-0 top-0 z-50 duration-300`}
     >
       {open ?
         <BsFillArrowLeftCircleFill
@@ -30,24 +30,25 @@ const Sidebar: React.FC = () => {
             }`}
         />
         <h1
-          className={`dark:text-white text-gray-700 origin-left font-medium text-xl duration-200 ${!open && "scale-0"
+          className={`font-mono text-2xl dark:text-gray-300 text-gray-800 text-center ${!open && "scale-0"
             }`}
         >
-          Designer
+          ProxyAdds
         </h1>
       </div>
-      <ul className="pt-6 flex flex-col gap-2">
+      <ul className="pt-6 flex flex-col gap-0 overflow-hidden">
         {sidebarLinks.map((link, index) => (
           <li
             key={index}
-            className={`flex   rounded-md p-2 pl-4 h-8 cursor-pointer hover:bg-light-white dark:text-gray-300 text-gray-500 text-sm items-center gap-x-4 
-               ${index === 0 && "bg-gray-200 dark:bg-light-white"
-              } `}
+
           >
-            {link.icon}
-            <span className={`${!open && "hidden"} origin-left duration-400`}>
+
+            <NavLink to={link.link} className={({isActive})=>{return `flex   rounded-md p-2 pl-4 h-7 cursor-pointer hover:dark:bg-light-white hover:bg-gray-100 dark:text-gray-300 text-gray-500 text-sm items-center gap-x-4  ${isActive && "bg-gray-200 dark:bg-light-white" }`;}} >
+              {link.icon}
+              <span className={`${!open && "hidden"} origin-left duration-400`}>
                 {link.title}
               </span>
+            </NavLink>
           </li>
         ))}
       </ul>

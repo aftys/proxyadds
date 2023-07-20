@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence} from "framer-motion";
 import Switcher from "../Switcher";
-import { BsSearch, BsList } from 'react-icons/bs';
+import { BsSearch } from 'react-icons/bs';
 import {IoIosNotificationsOutline} from "react-icons/io"
 import Profile from "../Modals/Profile";
 import Notification from "../Modals/Notification";
