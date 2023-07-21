@@ -33,6 +33,91 @@ const data: DataType[] = [
     name: 'Jim Green',
     age: 32,
     address: 'Sydney No. 1 Lake Park',
+  },{
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+  },
+  {
+    key: '2',
+    name: 'Joe Black',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+  },
+  {
+    key: '3',
+    name: 'Jim Green',
+    age: 32,
+    address: 'Sydney No. 1 Lake Park',
+  },{
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+  },
+  {
+    key: '2',
+    name: 'Joe Black',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+  },
+  {
+    key: '3',
+    name: 'Jim Green',
+    age: 32,
+    address: 'Sydney No. 1 Lake Park',
+  },{
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+  },
+  {
+    key: '2',
+    name: 'Joe Black',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+  },
+  {
+    key: '3',
+    name: 'Jim Green',
+    age: 32,
+    address: 'Sydney No. 1 Lake Park',
+  },{
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+  },
+  {
+    key: '2',
+    name: 'Joe Black',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+  },
+  {
+    key: '3',
+    name: 'Jim Green',
+    age: 32,
+    address: 'Sydney No. 1 Lake Park',
+  },{
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park',
+  },
+  {
+    key: '2',
+    name: 'Joe Black',
+    age: 42,
+    address: 'London No. 1 Lake Park',
+  },
+  {
+    key: '3',
+    name: 'Jim Green',
+    age: 32,
+    address: 'Sydney No. 1 Lake Park',
   },
   {
     key: '4',
@@ -168,7 +253,7 @@ const TableGrid: React.FC = () => {
     },
   ];
 
-  return <Table className='dark:bg-dark-bg-main  ' columns={columns} dataSource={data} />;
+  return <Table className=' dark:border-0 border-gray-200 border dark:bg-dark-bg-main max-w-screen-md w-full  rounded-md overflow-hidden ' pagination={{pageSizeOptions:[6]}} columns={columns} dataSource={data} />;
 };
 
 export default TableGrid;

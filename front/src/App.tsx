@@ -2,18 +2,36 @@ import Navbar from "./components/Navbar"
 import Sidebar from "./components/Sidebar"
 import { useStateContext } from "./contexts"
 import TableGrid from "./components/Table"
+import { Button, ConfigProvider, theme } from "antd"
+import {useState} from "react"
+import AntModal from "./components/Modals/Ant"
+
+
 function App() {
 
   const { darkMode } = useStateContext()
+
+  const { defaultAlgorithm, darkAlgorithm } = theme;
+  const [isModalOpen,setIsModalOpen] = useState(false);
   return (
-    <div className={`h-screen w-screen ${darkMode && "dark"}`}>
-      <div className='dark:bg-app bg-gray-100 w-screen min-h-screen relative flex flex-col items-center pl-[85px] pr-[15px] pt-[75px] '>
-        <Sidebar />
-        <Navbar />
-        {/* <div className="bg-gray-300/10 w-full h-72 rounded-xl" /> */}
-        <TableGrid />
+    <ConfigProvider
+      theme={{token: { colorPrimary: '#22d3ee'},
+        algorithm: darkMode ? darkAlgorithm : defaultAlgorithm,
+      }}>
+      <div className={`h-screen w-screen ${darkMode && "dark"}`}>
+        <div className='dark:bg-app bg-gray-100 w-screen min-h-screen relative flex flex-col items-center pl-[85px] pt-[75px] '>
+          <Sidebar />
+          <Navbar />
+          <div className=" max-w-screen-md w-full flex flex-col gap-4 ">
+            {/* <Button>Ajouter</Button> */}
+            <AntModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
+            <TableGrid  />
+
+          </div>
+        </div>
+
       </div>
-    </div>
+    </ConfigProvider>
   )
 }
 
