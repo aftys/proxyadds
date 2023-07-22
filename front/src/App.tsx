@@ -1,12 +1,11 @@
 import Navbar from "./components/Navbar"
 import Sidebar from "./components/Sidebar"
 import { useStateContext } from "./contexts"
-import TableGrid from "./components/Table"
+// import TableGrid from "./components/Table"
 import { Button, ConfigProvider, theme } from "antd"
 import {useState} from "react"
 import AntModal from "./components/Modals/Ant"
-
-
+import MyComponent from "./pages/business"
 function App() {
 
   const { darkMode } = useStateContext()
@@ -25,7 +24,8 @@ function App() {
           <div className=" max-w-screen-md w-full flex flex-col gap-4 ">
             {/* <Button>Ajouter</Button> */}
             <AntModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
-            <TableGrid  />
+            {/* <TableGrid  /> */}
+            < MyComponent />
 
           </div>
         </div>
