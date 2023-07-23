@@ -7,6 +7,7 @@ export interface IBusiness extends Document {
   altitude: number;
   business_type_id: number;
   business_activity_id: number;
+  deleted:boolean;
 }
 
 const BusinessSchema: Schema = new Schema(
@@ -17,6 +18,7 @@ const BusinessSchema: Schema = new Schema(
     altitude: { type: Number, required: true, length: 11 },
     business_type_id: { type: Schema.Types.ObjectId, ref: 'BusinessType', length: 11},
     business_activity_id: { type: Schema.Types.ObjectId, ref: 'BusinessActivity', length: 11},
+    deleted:{ type: Boolean, defaults: false }
   },
   { timestamps: true }
 );

@@ -5,6 +5,7 @@ export interface ICampaignBusinessType extends Document {
   campaign_id: number;
   campaign_name: string;
   type_name: string;
+  deleted:boolean;
 }
 
 const CampaignBusinessTypeSchema: Schema = new Schema(
@@ -13,6 +14,7 @@ const CampaignBusinessTypeSchema: Schema = new Schema(
     campaign_id: { type: Schema.Types.ObjectId, ref: 'Campaign', required: true },
     campaign_name: { type: String, required: true },
     type_name: { type: String, required: true },
+    deleted:{ type: Boolean, defaults: false }
   },
   { timestamps: true }
 );

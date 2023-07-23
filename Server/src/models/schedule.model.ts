@@ -5,6 +5,7 @@ export interface ISchedule extends Document {
   closing_hour: string;
   day: string;
   business_id: number;
+  deleted: boolean;
 }
 
 const ScheduleSchema: Schema = new Schema(
@@ -13,6 +14,7 @@ const ScheduleSchema: Schema = new Schema(
     closing_hour: { type: String, required: true },
     day: { type: String, required: true, length: 10 },
     business_id: { type: Schema.Types.ObjectId, ref: 'Business', length: 11, required: true },
+    deleted:{ type: Boolean, defaults: false }
 
   },
   { timestamps: true }

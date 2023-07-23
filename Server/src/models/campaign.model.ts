@@ -12,6 +12,7 @@ export interface ICampaign extends Document {
   status: CampaignStatus;
   url: string;
   advertiser_id: number;
+  deleted:boolean,
 }
 
 const CampaignSchema: Schema = new Schema(
@@ -25,6 +26,7 @@ const CampaignSchema: Schema = new Schema(
     status: { type: String, enum: CampaignStatus, required: true }, //Object.values(CampaignStatus)
     url: { type: String, required: true },
     advertiser_id: { type: Number, required: true },
+    deleted:{ type: Boolean, defaults: false }
   },
   { timestamps: true }
 );

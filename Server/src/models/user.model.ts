@@ -8,6 +8,7 @@ export interface IUser extends Document {
   phone: string;
   address: string;
   status: UserStatus;
+  deleted:{ type: Boolean, defaults: false }
 }
 
 const UserSchema: Schema = new Schema(
