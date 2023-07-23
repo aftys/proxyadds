@@ -3,10 +3,11 @@ import { Button, Modal, Steps } from 'antd';
 
 interface AntModalPrpos {
     isModalOpen: boolean,
-    setIsModalOpen: (value: boolean) => void
+    setIsModalOpen: (value: boolean) => void,
+    children?: React.ReactElement
 }
 
-const AntModal: React.FC<AntModalPrpos> = ({ isModalOpen, setIsModalOpen }) => {
+const AntModal: React.FC<AntModalPrpos> = ({ isModalOpen, setIsModalOpen, children }) => {
 
 
     const showModal = () => {
@@ -55,12 +56,14 @@ const AntModal: React.FC<AntModalPrpos> = ({ isModalOpen, setIsModalOpen }) => {
                 onOk={handleOk}
                 onCancel={handleCancel}>
 
-                <Steps
+                {children}
+
+                {/* <Steps
                     size="small"
                     current={current}
                     items={steps}
-                />
-                <div className={`flex max-w-screen-md w-full ${current === 0 ? 'justify-end' : 'justify-between'}`}>
+                /> */}
+                {/* <div className={`flex max-w-screen-md w-full ${current === 0 ? 'justify-end' : 'justify-between'}`}>
                     {current > 0 && (
                         <Button  style={{ margin: '0 8px' }} onClick={() => prev()}>
                             Previous
@@ -75,7 +78,7 @@ const AntModal: React.FC<AntModalPrpos> = ({ isModalOpen, setIsModalOpen }) => {
                         <Button type="primary" className='bg-[#22d3ee]'>
                             Done
                         </Button>
-                    )}</div>
+                    )}</div> */}
             </Modal>
         </>
     );

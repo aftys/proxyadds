@@ -1,3 +1,4 @@
+
 import Navbar from "./components/Navbar"
 import Sidebar from "./components/Sidebar"
 import { useStateContext } from "./contexts"
@@ -5,7 +6,23 @@ import { useStateContext } from "./contexts"
 import { Button, ConfigProvider, theme } from "antd"
 import {useState} from "react"
 import AntModal from "./components/Modals/Ant"
-import MyComponent from "./pages/business"
+import MyComponent from "./pages/Business"
+import Layout from "./components/Layout/layout"
+import { Routes, Route } from "react-router-dom"
+import Businesses from "./pages/Business"
+import Placements from "./pages/Placements"
+import Schedules from "./pages/Schedules"
+import Advertisers from "./pages/Advertisers"
+import Locations from "./pages/Locations"
+import Campaigns from "./pages/Campaigns"
+import BusinessTypes from "./pages/BusinessTypes"
+import BusinessActivities from "./pages/BusinessActivities"
+import Parameters from "./pages/Parameters"
+import Tracking from "./pages/Tracking"
+import Logout from "./pages/Logout"
+import Login from "./pages/Login"
+
+
 function App() {
 
   const { darkMode } = useStateContext()
@@ -19,20 +36,37 @@ function App() {
       }}>
       <div className={`h-screen w-screen ${darkMode && "dark"}`}>
         <div className='dark:bg-app bg-gray-100 w-screen min-h-screen relative flex flex-col items-center pl-[85px] pt-[75px] '>
-          <Sidebar />
-          <Navbar />
-          <div className=" max-w-screen-md w-full flex flex-col gap-4 ">
+          <Layout>
+            <>
             {/* <Button>Ajouter</Button> */}
-            <AntModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
+            {/* <AntModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}><Step/></AntModal> */}
             {/* <TableGrid  /> */}
-            < MyComponent />
+            {/* < MyComponent /> */}
+            <Routes>
+              <Route path="/" element={<Businesses />}/>
+              <Route path="/Businesses" element={<Businesses />}/>
+              <Route path="/Placements" element={<Placements />} />
+              <Route path="/Schedules" element={<Schedules />} /> 
+              <Route path="/Advertisers" element={<Advertisers/>} />
+              <Route path="/Locations" element={<Locations/>} />
+              <Route path="/Campaigns" element={<Campaigns/>}/>
+              <Route path="/BusinessTypes" element={<BusinessTypes/>} />
+              <Route path="/BusinessActivities" element={<BusinessActivities/>} />
+              <Route path="/Parameters" element={<Parameters/>} />
+              <Route path="/Tracking" element={<Tracking/>} />
+              <Route path="/Logout" element={<Logout/>} />
+              <Route path="/LogIn" element={  <Login />}/>
+              <Route path="*" element={<Businesses />} />
 
-          </div>
+            </Routes>
+            </>
+           </Layout>
         </div>
 
       </div>
     </ConfigProvider>
   )
 }
+
 
 export default App

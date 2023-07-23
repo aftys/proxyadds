@@ -2,7 +2,7 @@ import React from 'react';
 import TableGridTest from '../../components/TableTest';
 const MyComponent: React.FC = () => {
     type MyData = {
-        // id: number;
+      key: string;
         name: string;
         age: number;
         address: string;
@@ -50,34 +50,34 @@ const MyComponent: React.FC = () => {
 
   const data: MyData[] = [
     {
-        
+        key: 1,
         name: 'John Brown',
         age: 32,
         address: 'New York No. 1 Lake Park',
         number: 1,
       },
       {
-        
+        key: 2,
         name: 'Joe Black',
         age: 42,
         address: 'London No. 1 Lake Park',
         number: 2,
       },
       {
-        
+        key: 3,
         name: 'Jim Green',
         age: 32,
         address: 'Sydney No. 1 Lake Park',
         number: 3,
       },{
-        
+        key: 4,
         name: 'John Brown',
         age: 32,
         address: 'New York No. 1 Lake Park',
         number: 4,
       },
       {
-        
+        key: 5,
         name: 'Joe Black',
         age: 42,
         address: 'London No. 1 Lake Park',
@@ -85,14 +85,14 @@ const MyComponent: React.FC = () => {
     
       },
       {
-        
+        key: 6,
         name: 'Jim Green',
         age: 32,
         address: 'Sydney No. 1 Lake Park',
         number: 4,
     
       },{
-        
+        key: 7,
         name: 'John Brown',
         age: 32,
         address: 'New York No. 1 Lake Park',
@@ -100,20 +100,20 @@ const MyComponent: React.FC = () => {
     
       },
       {
-        
+        key: 8,
         name: 'Joe Black',
         age: 42,
         address: 'London No. 1 Lake Park',
         number: 4,
       },
       {
-        
+        key: 9,
         name: 'Jim Green',
         age: 32,
         address: 'Sydney No. 1 Lake Park',
         number: 4,
       },{
-        
+        key: 10,
         name: 'John Brown',
         age: 32,
         address: 'New York No. 1 Lake Park',
@@ -121,7 +121,7 @@ const MyComponent: React.FC = () => {
     
       },
       {
-        
+        key: 11,
         name: 'Joe Black',
         age: 42,
         address: 'London No. 1 Lake Park',
