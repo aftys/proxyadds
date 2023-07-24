@@ -44,7 +44,7 @@ app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
 
-const MONGODB_URI: string = 'mongodb+srv://';
+const MONGODB_URI: string = 'mongodb+srv://oussama:Oussama2001@cluster0.aqunadl.mongodb.net/ProxyAds';
 mongoose
   .connect(MONGODB_URI)
   .then(() => {

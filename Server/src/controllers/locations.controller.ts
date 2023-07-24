@@ -4,8 +4,8 @@ import Location from '../models/location.model';
 
 async function createLocation(req: Request, res: Response) {
   try {
-    const { region, city, secteur, longitude, altitude } = req.body;
-    const newLocation: ILocation = new Location({ region, city, secteur, longitude, altitude, deleted: false });
+    const { region, city, secteur, longitude, latitude } = req.body;
+    const newLocation: ILocation = new Location({ region, city, secteur, longitude, latitude, deleted: false });
     const savedLocation = await newLocation.save();
     res.status(201).json(savedLocation);
   } catch (error) {
@@ -39,10 +39,10 @@ async function getLocationById(req: Request, res: Response) {
 async function updateLocation(req: Request, res: Response) {
   try {
     const locationId = req.params.id;
-    const { region, city, secteur, longitude, altitude } = req.body;
+    const { region, city, secteur, longitude, latitude } = req.body;
     const updatedLocation: ILocation | null = await Location.findByIdAndUpdate(
       locationId,
-      { region, city, secteur, longitude, altitude },
+      { region, city, secteur, longitude, latitude },
       { new: true }
     ).where({ deleted: false });
 

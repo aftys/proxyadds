@@ -5,7 +5,7 @@ export interface ILocation extends Document {
   city: string;
   secteur: string;
   longitude: number;
-  altitude: number;
+  latitude: number;
   deleted: boolean;
 }
 
@@ -15,7 +15,7 @@ const LocationSchema: Schema = new Schema(
     city: { type: String, required: true },
     secteur: { type: String, required: true },
     longitude: { type: Number, required: true },
-    altitude: { type: Number, required: true },
+    latitude: { type: Number, required: true },
     deleted:{ type: Boolean, defaults: false }
   },
   { timestamps: true }

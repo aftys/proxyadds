@@ -4,10 +4,11 @@ import { Button, Modal, Steps } from 'antd';
 interface AntModalPrpos {
     isModalOpen: boolean,
     setIsModalOpen: (value: boolean) => void,
-    children?: React.ReactElement
+    children?: React.ReactElement,
+    name?: string
 }
 
-const AntModal: React.FC<AntModalPrpos> = ({ isModalOpen, setIsModalOpen, children }) => {
+const AntModal: React.FC<AntModalPrpos> = ({ isModalOpen, setIsModalOpen, children, name }) => {
 
 
     const showModal = () => {
@@ -46,7 +47,7 @@ const AntModal: React.FC<AntModalPrpos> = ({ isModalOpen, setIsModalOpen, childr
     return (
         <>
             <Button type="primary" className='w-32 text-gray-600 dark:text-gray-400 bg-white dark:bg-dark-bg-main' onClick={showModal}>
-                Open Modal
+                {name}
             </Button>
             <Modal
                 className='dark:bg-gray-100 h-[500px] flex flex-col gap-6 p-6 '
