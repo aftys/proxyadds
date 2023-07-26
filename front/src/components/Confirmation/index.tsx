@@ -38,7 +38,7 @@ const Confirmation: React.FC<Props> = ({handleDelete}) => {
     
     return (
         <>
-        <Button type="primary" onClick={() => setOpen(true)}>
+        <Button type="primary" className='text-white bg-main-blue dark:bg-blue-950 hover:dark:bg-blue-900' onClick={() => setOpen(true)}>
         Delete
       </Button>
       <Modal
@@ -47,10 +47,14 @@ const Confirmation: React.FC<Props> = ({handleDelete}) => {
         open={open}
         onOk={() => {
             handleDelete()
-            setOpen(false)}}
+            setOpen(false)
+
+          }
+          }
         onCancel={() => setOpen(false)}
         width={300}
-      >
+        okButtonProps={{ className: "text-white bg-main-blue shadow" }}
+        >
         <p>vous êtes sûr de supprimer cette ligne!</p>
       </Modal>
       </>

@@ -18,13 +18,9 @@ const onFinish = (values: any) => {
   console.log(values);
 
   // Send the form data to the backend using Axios
-  axios.post('http://localhost:3000/locations', 
+  axios.post('http://localhost:3000/business-types', 
   {
-    region: values.region,
-    city: values.city,
-    secteur: values.secteur,
-    longitude: values.longitude,
-    latitude: values.latitude,
+    name: values.name,
   },
   )
     .then(response => {
@@ -36,7 +32,7 @@ const onFinish = (values: any) => {
       // Optionally, you can handle errors here
     });};
 
-const LocationForm: React.FC = () => (
+const BusinessTypeForm: React.FC = () => (
       <Form
       {...layout}
       name="nest-messages"
@@ -45,20 +41,8 @@ const LocationForm: React.FC = () => (
       validateMessages={validateMessages}
       className='pr-16 pt-10'
     >
-    <Form.Item name={['region']} label="Region" rules={[{ required: true }]}>
+    <Form.Item name={['name']} label="Name" rules={[{ required: true }]}>
       <Input />
-    </Form.Item>
-    <Form.Item name={['city']} label="City" rules={[{ required: true }]}>
-      <Input />
-    </Form.Item>
-    <Form.Item name={['secteur']} label="Secteur" rules={[{ required: true }]}>
-      <Input />
-    </Form.Item>
-    <Form.Item name={['longitude']} label="Longitude" rules={[{ type:"number", min: 0, max: 99, required: true }]}>
-      <InputNumber/>
-    </Form.Item>
-    <Form.Item name={['latitude']} label="Latitude" rules={[{ type:"number", min: 0, max: 99, required: true }]}>
-      <InputNumber/>
     </Form.Item>
     <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
         <Button type="primary" htmlType="submit" className='bg-main-blue absolute right-0 top-0'>
@@ -68,4 +52,4 @@ const LocationForm: React.FC = () => (
     </Form>
 );
 
-export default LocationForm;
+export default BusinessTypeForm;

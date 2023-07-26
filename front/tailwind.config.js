@@ -13,6 +13,7 @@ export default {
         "light-white": "rgba(255,255,255,0.17)",
         'half-trans': 'rgba(255 ,255 ,255 ,0.5)',
         'dark-trans': 'rgba(0 ,0 ,0 ,0.5)',
+        'main-blue' : '#22d3ee',
         'app':'rgb(10, 13, 22)',
         'light': {
           'bg': {

@@ -36,11 +36,11 @@ const TableGridTest = <DataType extends object>({ columns, data }: Props<DataTyp
   const handleSearch = (
     selectedKeys: string[],
     confirm: (param?: FilterConfirmProps) => void,
-    dataIndex: any
+    dataIndex: number | string | (string & {}),
   ) => {
     confirm();
     setSearchText(selectedKeys[0]);
-    setSearchedColumn(dataIndex);
+    setSearchedColumn(dataIndex as string);
   };
 
   const handleReset = (clearFilters: () => void) => {
@@ -122,6 +122,7 @@ const TableGridTest = <DataType extends object>({ columns, data }: Props<DataTyp
       return {
         ...col,
         ...getColumnSearchProps(col.dataIndex as DataIndex),
+
       };
     }
     return col;

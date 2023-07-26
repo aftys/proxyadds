@@ -2,14 +2,16 @@ import React from 'react';
 import { Button, Modal, Steps } from 'antd';
 
 interface AntModalPrpos {
-    isModalOpen: boolean,
-    setIsModalOpen: (value: boolean) => void,
+    // isModalOpen: boolean,
+    // setIsModalOpen: (value: boolean) => void,
+    size?: string,
     children?: React.ReactElement,
     name?: string
 }
 
-const AntModal: React.FC<AntModalPrpos> = ({ isModalOpen, setIsModalOpen, children, name }) => {
+const AntModal: React.FC<AntModalPrpos> = ({ children, name, size }) => {
 
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -46,16 +48,18 @@ const AntModal: React.FC<AntModalPrpos> = ({ isModalOpen, setIsModalOpen, childr
 
     return (
         <>
-            <Button type="primary" className='w-32 text-gray-600 dark:text-gray-400 bg-white dark:bg-dark-bg-main' onClick={showModal}>
+            <Button type="primary" className={`w-${size} text-white bg-main-blue dark:bg-blue-950 hover:dark:bg-blue-900`} onClick={showModal}>
                 {name}
             </Button>
             <Modal
-                className='dark:bg-gray-100 h-[500px] flex flex-col gap-6 p-6 '
+                className='dark:bg-gray-100 h-[500px] flex flex-col gap-6 p-6 top-16'
                 okButtonProps={{ className: "hidden" }}
                 cancelButtonProps={{ className: "hidden" }}
                 open={isModalOpen}
                 onOk={handleOk}
-                onCancel={handleCancel}>
+                onCancel={handleCancel}
+                
+                >
 
                 {children}
 
