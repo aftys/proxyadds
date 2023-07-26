@@ -52,6 +52,7 @@ const AntModal: React.FC<AntModalPrpos> = ({ children, name, size }) => {
                 {name}
             </Button>
             <Modal
+                title={name}
                 className='dark:bg-gray-100 h-[500px] flex flex-col gap-6 p-6 top-16'
                 okButtonProps={{ className: "hidden" }}
                 cancelButtonProps={{ className: "hidden" }}

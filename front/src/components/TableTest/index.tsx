@@ -130,7 +130,7 @@ const TableGridTest = <DataType extends object>({ columns, data }: Props<DataTyp
 
   return (
     <Table
-      className="dark:border-0 border-gray-200 border dark:bg-dark-bg-main max-w-screen-md w-full  rounded-md overflow-hidden"
+      className="dark:border-0 border-gray-200 border dark:bg-dark-bg-main max-w-screen-md w-full rounded-md overflow-hidden"
       pagination={{ pageSize: 6}}
       columns={tableColumns}
       dataSource={data}

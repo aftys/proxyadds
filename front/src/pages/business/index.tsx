@@ -1,139 +1,140 @@
-import React from 'react';
-import TableGridTest from '../../components/TableTest';
-const MyComponent: React.FC = () => {
-    type MyData = {
-      key: string;
-        name: string;
-        age: number;
-        address: string;
-        // Add more properties as needed...
-        number: number;
-      };
-
-      
-  const customColumns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      width: '30%',
-      className: 'dark:bg-dark-bg-main dark:text-gray-300',
-      // Add other custom properties if needed...
-    },
-    {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-      width: '20%',
-      className: 'dark:bg-dark-bg-main dark:text-gray-300',
-      // Add other custom properties if needed...
-    },
-      {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-        className: 'dark:bg-dark-bg-main dark:text-gray-300',
-        
-        
-      },
-      {
-        title: 'number',
-        dataIndex: 'number',
-        key: 'number',
-        className: 'dark:bg-dark-bg-main dark:text-gray-300',
-        
-        
-      },
-    // Add other custom columns as needed...
-  ];
+import React, { useEffect, useState } from "react";
+import TableGridTest from "../../components/TableTest";
+import { Modal, Steps } from 'antd';
+import { Button } from "antd";
+import AntModal from "../../components/Modals/Ant";
+import LocationForm from "../../components/Forms/Location/addLocation";
+import axios from "axios";
+import Confirmation from "../../components/Confirmation";
+import LocationFormEdit from "../../components/Forms/Location/editLocation"; 
 
 
-  const data: MyData[] = [
-    {
-        key: 1,
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        number: 1,
-      },
-      {
-        key: 2,
-        name: 'Joe Black',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        number: 2,
-      },
-      {
-        key: 3,
-        name: 'Jim Green',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        number: 3,
-      },{
-        key: 4,
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        number: 4,
-      },
-      {
-        key: 5,
-        name: 'Joe Black',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        number: 4,
-    
-      },
-      {
-        key: 6,
-        name: 'Jim Green',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        number: 4,
-    
-      },{
-        key: 7,
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        number: 4,
-    
-      },
-      {
-        key: 8,
-        name: 'Joe Black',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        number: 4,
-      },
-      {
-        key: 9,
-        name: 'Jim Green',
-        age: 32,
-        address: 'Sydney No. 1 Lake Park',
-        number: 4,
-      },{
-        key: 10,
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        number: 4,
-    
-      },
-      {
-        key: 11,
-        name: 'Joe Black',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        number: 5,
-    
-      }
-    ];
+const Business: React.FC = () => {
+// const [isModalOpen,setIsModalOpen] = useState(false);
+  // const [isEditModalOpen,setIsEditModalOpen] = useState(false);
+  const [data, setData] = useState<MyData[]>([]);
+
+    // Fetch data from the backend when the component mounts and whenever the data state changes
+    useEffect(() => {
+      fetchData();
+    }, [data]); // Include 'data' in the dependency array to refetch when data state changes
   
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/locations');
+        setData(response.data);
+        // fetchData();
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-//   return <TableGridTest columns={customColumns} />;
-return <TableGridTest<MyData> columns={customColumns} data={data} />;
+    const handleEdit = (record: MyData) => {
+      // Implement the logic for handling row edit here
+      console.log("Edit row:", record);
+    };
+  
+    const handleDelete = async (index: any) => {
 
+      console.log("Delete row with id:", index);
+      try {
+        // Send a DELETE request to your backend API to delete the row with the given ID
+        await axios.delete(`http://localhost:3000/locations/${index}`);
+        // Assuming the ID property is named 'id'. Modify the URL accordingly based on your API
+  
+        // After successful deletion, you can update the state to reflect the changes
+        // setData((prevData) => prevData.filter((data) => data.id !== id));
+      } catch (error) {
+        console.error("Error deleting row:", error);
+      }
+    };
+
+type MyData = {
+  _id: string;
+  region: string;
+  city: string;
+  secteur: string;
+  longitude: number;
+  latitude: number;
 };
 
-export default MyComponent;
+const customColumns = [
+  {
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
+    width: "30%",
+    className: "dark:bg-dark-bg-main dark:text-gray-300",
+    // Add other custom properties if needed...
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
+    key: "email",
+    width: "20%",
+    className: "dark:bg-dark-bg-main dark:text-gray-300",
+    // Add other custom properties if needed...
+  },
+  {
+    title: "Phone",
+    dataIndex: "phone",
+    key: "phone",
+    className: "dark:bg-dark-bg-main dark:text-gray-300",
+  },
+  {
+    title: "Secteur",
+    dataIndex: "secteur",
+    key: "secteur",
+    className: "dark:bg-dark-bg-main dark:text-gray-300",
+  },
+  {
+    title: "Longitude",
+    dataIndex: "longitude",
+    key: "longitude",
+    className: "dark:bg-dark-bg-main dark:text-gray-300",
+  },
+  {
+    title: "Latitude",
+    dataIndex: "latitude",
+    key: "latitude",
+    className: "dark:bg-dark-bg-main dark:text-gray-300",
+  },
+  {
+    title: 'Action',
+    dataIndex: '',
+    key: 'x',
+    render: (_:any, record:any) => (
+      <span className="flex gap-4">
+        <LocationFormEdit record={record}/>
+        {/* <Button type="link" onClick={() => handleDelete(record. _id)}>
+          Delete
+        </Button> */}
+        <Confirmation handleDelete={()=> handleDelete(record. _id)}/>
+      
+      </span>
+    ),
+    className: "dark:bg-dark-bg-main dark:text-gray-300",
+
+  },
+  
+  // Add other custom columns as needed...
+];
+
+
+
+//   return <TableGridTest columns={customColumns} />;
+return (
+  <>
+    <AntModal name={'add Location'} size={"32"}>
+      {/* <Step /> */}
+      < LocationForm/>
+    </AntModal>
+    <TableGridTest<MyData> columns={customColumns} data={data} />
+  </>
+);
+
+
+};
+    
+
+export default Business;

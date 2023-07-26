@@ -18,7 +18,7 @@ const onFinish = (values: any) => {
   console.log(values);
 
   // Send the form data to the backend using Axios
-  axios.post('http://localhost:3000/business-types', 
+  axios.post('http://localhost:3000/business-activities', 
   {
     name: values.name,
   },
@@ -32,7 +32,7 @@ const onFinish = (values: any) => {
       // Optionally, you can handle errors here
     });};
 
-const AddBusinessType: React.FC = () => (
+const AddBusinessActivities: React.FC = () => (
       <Form
       {...layout}
       name="nest-messages"
@@ -52,4 +52,4 @@ const AddBusinessType: React.FC = () => (
     </Form>
 );
 
-export default AddBusinessType;
+export default AddBusinessActivities;

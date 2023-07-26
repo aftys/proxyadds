@@ -118,7 +118,7 @@ const customColumns = [
 //   return <TableGridTest columns={customColumns} />;
 return (
   <>
-    <AntModal name={'modal open'} size={"32"}>
+    <AntModal name={'add Location'} size={"32"}>
       {/* <Step /> */}
       < LocationForm/>
     </AntModal>

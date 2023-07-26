@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import TableGridTest from "../../components/TableTest";
 import AntModal from "../../components/Modals/Ant";
-import BusinessTypeForm from "../../components/Forms/BusinessTypes/addBusinessType";
+import AddBusinessType from "../../components/Forms/BusinessTypes/addBusinessType";
 import axios from "axios";
 import Confirmation from "../../components/Confirmation";
-import LocationFormEdit from "../../components/Forms/Location/editLocation"; 
-
-
-
+import EditBusinessType from "../../components/Forms/BusinessTypes/editBusinessType"; 
 
 
 
@@ -69,7 +66,7 @@ const customColumns = [
     key: 'x',
     render: (_:any, record:any) => (
       <span className="flex gap-4">
-        <LocationFormEdit record={record}/>
+        <EditBusinessType record={record}/>
         {/* <Button type="link" onClick={() => handleDelete(record. _id)}>
           Delete
         </Button> */}
@@ -86,12 +83,11 @@ const customColumns = [
 
 
 
-//   return <TableGridTest columns={customColumns} />;
 return (
   <>
     <AntModal name={'modal open'} size={"32"}>
       {/* <Step /> */}
-      <BusinessTypeForm />
+      <AddBusinessType />
     </AntModal>
     <TableGridTest<MyData> columns={customColumns} data={data} />
   </>
