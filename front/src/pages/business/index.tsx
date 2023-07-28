@@ -1,37 +1,28 @@
 import React, { useEffect, useState } from "react";
 import TableGridTest from "../../components/TableTest";
-import { Modal, Steps } from 'antd';
-import { Button } from "antd";
 import AntModal from "../../components/Modals/Ant";
-import LocationForm from "../../components/Forms/Location/addLocation";
 import axios from "axios";
 import Confirmation from "../../components/Confirmation";
 import LocationFormEdit from "../../components/Forms/Location/editLocation"; 
+import AddBusiness from "../../components/Forms/Business/addBusiness";
 
 
 const Business: React.FC = () => {
-// const [isModalOpen,setIsModalOpen] = useState(false);
-  // const [isEditModalOpen,setIsEditModalOpen] = useState(false);
   const [data, setData] = useState<MyData[]>([]);
+  const [loading, setLoading] = useState(true);
 
-    // Fetch data from the backend when the component mounts and whenever the data state changes
     useEffect(() => {
       fetchData();
     }, [data]); // Include 'data' in the dependency array to refetch when data state changes
   
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/locations');
+        const response = await axios.get('http://localhost:3000/businesses');
         setData(response.data);
-        // fetchData();
+        setLoading(false)
       } catch (error) {
         console.error('Error fetching data:', error);
       }
-    };
-
-    const handleEdit = (record: MyData) => {
-      // Implement the logic for handling row edit here
-      console.log("Edit row:", record);
     };
   
     const handleDelete = async (index: any) => {
@@ -39,7 +30,7 @@ const Business: React.FC = () => {
       console.log("Delete row with id:", index);
       try {
         // Send a DELETE request to your backend API to delete the row with the given ID
-        await axios.delete(`http://localhost:3000/locations/${index}`);
+        await axios.delete(`http://localhost:3000/businesses/${index}`);
         // Assuming the ID property is named 'id'. Modify the URL accordingly based on your API
   
         // After successful deletion, you can update the state to reflect the changes
@@ -61,44 +52,43 @@ type MyData = {
 const customColumns = [
   {
     title: "Name",
-    dataIndex: "name",
+    dataIndex: ["user_id", "name"],
     key: "name",
     width: "30%",
     className: "dark:bg-dark-bg-main dark:text-gray-300",
-    // Add other custom properties if needed...
   },
   {
     title: "Email",
-    dataIndex: "email",
+    dataIndex: ["user_id", "email"],
     key: "email",
     width: "20%",
     className: "dark:bg-dark-bg-main dark:text-gray-300",
-    // Add other custom properties if needed...
   },
   {
     title: "Phone",
-    dataIndex: "phone",
+    dataIndex: ["user_id", "phone"],
     key: "phone",
     className: "dark:bg-dark-bg-main dark:text-gray-300",
-  },
+  },  
   {
-    title: "Secteur",
-    dataIndex: "secteur",
+    title: "Region",
+    dataIndex: ["location_id", "region"],
     key: "secteur",
     className: "dark:bg-dark-bg-main dark:text-gray-300",
   },
   {
-    title: "Longitude",
-    dataIndex: "longitude",
-    key: "longitude",
+    title: "Ville",
+    dataIndex: ["location_id", "city"],
+    key: "secteur",
     className: "dark:bg-dark-bg-main dark:text-gray-300",
   },
   {
-    title: "Latitude",
-    dataIndex: "latitude",
-    key: "latitude",
+    title: "Secteur",
+    dataIndex: ["location_id", "secteur"],
+    key: "secteur",
     className: "dark:bg-dark-bg-main dark:text-gray-300",
   },
+  
   {
     title: 'Action',
     dataIndex: '',
@@ -106,30 +96,21 @@ const customColumns = [
     render: (_:any, record:any) => (
       <span className="flex gap-4">
         <LocationFormEdit record={record}/>
-        {/* <Button type="link" onClick={() => handleDelete(record. _id)}>
-          Delete
-        </Button> */}
-        <Confirmation handleDelete={()=> handleDelete(record. _id)}/>
-      
+        <Confirmation handleDelete={() => handleDelete(record._id)} />
       </span>
     ),
     className: "dark:bg-dark-bg-main dark:text-gray-300",
-
   },
-  
-  // Add other custom columns as needed...
 ];
 
 
 
-//   return <TableGridTest columns={customColumns} />;
 return (
   <>
-    <AntModal name={'add Location'} size={"32"}>
-      {/* <Step /> */}
-      < LocationForm/>
+    <AntModal name={'Ajouter Business'} size={"130px"}>
+      <AddBusiness/>
     </AntModal>
-    <TableGridTest<MyData> columns={customColumns} data={data} />
+    <TableGridTest<MyData> columns={customColumns} data={data} loading={loading} />
   </>
 );
 

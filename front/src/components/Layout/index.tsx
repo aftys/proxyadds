@@ -10,7 +10,7 @@ function Layout({ children }: LayoutProps) {
     <>
       <Sidebar />
       <Navbar />
-      <main className=" max-w-screen-md w-full flex flex-col gap-4 ">
+      <main className="flex flex-col gap-4 ">
         {children}
         </main>
 

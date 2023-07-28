@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form, Input, InputNumber, Modal } from 'antd';
 import axios from 'axios';
-import AntModal from '../../Modals/Ant';
+import AntModal from '../../../Modals/Ant';
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },

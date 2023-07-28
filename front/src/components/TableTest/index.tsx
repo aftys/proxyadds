@@ -21,12 +21,13 @@ import Highlighter from 'react-highlight-words';
 type Props<DataType extends object> = {
     columns: ColumnsType<DataType>;
     data: DataType[];
+    loading:boolean;
   };
   
 //   type DataIndex<DataType> = keyof DataType;
 
 // const TableGridTest: React.FC<Props> = ({ columns }) => {
-const TableGridTest = <DataType extends object>({ columns, data }: Props<DataType>, {DataIndex}:any) => {
+const TableGridTest = <DataType extends object>({ columns, data,loading }: Props<DataType>) => {
 
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
@@ -36,7 +37,7 @@ const TableGridTest = <DataType extends object>({ columns, data }: Props<DataTyp
   const handleSearch = (
     selectedKeys: string[],
     confirm: (param?: FilterConfirmProps) => void,
-    dataIndex: number | string | (string & {}),
+    dataIndex: number | string | {},
   ) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -83,7 +84,7 @@ const TableGridTest = <DataType extends object>({ columns, data }: Props<DataTyp
       <SearchOutlined style={{ color: filtered ? '#1677ff' : undefined }} />
     ),
     onFilter: (value, record) =>
-      record[dataIndex]
+      (record[dataIndex] as string)
         .toString()
         .toLowerCase()
         .includes((value as string).toLowerCase()),
@@ -130,10 +131,11 @@ const TableGridTest = <DataType extends object>({ columns, data }: Props<DataTyp
 
   return (
     <Table
-      className="dark:border-0 border-gray-200 border dark:bg-dark-bg-main max-w-screen-md w-full rounded-md overflow-hidden"
+      className="dark:border-0 border-gray-200 border dark:bg-dark-bg-main  rounded-md overflow-hidden"
       pagination={{ pageSize: 6}}
       columns={tableColumns}
       dataSource={data}
+      loading={loading}
     />
   );
 };

@@ -85,7 +85,7 @@ const customColumns = [
 
 return (
   <>
-    <AntModal name={'modal open'} size={"32"}>
+    <AntModal name={'modal open'} size={"130px"}>
       {/* <Step /> */}
       <AddBusinessType />
     </AntModal>

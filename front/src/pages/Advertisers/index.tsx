@@ -1,191 +1,107 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import TableGridTest from "../../components/TableTest";
-import { Modal, Steps } from 'antd';
-import { Button } from "antd";
 import AntModal from "../../components/Modals/Ant";
+import axios from "axios";
+import Confirmation from "../../components/Confirmation";
+import AddAdvertiser from "../../components/Forms/Advertiser/addAdvertiser";
+import EditAdvertiser from "../../components/Forms/Advertiser/editAdvertiser";
 
 
-const Step = () =>{
+function BusinessActivities() {
+
+  const [data, setData] = useState<MyData[]>([]);
+  const [loading, setLoading] = useState(true);
 
 
-  const [current, setCurrent] = useState(0)
-    const next = () => {
-        setCurrent(current + 1);
-    };
+  useEffect(() => {
+    fetchData();
+  }, []); 
 
-    const prev = () => {
-        setCurrent(current - 1);
-    };
-
-    const steps = [
-        {
-            title: 'Etape 1',
-        },
-        {
-            title: 'In Progress',
-        },
-        {
-            title: 'Waiting',
-        },
-    ]
-  return (
-    <>
-      <Steps
-                    size="small"
-                    current={current}
-                    items={steps}
-                /> 
-                 <div className={`flex max-w-screen-md w-full ${current === 0 ? 'justify-end' : 'justify-between'}`}>
-                    {current > 0 && (
-                        <Button  style={{ margin: '0 8px' }} onClick={() => prev()}>
-                            Previous
-                        </Button>
-                    )}
-                    {current < steps.length - 1 && (
-                        <Button className='bg-[#22d3ee]' type="primary" onClick={() => next()}>
-                            Next
-                        </Button>
-                    )}
-                    {current === steps.length - 1 && (
-                        <Button type="primary" className='bg-[#22d3ee]'>
-                            Done
-                        </Button>
-                    )}</div> 
-    </>
-  );
-}
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/advertisers');
+      setData(response.data);
+      console.log(response.data)
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
 
+  const handleDelete = async (index: any) => {
 
-
-
-
-
-
-
-const Advertiser: React.FC = () => {
-    const [isModalOpen,setIsModalOpen] = useState(false);
-
+    console.log("Delete row with id:", index);
+    try {
+      await axios.delete(`http://localhost:3000/advertisers/${index}`);
+    } catch (error) {
+      console.error("Error deleting row:", error);
+    }
+  };
 
   type MyData = {
-    // id: number;
+    _id: string;
     name: string;
-    age: number;
-    address: string;
-    // Add more properties as needed...
-    number: number;
   };
 
   const customColumns = [
     {
       title: "Name",
-      dataIndex: "name",
+      dataIndex: ["user_id", "name"],
       key: "name",
       width: "30%",
       className: "dark:bg-dark-bg-main dark:text-gray-300",
-      // Add other custom properties if needed...
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Email",
+      dataIndex: ["user_id", "email"],
+      key: "email",
       width: "20%",
       className: "dark:bg-dark-bg-main dark:text-gray-300",
-      // Add other custom properties if needed...
+    },
+    {
+      title: "Phone",
+      dataIndex: ["user_id", "phone"],
+      key: "phone",
+      className: "dark:bg-dark-bg-main dark:text-gray-300",
     },
     {
       title: "Address",
-      dataIndex: "address",
+      dataIndex: ["user_id", "address"],
       key: "address",
       className: "dark:bg-dark-bg-main dark:text-gray-300",
     },
     {
-      title: "number",
-      dataIndex: "number",
-      key: "number",
+      title: "Activity",
+      dataIndex: ["act_id", "name"],
+      key: "activity",
       className: "dark:bg-dark-bg-main dark:text-gray-300",
     },
-    // Add other custom columns as needed...
+    {
+      title: 'Action',
+      dataIndex: '',
+      key: 'x',
+      render: (_: any, record: any) => (
+        <span className="flex gap-4">
+          <EditAdvertiser record={record} />
+          <Confirmation handleDelete={() => handleDelete(record._id)} />
+        </span>
+      ),
+      className: "dark:bg-dark-bg-main dark:text-gray-300",
+
+    },
+
   ];
 
-  const data: MyData[] = [
-    {
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      number: 1,
-    },
-    {
-      name: "Joe Black",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      number: 2,
-    },
-    {
-      name: "Jim Green",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      number: 3,
-    },
-    {
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      number: 4,
-    },
-    {
-      name: "Joe Black",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      number: 4,
-    },
-    {
-      name: "Jim Green",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      number: 4,
-    },
-    {
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      number: 4,
-    },
-    {
-      name: "Joe Black",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      number: 4,
-    },
-    {
-      name: "Jim Green",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      number: 4,
-    },
-    {
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      number: 4,
-    },
-    {
-      name: "Joe Black",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      number: 5,
-    },
-  ];
 
-  //   return <TableGridTest columns={customColumns} />;
+
   return (
     <>
-      <AntModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
-        <Step />
+      <AntModal name={'add advertiser'} size={"130px"}>
+        <AddAdvertiser />
       </AntModal>
-      <TableGridTest<MyData> columns={customColumns} data={data} />;
+      <TableGridTest loading={loading} columns={customColumns} data={data} />
     </>
   );
-};
-
-export default Advertiser;
+}
+export default BusinessActivities;

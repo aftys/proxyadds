@@ -4,7 +4,7 @@ export interface ILocation {
     city: string;
     secteur: string;
     longitude: number;
-  altitude: number;
+    latitude: number;
   };
   export interface ILocationList extends ILocation {
       dateCreated: any

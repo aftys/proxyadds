@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form, Input, InputNumber, Modal } from 'antd';
 import axios from 'axios';
-import AntModal from '../../Modals/Ant';
+import AntModal from '../../../Modals/Ant';
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
@@ -19,13 +19,9 @@ const onFinish = (values: any, id:string) => {
 
 
   // Send the form data to the backend using Axios
-  axios.put('http://localhost:3000/locations/' + id,
+  axios.put('http://localhost:3000/business-types/' + id,
     {
-      region: values.region,
-      city: values.city,
-      secteur: values.secteur,
-      longitude: values.longitude,
-      latitude: values.latitude,
+        name: values.name,
     },
   )
     .then(response => {
@@ -40,11 +36,7 @@ const onFinish = (values: any, id:string) => {
 
 type MyData = {
   _id: string;
-  region: string;
-  city: string;
-  secteur: string;
-  longitude: number;
-  latitude: number;
+  name: string;
 };
 
 
@@ -52,7 +44,7 @@ interface Props {
   record: MyData;
 }
 
-const EditLocation: React.FC<Props> = ({ record }) => {
+const EditBusinessType: React.FC<Props> = ({ record }) => {
     
   const [form] = Form.useForm(); // Use Form hooks to access the form instance
 
@@ -75,20 +67,8 @@ const EditLocation: React.FC<Props> = ({ record }) => {
           className='pr-16 pt-10'
           initialValues={record}
           >
-          <Form.Item name={['region']} label="Region" rules={[{ required: true }]}>
+          <Form.Item name={['name']} label="Name" rules={[{ required: true }]}>
             <Input  />
-          </Form.Item>
-          <Form.Item name={['city']} label="City" rules={[{ required: true }]}>
-            <Input  />
-          </Form.Item>
-          <Form.Item name={['secteur']} label="Secteur" rules={[{ required: true }]}>
-            <Input  />
-          </Form.Item>
-          <Form.Item name={['longitude']} label="Longitude" rules={[{ type: "number", min: 0, max: 99, required: true }]}>
-            <InputNumber  />
-          </Form.Item>
-          <Form.Item name={['latitude']} label="Latitude" rules={[{ type: "number", min: 0, max: 99, required: true }]}>
-            <InputNumber />
           </Form.Item>
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             <Button type="primary" htmlType="submit" className='bg-main-blue absolute right-0 top-0'>
@@ -101,4 +81,4 @@ const EditLocation: React.FC<Props> = ({ record }) => {
   );
 }
 
-export default EditLocation;
+export default EditBusinessType;

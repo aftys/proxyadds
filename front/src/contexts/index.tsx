@@ -11,7 +11,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   children: React.ReactElement;
 }
 export const ContextProvider: React.FC<Props> = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
 
   const toggleDarkMode = () => {
     setDarkMode(prevDarkMode => !prevDarkMode);

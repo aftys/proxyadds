@@ -1,12 +1,12 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface IBusiness extends Document {
-  user_id: number;
-  location_id: number;
+  user_id: string;
+  location_id: string;
   longitude: number;
   altitude: number;
-  business_type_id: number;
-  business_activity_id: number;
+  business_type_id: string;
+  business_activity_id: string;
   deleted:boolean;
 }
 

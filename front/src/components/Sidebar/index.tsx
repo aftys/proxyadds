@@ -3,7 +3,7 @@ import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-ico
 import { sidebarLinks } from "../../assets";
 import { NavLink } from "react-router-dom"
 const Sidebar: React.FC = () => {
-  const [open, setOpen] = useState<boolean>(true);
+  const [open, setOpen] = useState<boolean>(false);
 
 
   return (
@@ -43,7 +43,7 @@ const Sidebar: React.FC = () => {
 
           >
 
-            <NavLink to={link.link} className={({isActive})=>{return `flex   rounded-md p-2 pl-4 h-7 cursor-pointer hover:dark:bg-light-white hover:bg-gray-100 dark:text-gray-300 text-gray-500 text-sm items-center gap-x-4  ${isActive && "bg-gray-200 dark:bg-light-white" }`;}} >
+            <NavLink to={link.link} className={({isActive})=>{return `flex   rounded-md p-2 pl-4 h-7 cursor-pointer hover:dark:bg-light-white hover:bg-gray-100 dark:text-gray-300 text-gray-500 text-sm items-center gap-x-4  ${isActive && "bg-[#22d3ee44] " }`;}} >
               {link.icon}
               <span className={`${!open && "hidden"} origin-left duration-400`}>
                 {link.title}

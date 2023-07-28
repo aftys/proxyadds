@@ -8,7 +8,7 @@ export interface IUser extends Document {
   phone: string;
   address: string;
   status: UserStatus;
-  deleted:{ type: Boolean, defaults: false }
+  deleted:boolean
 }
 
 const UserSchema: Schema = new Schema(
@@ -19,6 +19,7 @@ const UserSchema: Schema = new Schema(
     phone: { type: String, required: true },
     address: { type: String, required: true },
     status: { type: String, enum: UserStatus, required: true },
+    deleted:{ type: Boolean, defaults: false }
   },
   { timestamps: true }
 );
