@@ -9,7 +9,7 @@ function AddBusiness() {
   const [current, setCurrent] = useState(0);
   const [userId,setUserId]=useState<number>();
   const [businessId,setBusinessId]=useState<number>();
-  const titles: string[] = ['User', 'Placement', 'Schedule'];
+  const titles: string[] = ['User', 'Placement'];
 
   const next = () => {
     setCurrent(current + 1);
@@ -66,8 +66,8 @@ function AddBusiness() {
       <Steps  className='max-w-screen-md w-full'  current={current} items={items} />
         <div className="max-w-screen-sm w-full">
           {current == 0 && <UserInfo onSubmit={onSubmitUserInfo}/>}
-          {current == 1 && <PlacementsInfo onSubmit={onSubmitSchedulesInfo}/>}
-          {current == 2 && <SchedulesInfo onSubmit={onSubmitPlacementInfo}/>}
+          {current == 1 && <PlacementsInfo onSubmit={onSubmitSchedulesInfo} prev={previous}/>}
+          {/* {current == 2 && <SchedulesInfo onSubmit={onSubmitPlacementInfo}/>} */}
         </div>
 
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import TableGridTest from "../../components/TableTest";
+import TableGridTest from "../../components/Table";
 import { Modal, Steps } from 'antd';
 import { Button } from "antd";
 import AntModal from "../../components/Modals/Ant";

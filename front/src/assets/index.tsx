@@ -11,7 +11,7 @@ import {RiLogoutCircleRLine} from 'react-icons/ri'
 export const sidebarLinks = [
     { title: "Businesses", icon: <IoMdBusiness /> ,link:'/businesses'},
     { title: "Placements", icon: <BsInboxes /> ,link:'/placements'},
-    { title: "Schedules", icon: <AiOutlineCalendar />,link:'/schedules' },
+    // { title: "Schedules", icon: <AiOutlineCalendar />,link:'/schedules' },
     { title: "Advertisers ", icon: <AiOutlineNotification /> ,link:'/advertisers'},
     { title: "Locations", icon: <MdOutlinePlace /> ,link:'/locations'},
     { title: "Campaigns", icon: <AiOutlineBarChart />,link:'/campaigns' },

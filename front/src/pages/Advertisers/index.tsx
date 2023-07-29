@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import TableGridTest from "../../components/TableTest";
+import TableGridTest from "../../components/Table";
 import AntModal from "../../components/Modals/Ant";
 import axios from "axios";
 import Confirmation from "../../components/Confirmation";

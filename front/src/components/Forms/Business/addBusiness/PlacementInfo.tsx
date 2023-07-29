@@ -12,7 +12,7 @@ const validateMessages = {
   required: '${label} is required!',
 };
 
-const PlacementsInfo: React.FC<any> = ({ onSubmit }) => {
+const PlacementsInfo: React.FC<any> = ({ onSubmit ,prev}) => {
 
   const [businessTypes, setBusinessTypes] = useState<any[]>([]);
   const [businessActivities, setBusinessActivities] = useState<any[]>([]);
@@ -144,7 +144,7 @@ const PlacementsInfo: React.FC<any> = ({ onSubmit }) => {
         <Button type="primary" htmlType="submit" className='bg-main-blue w-20  absolute -right-4 top-0'>
           next
         </Button>
-        <Button className='bg-main-blue absolute  w-20 -left-32 top-0'>
+        <Button onClick={prev} className='bg-main-blue text-white absolute  w-20 -left-32 top-0'>
           previous
         </Button>
       </Form.Item>

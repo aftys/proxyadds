@@ -28,6 +28,20 @@ async function getAllSchedules(req: Request, res: Response) {
   }
 }
 
+async function getBusinessSchedules(req: Request, res: Response) {
+  try {
+    const businessId = req.params.id;
+    const schedules: ISchedule[]  = await Schedule.find({ deleted: false,business_id:businessId });
+    if (schedules) {
+      res.json(schedules);
+    } else {
+      res.status(404).json({ message: 'Schedule not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching schedule' });
+  }
+}
+
 async function getScheduleById(req: Request, res: Response) {
   try {
     const scheduleId = req.params.id;
@@ -86,4 +100,5 @@ export {
   getScheduleById,
   updateSchedule,
   deleteSchedule,
+  getBusinessSchedules
 };

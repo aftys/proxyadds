@@ -11,7 +11,7 @@ interface NotificationProps {
 }
 
 const Notification: React.FC<NotificationProps> = ({ close }) => {
-  const currentColor = "#10b981";
+  const currentColor = "#22d3ee";
   
   return (
     <motion.div
@@ -42,7 +42,7 @@ const Notification: React.FC<NotificationProps> = ({ close }) => {
               <div className='w-[250px]'>
                 <p className="font-semibold text-sm dark:text-gray-400 ">{item.title}</p>
                 <p className="text-gray-500 dark:text-gray-200 text-sm">{item.message}</p>
-                <p className="text-[#10b981] text-xs">
+                <p className="text-[#22d3ee] text-xs">
                   {moment(item.timestamp).fromNow()}
                 </p>
               </div>

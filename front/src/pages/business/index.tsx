@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import TableGridTest from "../../components/TableTest";
+import TableGridTest from "../../components/Table";
 import AntModal from "../../components/Modals/Ant";
 import axios from "axios";
 import Confirmation from "../../components/Confirmation";
 import LocationFormEdit from "../../components/Forms/Location/editLocation"; 
 import AddBusiness from "../../components/Forms/Business/addBusiness";
+import { Link } from "react-router-dom";
+import { Button } from "antd";
 
 
 const Business: React.FC = () => {
@@ -97,6 +99,7 @@ const customColumns = [
       <span className="flex gap-4">
         <LocationFormEdit record={record}/>
         <Confirmation handleDelete={() => handleDelete(record._id)} />
+        <Link to={"/Businesses/"+record._id+"/Schedules"}><Button className='text-white bg-main-blue dark:bg-blue-950 hover:dark:bg-blue-900'>Schedules</Button></Link>
       </span>
     ),
     className: "dark:bg-dark-bg-main dark:text-gray-300",

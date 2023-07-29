@@ -1,184 +1,86 @@
-import React, { useState } from "react";
-import TableGridTest from "../../components/TableTest";
-import { Modal, Steps } from 'antd';
-import { Button } from "antd";
-import AntModal from "../../components/Modals/Ant";
+import React, { useState, useEffect } from 'react';
+import { Alert, Calendar, Modal } from 'antd';
+import { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
+import AddEvent from '../../components/Forms/Shcedule/addEvent';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
+interface Event {
+  _id: string;
+  opening_hour: string;
+  closing_hour: string;
+  day: string;
+  business_id: number;
+  deleted: boolean;
+}
 
-const Step = () =>{
+function Schedules() {
+  const [value, setValue] = useState<Dayjs>(dayjs());
+  const [selectedValue, setSelectedValue] = useState<Dayjs>(dayjs());
+  const [modalVisible, setModalVisible] = useState(false);
+  const [events, setEvents] = useState<Event[]>([]);
 
+  const { id } = useParams<{ id: string }>();
 
-  const [current, setCurrent] = useState(0)
-    const next = () => {
-        setCurrent(current + 1);
+  const onSelect = (newValue: Dayjs) => {
+    setValue(newValue);
+    setSelectedValue(newValue);
+    showModal(); // Show the modal when a date is selected
+  };
+
+  const onPanelChange = (newValue: Dayjs) => {
+    setValue(newValue);
+  };
+
+  const showModal = () => {
+    
+    setModalVisible(true);
+  };
+
+  const hideModal = () => {
+    setModalVisible(false);
+  };
+
+  useEffect(() => {
+    // Fetch all events from the backend
+    const fetchData = async () => {
+      try {
+        const response = await axios.get<Event[]>('http://localhost:3000/schedules/business/'+id);
+        setEvents(response.data);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
     };
 
-    const prev = () => {
-        setCurrent(current - 1);
-    };
+    fetchData();
+  }, []);
 
-    const steps = [
-        {
-            title: 'Etape 1',
-        },
-        {
-            title: 'In Progress',
-        },
-        {
-            title: 'Waiting',
-        },
-    ]
   return (
     <>
-      <Steps
-                    size="small"
-                    current={current}
-                    items={steps}
-                /> 
-                 <div className={`flex max-w-screen-md w-full ${current === 0 ? 'justify-end' : 'justify-between'}`}>
-                    {current > 0 && (
-                        <Button  style={{ margin: '0 8px' }} onClick={() => prev()}>
-                            Previous
-                        </Button>
-                    )}
-                    {current < steps.length - 1 && (
-                        <Button className='bg-[#22d3ee]' type="primary" onClick={() => next()}>
-                            Next
-                        </Button>
-                    )}
-                    {current === steps.length - 1 && (
-                        <Button type="primary" className='bg-[#22d3ee]'>
-                            Done
-                        </Button>
-                    )}</div> 
+      <Alert message={`You selected date: ${selectedValue?.format('YYYY-MM-DD')}`} />
+      <Calendar
+        className="dark:border-0 border-gray-200 border dark:bg-dark-bg-main rounded-md p-2"
+        value={value}
+        onSelect={onSelect}
+        onPanelChange={onPanelChange}
+        dateCellRender={(date: Dayjs) => {
+          const formattedDate = date.format('YYYY-MM-DD');
+          const eventsForDate = events.filter((event) => event.day === formattedDate);
+          return (
+            <div>
+              {eventsForDate.map((event) => (
+                <div key={event._id}>{event.opening_hour} - {event.closing_hour}</div>
+              ))}
+            </div>
+          );
+        }}
+      />
+      <Modal open={modalVisible} onCancel={hideModal} footer={null}>
+        <AddEvent day={selectedValue} businessId={id || 'test'} />
+      </Modal>
     </>
   );
 }
-
-
-const Schedules: React.FC = () => {
-    const [isModalOpen,setIsModalOpen] = useState(false);
-
-
-  type MyData = {
-    // id: number;
-    name: string;
-    age: number;
-    address: string;
-    // Add more properties as needed...
-    number: number;
-  };
-
-  const customColumns = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      width: "30%",
-      className: "dark:bg-dark-bg-main dark:text-gray-300",
-      // Add other custom properties if needed...
-    },
-    {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-      width: "20%",
-      className: "dark:bg-dark-bg-main dark:text-gray-300",
-      // Add other custom properties if needed...
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-      className: "dark:bg-dark-bg-main dark:text-gray-300",
-    },
-    {
-      title: "number",
-      dataIndex: "number",
-      key: "number",
-      className: "dark:bg-dark-bg-main dark:text-gray-300",
-    },
-    // Add other custom columns as needed...
-  ];
-
-  const data: MyData[] = [
-    {
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      number: 1,
-    },
-    {
-      name: "Joe Black",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      number: 2,
-    },
-    {
-      name: "Jim Green",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      number: 3,
-    },
-    {
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      number: 4,
-    },
-    {
-      name: "Joe Black",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      number: 4,
-    },
-    {
-      name: "Jim Green",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      number: 4,
-    },
-    {
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      number: 4,
-    },
-    {
-      name: "Joe Black",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      number: 4,
-    },
-    {
-      name: "Jim Green",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      number: 4,
-    },
-    {
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      number: 4,
-    },
-    {
-      name: "Joe Black",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      number: 5,
-    },
-  ];
-
-  //   return <TableGridTest columns={customColumns} />;
-  return (
-    <>
-      <AntModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
-        <Step />
-      </AntModal>
-      <TableGridTest<MyData> columns={customColumns} data={data} />;
-    </>
-  );
-};
 
 export default Schedules;

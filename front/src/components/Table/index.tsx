@@ -3,20 +3,10 @@ import type { InputRef } from 'antd';
 import { Button, Input, Space, Table } from 'antd';
 import type { ColumnType, ColumnsType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
-import React, { useRef, useState } from 'react';
+import  { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 
-// type DataType = {
-//   name: string;
-//   age: number;
-//   address: string;
-// };
 
-// type DataIndex = 'name' | 'age' | 'address';
-    
-// type Props = {
-//   columns: ColumnsType<DataType>;
-// };
 
 type Props<DataType extends object> = {
     columns: ColumnsType<DataType>;
@@ -24,10 +14,7 @@ type Props<DataType extends object> = {
     loading:boolean;
   };
   
-//   type DataIndex<DataType> = keyof DataType;
-
-// const TableGridTest: React.FC<Props> = ({ columns }) => {
-const TableGridTest = <DataType extends object>({ columns, data,loading }: Props<DataType>) => {
+const TableGrid = <DataType extends object>({ columns, data,loading }: Props<DataType>) => {
 
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
@@ -140,4 +127,4 @@ const TableGridTest = <DataType extends object>({ columns, data,loading }: Props
   );
 };
 
-export default TableGridTest;
+export default TableGrid;

@@ -10,7 +10,7 @@ interface ProfileProps {
 }
 
 const Profile: React.FC<ProfileProps> = ({ close }) => {
-  const currentColor = "#10b981";
+  const currentColor = "#22d3ee";
   
   return (
     <motion.div

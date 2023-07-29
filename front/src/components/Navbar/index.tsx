@@ -26,7 +26,7 @@ const Navbar: React.FC = () => {
                     <img src={"https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"} onClick={() => handleClick('profile')} className="w-[34px] h-[34px] rounded-full border-2 border-gray-300 dark:border-blue-950" />
                
             </nav>
-            <AnimatePresence>
+            <AnimatePresence mode="wait">
                 {isClicked.profile && <Profile close={()=>setIsClicked(initialStates)} />}
                 {isClicked.notif && <Notification close={()=>setIsClicked(initialStates)} />}
             </AnimatePresence>
