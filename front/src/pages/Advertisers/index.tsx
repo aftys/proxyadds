@@ -5,6 +5,7 @@ import axios from "axios";
 import Confirmation from "../../components/Confirmation";
 import AddAdvertiser from "../../components/Forms/Advertiser/addAdvertiser";
 import EditAdvertiser from "../../components/Forms/Advertiser/editAdvertiser";
+import { Double } from "mongodb";
 
 
 function BusinessActivities() {

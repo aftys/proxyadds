@@ -45,7 +45,7 @@ interface Props {
   record: MyData;
 }
 
-const EditCampaign: React.FC<Props> = ({ record }) => {
+const EditLocation: React.FC<Props> = ({ record }) => {
   const [form] = Form.useForm();
   return (
     <>
@@ -87,4 +87,4 @@ const EditCampaign: React.FC<Props> = ({ record }) => {
   );
 }
 
-export default EditCampaign;
+export default EditLocation;
