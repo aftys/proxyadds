@@ -15,7 +15,7 @@ const Business: React.FC = () => {
 
     useEffect(() => {
       fetchData();
-    }, [data]); // Include 'data' in the dependency array to refetch when data state changes
+    }, []); // Include 'data' in the dependency array to refetch when data state changes
   
     const fetchData = async () => {
       try {

@@ -89,10 +89,11 @@ const EditAdvertiser: React.FC<EditAdvertiserProps> = ({ record }) => {
           validateMessages={validateMessages}
           className='pr-16 pt-10'
         >
-          <Form.Item name={['email']} label="Email" rules={[{ type: 'email', required: true }]}>
+          
+          <Form.Item name={['name']} label="Name" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item name={['name']} label="Name" rules={[{ required: true }]}>
+          <Form.Item name={['email']} label="Email" rules={[{ type: 'email', required: true }]}>
             <Input />
           </Form.Item>
           <Form.Item name={['phone']} label="Phone" rules={[{ required: true }]}>

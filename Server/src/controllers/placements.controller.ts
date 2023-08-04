@@ -13,14 +13,15 @@ async function createPlacement(req: Request, res: Response) {
   }
 }
 
+
 async function getAllPlacements(req: Request, res: Response) {
   try {
-    const placements: IPlacement[] = await Placement.find({ deleted: false }).populate('business_id');
-    res.json(placements);
+  const placements: IPlacement[] = await Placement.find({ deleted: false }).populate('business_id');
+  res.json(placements);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching placements' });
+  res.status(500).json({ message: 'Error fetching placements' });
   }
-}
+  }
 
 async function getPlacementById(req: Request, res: Response) {
   try {

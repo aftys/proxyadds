@@ -1,16 +1,17 @@
 import { Request, Response } from 'express';
 import { ICampaign } from '../models/campaign.model';
 import Campaign from '../models/campaign.model';
-
+import { uploadFile } from './file.controller';
 async function createCampaign(req: Request, res: Response) {
   try {
     const { name, budget_max, begin_date, end_date, file, display_hours, status, url, advertiser_id } = req.body;
+    const fileId = uploadFile(file);
     const newCampaign: ICampaign = new Campaign({
       name,
       budget_max,
       begin_date,
       end_date,
-      file,
+      fileId,
       display_hours,
       status,
       url,

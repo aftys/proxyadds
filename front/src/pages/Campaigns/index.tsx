@@ -52,7 +52,7 @@ function Campaigns() {
       title: "Name",
       dataIndex: "name",
       key: "name",
-      width: "20%",
+      width: "15%",
       className: "dark:bg-dark-bg-main dark:text-gray-300",
     },
     {
@@ -77,6 +77,20 @@ function Campaigns() {
       className: "dark:bg-dark-bg-main dark:text-gray-300",
     },
     {
+      title: "File",
+      dataIndex: "file",
+      key: "file",
+      width: "10%",
+      className: "dark:bg-dark-bg-main dark:text-gray-300",
+    },
+    {
+      title: "display hours",
+      dataIndex: "display_hours",
+      key: "display_hours",
+      width: "10%",
+      className: "dark:bg-dark-bg-main dark:text-gray-300",
+    },
+    {
       title: "Status",
       dataIndex: "status",
       key: "status",
@@ -89,7 +103,7 @@ function Campaigns() {
       key: "x",
       render: (_: any, record: ICampaign) => (
         <span className="flex gap-4">
-          <EditCampaign record={record} />
+          {/* <EditCampaign record={record} /> */}
           <Confirmation handleDelete={() => handleDelete(record._id)} />
         </span>
       ),

@@ -21,7 +21,7 @@ const CampaignSchema: Schema = new Schema(
     budget_max: { type: Number, required: true },
     begin_date: { type: Date, required: true },
     end_date: { type: Date, required: true },
-    file: { type: Schema.Types.ObjectId, ref: 'File', required: true },
+    file: { type: Schema.Types.ObjectId, ref: 'GridFSFile', required: true },
     display_hours: { type: String, required: true },
     status: { type: String, enum: CampaignStatus, required: true }, //Object.values(CampaignStatus)
     url: { type: String, required: true },
@@ -32,3 +32,6 @@ const CampaignSchema: Schema = new Schema(
 );
 
 export default mongoose.model<ICampaign>("Campaign", CampaignSchema, "campaigns");
+
+
+//Schema.Types.ObjectId, ref: 'File'

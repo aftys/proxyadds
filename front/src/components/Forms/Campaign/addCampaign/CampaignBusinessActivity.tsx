@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, Select } from 'antd';
 import mongodb from 'mongodb';
 import axios from 'axios';
-import PlacementsInfo from './BusinessInfo';
 
 const layout = {
   labelCol: { span: 8 },
@@ -30,21 +29,21 @@ const passwordValidationRules = [
 
 
 
-const PlacementInfo: React.FC<any>  = ({prev, onSubmit}) => {
-  const [business, setBusiness] = useState<any[]>([]);
+const CampaignBusinessActivity: React.FC<any>  = ({prev, onSubmit}) => {
+    const [businessActivity, setBusinessActivity] = useState<any[]>([]);
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData= async () => {
-    axios.get('http://localhost:3000/businesses')
+    axios.get('http://localhost:3000/business-activities')
       .then((response) => {
-        setBusiness(response.data);
-        console.log("business", response.data);
+        setBusinessActivity(response.data);
+        console.log("business-activities", response.data);
       })
       .catch((error) => {
-        console.error('Error fetching businesses: ', error);
+        console.error('Error fetching business-activities: ', error);
       });
   }
 
@@ -57,18 +56,15 @@ const PlacementInfo: React.FC<any>  = ({prev, onSubmit}) => {
       validateMessages={validateMessages}
       className='pr-16 pt-10'
     >
-      
-      <Form.Item label="Name" name="name" rules={[{ required: true }]}>
-        <Input />
-      </Form.Item>
-      <Form.Item label="Business Id" name="business_id" rules={[{ required: true }]}>
+      <Form.Item label="BusinessActivity Id" name="businessActivity_id" rules={[{ required: true }]}>
         <Select
           showSearch
-          placeholder="Select a business"
+          placeholder="Select a Business Activity"
           optionFilterProp="children"
+          mode="multiple"
           filterOption={false}
-          options={business.map((item) => ({ value: item._id, label: item.user_id.name }))}
-          value={business.length > 0 ? business[0]._id : undefined}
+          options={businessActivity.map((item) => ({ value: item._id, label: item.name }))}
+          value={businessActivity.length > 0 ? businessActivity[0]._id : undefined}
         />
       </Form.Item>
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
@@ -83,4 +79,7 @@ const PlacementInfo: React.FC<any>  = ({prev, onSubmit}) => {
   );
 };
 
-export default PlacementInfo;
+export default CampaignBusinessActivity;
+
+
+
