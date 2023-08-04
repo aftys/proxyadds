@@ -4,15 +4,20 @@ import CampaignLocation from '../models/campaignLocation.model';
 
 async function createCampaignLocation(req: Request, res: Response) {
   try {
-    const { campaign_id, location_id, radius } = req.body;
-    const newCampaignLocation: ICampaignLocation = new CampaignLocation({
-      campaign_id,
-      location_id,
-      radius,
-      deleted: false,
-    });
-    const savedCampaignLocation = await newCampaignLocation.save();
-    res.status(201).json(savedCampaignLocation);
+    const { location_ids, campaign_id } = req.body;
+    const campaignLocation: Partial<ICampaignLocation>[] = location_ids.map(
+      (location_id: number) => ({
+        location_id,
+        campaign_id,
+        deleted: false,
+      })
+    );
+
+    const savedCampaignBusinessActivities = await CampaignLocation.insertMany(
+      campaignLocation
+    );
+
+    res.status(201).json(savedCampaignBusinessActivities);
   } catch (error) {
     res.status(500).json({ message: 'Error creating campaign location' });
   }

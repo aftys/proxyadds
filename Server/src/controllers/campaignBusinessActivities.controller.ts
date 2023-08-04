@@ -5,6 +5,7 @@ import CampaignBusinessActivity from '../models/campaignBusinessActivity.model';
 async function createCampaignBusinessActivity(req: Request, res: Response) {
   try {
     const { businessActivity_ids, campaign_id } = req.body;
+  
     const businessActivities: Partial<ICampaignBusinessActivity>[] = businessActivity_ids.map(
       (businessActivity_id: number) => ({
         businessActivity_id,

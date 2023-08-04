@@ -31,7 +31,7 @@ export const uploadFile = async (req: Request, res: Response) => {
                 reject(error);
             });
 
-            uploadStream.on('finish', () => {
+             uploadStream.on('finish', () => {
                 console.log("test");
                 const fileId: string = uploadStream.id.toString();
                 const { name, budget_max, begin_date, end_date, display_hours, status, url, advertiser_id } = req.body;
@@ -48,7 +48,13 @@ export const uploadFile = async (req: Request, res: Response) => {
                     deleted: false,
                 });
                 console.log(newCampaign)
-                newCampaign.save();
+                const savedCampaign =async ()=>{
+                    const saved = await newCampaign.save();
+                    res.status(200).json(saved);
+                }  
+                savedCampaign();
+                
+
             });
         });
 

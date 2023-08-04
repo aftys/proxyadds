@@ -3,6 +3,8 @@ import { Steps } from "antd";
 import axios from "axios";
 import CampaignBusinessActivity from "./CampaignBusinessActivity";
 import Campaign from "./Campaign";
+import CampaignBusinessType from "./CampaignBusinessType";
+import CampaignLocation from "./CampaingLocation";
 function AddCampaign() {
   const [current, setCurrent] = useState(0);
   const [userId, setUserId] = useState<number>();
@@ -10,10 +12,10 @@ function AddCampaign() {
 
 
 
-  const [userData, setUserData] = useState<any>({});
+  const [campaignData, setCampaignData] = useState<any>({});
   const [businessData, setBusinessData] = useState<any>({});
   const [placementData, setPlacementData] = useState<any>({});
-  const titles: string[] = ['CampaignBA'];
+  const titles: string[] = ['Campaign','CampaignBA', 'CampaignBT', 'CampaignL'];
 
   const next = () => {
     current === titles.length - 1 ? onSubmitForm() : setCurrent(current + 1);
@@ -26,25 +28,25 @@ function AddCampaign() {
 
   const items = titles.map((item) => ({ key: item, title: item }));
 
-  function onSubmitUserInfo(values: any) {
-    setUserData(values);
-    next();
-  }
+  // function onSubmitUserInfo(values: any) {
+  //   // setUserData(values);
+  //   next();
+  // }
 
   // function onSubmitPlacementInfo(){
   //   next()
 
   // }
 
-  function onSubmitBusinessInfo(values: any) {
-    setBusinessData(values);
-    next();
-  }
+  // function onSubmitBusinessInfo(values: any) {
+  //   setBusinessData(values);
+  //   next();
+  // }
 
-  function onSubmitPlacementInfo(values: any) {
-    setPlacementData(values);
-    next();
-  };
+  // function onSubmitPlacementInfo(values: any) {
+  //   setPlacementData(values);
+  //   next();
+  // };
 
    async function onSubmitForm() {
     try {
@@ -58,16 +60,50 @@ function AddCampaign() {
 
   function onSubmitCampaignBusinessActivity(values: any){
     console.log('values', values);
+    console.log('campaigndata', campaignData);
     axios
     .post('http://localhost:3000/campaign-business-activities', {
       businessActivity_ids: values.businessActivity_id,
-      campaign_id: "64c643928749f528b81a481d",
+      campaign_id: campaignData._id,
     })
     .then(response => {
       console.log('Form data sent successfully:', response.data);
+      next();
     })
     .catch(error => {
       console.error('Error sending form data:', error);
+    });
+  };
+
+  function onSubmitCampaignBusinessType(values: any){
+    console.log('values', values);
+    axios
+    .post('http://localhost:3000/campaign-business-types', {
+      businessType_ids: values.businessType_ids,
+      campaign_id: campaignData._id,
+    })
+    .then(response => {
+      console.log('campaign-business-types data sent successfully:', response.data);
+      next();
+    })
+    .catch(error => {
+      console.error('Error sending campaign-business-types data:', error);
+    });
+  };
+
+  function onSubmitCampaignLocation(values: any){
+    console.log('values', values);
+    axios
+    .post('http://localhost:3000/campaign-locations', {
+      location_ids: values.location_ids,
+      campaign_id: campaignData._id,
+    })
+    .then(response => {
+      console.log('campaign-locations data sent successfully:', response.data);
+      next();
+    })
+    .catch(error => {
+      console.error('Error sending campaign-locations data:', error);
     });
   };
 
@@ -75,7 +111,10 @@ function AddCampaign() {
     < div className="flex flex-col items-center max-w-screen-md w-full ">
       <Steps className='max-w-screen-md w-full' current={current} items={items} />
       <div className="max-w-screen-sm w-full">
-        {current == 0 && <Campaign />}
+        {current == 0 && <Campaign setCampaignData={setCampaignData } next={next}/>}
+        {current == 1 && <CampaignBusinessActivity onSubmit={onSubmitCampaignBusinessActivity} prev={previous} />}
+        {current == 2 && <CampaignBusinessType onSubmit={onSubmitCampaignBusinessType} prev={previous} />}
+        {current == 3 && <CampaignLocation onSubmit={onSubmitCampaignLocation} prev={previous} />}
         {/* {current == 1 && <BusinessInfo onSubmit={onSubmitBusinessInfo} prev={previous} />}
         {current == 2 && <PlacementInfo onSubmit={onSubmitPlacementInfo} prev={previous} />} */}
         {/* {current == 2 && <SchedulesInfo onSubmit={onSubmitPlacementInfo}/>} */}

@@ -3,9 +3,10 @@ import { Form, Input, Select, Button, DatePicker, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
+
 const { Option } = Select;
 
-const Campaign = () => {
+const Campaign: React.FC<any> = ({ setCampaignData, next }) => {
   const [form] = Form.useForm();
   const [file, setFile] = useState<File | null>(null);
   const [advertisers, setAdvertisers] = useState<any[]>([])
@@ -40,15 +41,19 @@ const Campaign = () => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      });
-
+      })
       console.log('Campaign created:', response.data);
       message.success('File uploaded successfully!');
-    } catch (error) {
-      console.error('Error creating campaign:', error);
-      message.error('Error uploading file.');
+      setCampaignData(response.data);
+      next();
+
     }
-  };
+    catch (error) {
+      console.error('Error creating campaign:', error);
+      message.error('Error uploading file');
+    }
+  }
+
 
   const handleFileChange = (info: any) => {
     if (info.fileList.length > 0) {
@@ -79,9 +84,10 @@ const Campaign = () => {
         </Form.Item>
         <Form.Item label="Status" name="status" rules={[{ required: true, message: 'Please select a status' }]}>
           <Select>
-            <Option value="active">Active</Option>
-            <Option value="finished">finished</Option>
-            <Option value="paused">Paused</Option>
+            <Option value="actif">Actif</Option>
+            <Option value="inactif">Inactif</Option>
+            <Option value="pending">Pending</Option>
+            <Option value="finished">Finished</Option>
           </Select>
         </Form.Item>
         <Form.Item label="URL" name="url">

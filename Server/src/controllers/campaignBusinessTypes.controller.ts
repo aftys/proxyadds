@@ -4,16 +4,18 @@ import CampaignBusinessType from '../models/campaignBusinessType.model';
 
 async function createCampaignBusinessType(req: Request, res: Response) {
   try {
-    const { businesstype_id, campaign_id, campaign_name, type_name } = req.body;
-    const newCampaignBusinessType: ICampaignBusinessType = new CampaignBusinessType({
-      businesstype_id,
-      campaign_id,
-      campaign_name,
-      type_name,
-      deleted: false,
-    });
-    const savedCampaignBusinessType = await newCampaignBusinessType.save();
-    res.status(201).json(savedCampaignBusinessType);
+    const { businessType_ids, campaign_id } = req.body;
+    const businessTypes: Partial<ICampaignBusinessType>[] = businessType_ids.map(
+      (businesstype_id: number) => ({
+        businesstype_id,
+        campaign_id,
+        deleted: false,
+      })
+    );
+    const savedCampaignBusinessActivities = await CampaignBusinessType.insertMany(
+      businessTypes
+    );
+    res.status(201).json(savedCampaignBusinessActivities);
   } catch (error) {
     res.status(500).json({ message: 'Error creating campaign business type' });
   }
