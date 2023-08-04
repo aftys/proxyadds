@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, Select } from 'antd';
 import mongodb from 'mongodb';
 import axios from 'axios';
-import PlacementsInfo from './BusinessInfo';
 
 const layout = {
   labelCol: { span: 8 },
@@ -30,7 +29,7 @@ const passwordValidationRules = [
 
 
 
-const PlacementInfo: React.FC<any>  = ({prev, onSubmit}) => {
+const AddPlacement: React.FC<any>  = ({prev}) => {
   const [business, setBusiness] = useState<any[]>([]);
 
   useEffect(() => {
@@ -47,7 +46,21 @@ const PlacementInfo: React.FC<any>  = ({prev, onSubmit}) => {
         console.error('Error fetching businesses: ', error);
       });
   }
-
+  const onSubmit = async (values: any) => {
+  
+    
+try{
+      await axios.post('http://localhost:3000/placements', {
+        name: values.name,
+        business_id: values.business_id
+      });
+      // fetchData();
+  
+      console.log('Placement created successfully!');
+    } catch (error) {
+      console.error('Error creating Placement: ', error);
+    }
+  };
   return (
     <Form
       {...layout}
@@ -75,12 +88,14 @@ const PlacementInfo: React.FC<any>  = ({prev, onSubmit}) => {
         <Button type="primary" htmlType="submit" className='bg-main-blue absolute right-0 top-0' >
           submit
         </Button>
+        {prev ? 
         <Button onClick={prev} className='bg-main-blue text-white absolute  w-20 -left-32 top-0'>
           previous
-        </Button> 
+        </Button> :<></>
+}
       </Form.Item>
     </Form>
   );
 };
 
-export default PlacementInfo;
+export default AddPlacement;

@@ -29,12 +29,11 @@ function App() {
       <div className={`h-screen w-screen ${darkMode && "dark"}`}>
         <div className='dark:bg-app bg-gray-100 w-screen min-h-screen relative flex flex-col items-center pl-[85px] pt-[75px] pr-6 '>
           <Layout>
-            <>
-              <Routes>
+            <> 
+             <Routes>
                 <Route path="/" element={<Business />} />
                 <Route path="/Businesses" element={<Business />} />
                 <Route path="/Placements" element={<Placements />} />
-                {/* <Route path="/Schedules" element={<Schedules />} /> */}
                 <Route path="/Businesses/:id/Schedules" element={<Schedules />} />
                 <Route path="/Advertisers" element={<Advertisers />} />
                 <Route path="/Locations" element={<Locations />} />
@@ -48,7 +47,7 @@ function App() {
                 <Route path="*" element={<Business />} />
               </Routes>
             </>
-          </Layout>
+          </Layout>  
         </div>
 
       </div>

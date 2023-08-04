@@ -11,7 +11,7 @@ export interface ICampaign extends Document {
   display_hours: string;
   status: CampaignStatus;
   url: string;
-  advertiser_id: number;
+  advertiser_id: string;
   deleted:boolean,
 }
 
@@ -21,11 +21,11 @@ const CampaignSchema: Schema = new Schema(
     budget_max: { type: Number, required: true },
     begin_date: { type: Date, required: true },
     end_date: { type: Date, required: true },
-    file: { type: String, required: true },
+    file:  { type: Schema.Types.ObjectId, ref: 'GridFSFile', required: true },
     display_hours: { type: String, required: true },
-    status: { type: String, enum: CampaignStatus, required: true }, //Object.values(CampaignStatus)
+    status: { type: String, enum: CampaignStatus, required: true },
     url: { type: String, required: true },
-    advertiser_id: { type: Number, required: true },
+    advertiser_id:  { type: Schema.Types.ObjectId, ref: 'Advertiser', required: true },
     deleted:{ type: Boolean, defaults: false }
   },
   { timestamps: true }

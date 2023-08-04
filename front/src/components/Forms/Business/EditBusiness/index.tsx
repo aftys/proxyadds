@@ -1,11 +1,11 @@
 
 
-function AddBusiness() {
+function EditBusiness() {
     return (
       <>
       </>
     );
   }
   
-export default AddBusiness;
+export default EditBusiness;
   

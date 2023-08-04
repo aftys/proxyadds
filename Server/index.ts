@@ -16,6 +16,7 @@ import businessRouter from './src/routes/businesses.router';
 import placementRouter from './src/routes/placements.router';
 import schedulesRouter from './src/routes/schedules.router';
 import usersRouter from './src/routes/users.router';
+import fileRouter from './src/routes/file.router'
 
 const app: Express = express();
 
@@ -38,6 +39,7 @@ app.use('/businesses', businessRouter);
 app.use('/placements', placementRouter);
 app.use('/schedules', schedulesRouter);
 app.use('/users', usersRouter);
+app.use('/files', fileRouter);
 
 const PORT: number = parseInt(process.env.PORT || '3000', 10);
 app.listen(PORT, () => {
