@@ -10,6 +10,7 @@ import EditBusinessType from "../../components/Forms/BusinessTypes/editBusinessT
 
 function BusinessTypes() {
   const [data, setData] = useState<MyData[]>([]);
+  const [loading, setLoading] = useState(true);
 
     // Fetch data from the backend when the component mounts and whenever the data state changes
     useEffect(() => {
@@ -17,19 +18,11 @@ function BusinessTypes() {
     }, [data]); // Include 'data' in the dependency array to refetch when data state changes
   
     const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/business-types');
-        setData(response.data);
-        // fetchData();
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+      await axios.get('http://localhost:3000/business-types')
+      .then((response)=>{setData(response.data);setLoading(false);})
+      .catch((error)=>console.error('Error fetching data:', error))
     };
 
-    const handleEdit = (record: MyData) => {
-      // Implement the logic for handling row edit here
-      console.log("Edit row:", record);
-    };
   
     const handleDelete = async (index: any) => {
 
@@ -85,11 +78,11 @@ const customColumns = [
 
 return (
   <>
-    <AntModal name={'modal open'} size={"130px"}>
+    <AntModal name={'ajouter type'} size={"100px"}>
       {/* <Step /> */}
       <AddBusinessType />
     </AntModal>
-    <TableGridTest<MyData> columns={customColumns} data={data} />
+    <TableGridTest<MyData> columns={customColumns} data={data} loading={loading} />
   </>
 );
   }

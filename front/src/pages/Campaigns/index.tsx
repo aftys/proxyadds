@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import TableGridTest from "../../components/Table";
 import AntModal from "../../components/Modals/Ant";
 import axios from "axios";
+import { Dayjs } from 'dayjs';
 import Confirmation from "../../components/Confirmation";
 import AddCampaign from "../../components/Forms/Campaigns/addCampaign";
 import EditCampaign from "../../components/Forms/Campaigns/editCampaign";
@@ -38,8 +39,8 @@ function Campaigns() {
     _id: string;
     name: string;
     budget_max: number;
-    begin_date: Date;
-    end_date: Date;
+    begin_date: Dayjs;
+    end_date: Dayjs;
     file: Object;
     display_hours: string;
     status: CampaignStatus;
@@ -74,15 +75,14 @@ function Campaigns() {
       dataIndex: "end_date",
       key: "end_date",
       width: "10%",
+      render: (_: any, record: ICampaign) => (
+        <p>
+          {record.end_date.format('DD/MM/YYYY')}
+        </p>
+      ),
       className: "dark:bg-dark-bg-main dark:text-gray-300",
     },
-    {
-      title: "File",
-      dataIndex: "file",
-      key: "file",
-      width: "10%",
-      className: "dark:bg-dark-bg-main dark:text-gray-300",
-    },
+   
     {
       title: "display hours",
       dataIndex: "display_hours",
@@ -98,17 +98,30 @@ function Campaigns() {
       className: "dark:bg-dark-bg-main dark:text-gray-300",
     },
     {
+      title: "File",
+      // dataIndex: "file",
+      // key: "file",
+      render: (_: any, record: ICampaign) => (
+        <a  className="text-white p-2 font-semibold rounded-lg bg-main-blue dark:bg-blue-950 hover:dark:bg-blue-900" key={record._id} href={"http://localhost:3000/files/"+record.file}>
+            download
+        </a>
+      ),
+      width: "10%",
+      className: "dark:bg-dark-bg-main dark:text-gray-300",
+    },
+    {
       title: "Action",
       dataIndex: "",
       key: "x",
       render: (_: any, record: ICampaign) => (
         <span className="flex gap-4">
-          <EditCampaign record={record} /> 
+          <EditCampaign record={record} />
           <Confirmation handleDelete={() => handleDelete(record._id)} />
         </span>
       ),
       className: "dark:bg-dark-bg-main dark:text-gray-300",
     },
+    
   ];
 
   return (

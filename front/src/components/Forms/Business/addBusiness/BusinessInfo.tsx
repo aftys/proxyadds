@@ -105,7 +105,7 @@ const BusinessInfo: React.FC<any> = ({ onSubmit ,prev}) => {
       onFinish={onSubmit}
       style={{ maxWidth: 600 }}
       validateMessages={validateMessages}
-      className='pr-4 pt-10'
+      className='p-10 '
     >
       
       <Form.Item label="Longitude" name="longitude" rules={[{ required: true }]}>

@@ -10,6 +10,7 @@ import EditBusinessActivities from "../../components/Forms/BusinessActivities/ed
 function BusinessActivities() {
 
   const [data, setData] = useState<MyData[]>([]);
+  const [loading, setLoading] = useState(true);
 
   // Fetch data from the backend when the component mounts and whenever the data state changes
   useEffect(() => {
@@ -17,19 +18,11 @@ function BusinessActivities() {
   }, [data]); // Include 'data' in the dependency array to refetch when data state changes
 
   const fetchData = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/business-activities');
-      setData(response.data);
-      // fetchData();
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+    await axios.get('http://localhost:3000/business-activities')
+      .then((response) => { setData(response.data); setLoading(false); })
+      .catch((error) => console.error('Error fetching data:', error))
   };
 
-  const handleEdit = (record: MyData) => {
-    // Implement the logic for handling row edit here
-    console.log("Edit row:", record);
-  };
 
   const handleDelete = async (index: any) => {
 
@@ -46,51 +39,51 @@ function BusinessActivities() {
     }
   };
 
-type MyData = {
-_id: string;
-name: string;
-};
+  type MyData = {
+    _id: string;
+    name: string;
+  };
 
-const customColumns = [
-{
-  title: "Name",
-  dataIndex: "name",
-  key: "neme",
-  width: "30%",
-  className: "dark:bg-dark-bg-main dark:text-gray-300",
-  // Add other custom properties if needed...
-},
-{
-  title: 'Action',
-  dataIndex: '',
-  key: 'x',
-  render: (_:any, record:any) => (
-    <span className="flex gap-4">
-      <EditBusinessActivities record={record}/>
-      {/* <Button type="link" onClick={() => handleDelete(record. _id)}>
+  const customColumns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "neme",
+      width: "30%",
+      className: "dark:bg-dark-bg-main dark:text-gray-300",
+      // Add other custom properties if needed...
+    },
+    {
+      title: 'Action',
+      dataIndex: '',
+      key: 'x',
+      render: (_: any, record: any) => (
+        <span className="flex gap-4">
+          <EditBusinessActivities record={record} />
+          {/* <Button type="link" onClick={() => handleDelete(record. _id)}>
         Delete
       </Button> */}
-      <Confirmation handleDelete={()=> handleDelete(record. _id)}/>
-    
-    </span>
-  ),
-  className: "dark:bg-dark-bg-main dark:text-gray-300",
+          <Confirmation handleDelete={() => handleDelete(record._id)} />
 
-},
+        </span>
+      ),
+      className: "dark:bg-dark-bg-main dark:text-gray-300",
 
-// Add other custom columns as needed...
-];
+    },
+
+    // Add other custom columns as needed...
+  ];
 
 
 
-return (
-<>
-  <AntModal name={'modal open'} size={"130px"}>
-    {/* <Step /> */}
-    <AddBusinessActivities />
-  </AntModal>
-  <TableGridTest<MyData> columns={customColumns} data={data} />
-</>
-);
+  return (
+    <>
+      <AntModal name={'ajouter activité'} size={"130px"}>
+        {/* <Step /> */}
+        <AddBusinessActivities />
+      </AntModal>
+      <TableGridTest<MyData> columns={customColumns} data={data} loading={loading} />
+    </>
+  );
 }
-  export default BusinessActivities;
+export default BusinessActivities;

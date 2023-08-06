@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
+import IUser from '../../../../interfaces/User';
 
 const layout = {
   labelCol: { span: 8 },
@@ -27,10 +28,17 @@ const passwordValidationRules = [
 
 interface Props {
   onSubmit:(values:any)=>void;
+  userData:IUser
 }
 
-const UserInfo: React.FC<Props> = ({ onSubmit }) => {
-
+const UserInfo: React.FC<Props> = ({ onSubmit ,userData}) => {
+  const initialValues = {
+    email: userData.email,
+    password: userData.password,
+    name: userData.name,
+    phone: userData.phone,
+    address: userData.address,
+  };
   return (
     <Form
       {...layout}
@@ -38,22 +46,23 @@ const UserInfo: React.FC<Props> = ({ onSubmit }) => {
       onFinish={onSubmit}
       style={{ maxWidth: 600 }}
       validateMessages={validateMessages}
+      initialValues={initialValues}
       className='pr-16 pt-10'
     >
-      <Form.Item label="Email" name="email" rules={[{ type: 'email', required: true }]}>
-        <Input />
+      <Form.Item label="Email" name="email" rules={[{ type: 'email', required: true }]} >
+        <Input  />
       </Form.Item>
       <Form.Item label="Password" name="password" rules={passwordValidationRules}>
-        <Input.Password />
+        <Input.Password  />
       </Form.Item>
       <Form.Item label="Name" name="name" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
       <Form.Item label="Phone" name="phone" rules={[{ required: true }]}>
-        <Input />
+        <Input defaultValue={userData.phone} />
       </Form.Item>
       <Form.Item label="Address" name="address" rules={[{ required: true }]}>
-        <Input />
+        <Input/>
       </Form.Item>
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
         <Button type="primary" htmlType="submit" className='bg-main-blue absolute -right-4 top-0'>

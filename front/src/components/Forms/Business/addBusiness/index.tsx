@@ -4,14 +4,13 @@ import UserInfo from './UserInfo'
 import { Steps } from "antd";
 import axios from "axios";
 import PlacementInfo from "./PlacementInfo";
+import IUser from "../../../../interfaces/User";
+
 function AddBusiness() {
   const [current, setCurrent] = useState(0);
   const [userId, setUserId] = useState<number>();
-  const [businessId, setBusinessId] = useState<number>();
-
-
-
-  const [userData, setUserData] = useState<any>({});
+  // const [businessId, setBusinessId] = useState<number>();
+  const [userData, setUserData] = useState<IUser>({email:'',password:'',name:'',phone:'',address:''});
   const [businessData, setBusinessData] = useState<any>({});
   const [placementData, setPlacementData] = useState<any>({});
   const titles: string[] = ['User', 'Business', 'Placement'];
@@ -100,7 +99,7 @@ function AddBusiness() {
     < div className="flex flex-col items-center max-w-screen-md w-full ">
       <Steps className='max-w-screen-md w-full' current={current} items={items} />
       <div className="max-w-screen-sm w-full">
-        {current == 0 && <UserInfo onSubmit={onSubmitUserInfo} />}
+        {current == 0 && <UserInfo onSubmit={onSubmitUserInfo} userData={userData} />}
         {current == 1 && <BusinessInfo onSubmit={onSubmitBusinessInfo} prev={previous} />}
         {current == 2 && <PlacementInfo onSubmit={onSubmitPlacementInfo} prev={previous} />}
         {/* {current == 2 && <SchedulesInfo onSubmit={onSubmitPlacementInfo}/>} */}
