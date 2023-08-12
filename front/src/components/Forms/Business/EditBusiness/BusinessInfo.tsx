@@ -156,7 +156,7 @@ const BusinessInfo: React.FC<Props> = ({ onSubmit, prev, data }) => {
       </Form.Item>
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
         <Button type="primary" htmlType="submit" className='bg-main-blue w-20  absolute -right-4 top-0'>
-          next
+          save
         </Button>
         {prev ?
           <Button onClick={prev} className='bg-main-blue text-white absolute  w-20 -left-32 top-0'>

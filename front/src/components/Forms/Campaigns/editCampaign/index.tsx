@@ -1,90 +1,100 @@
-import React from 'react';
-import { Button, Form, Input, InputNumber } from 'antd';
-import axios from 'axios';
-import AntModal from '../../../Modals/Ant';
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
+import { useEffect, useState } from "react"
+import { Steps } from "antd";
+import axios from "axios";
+import CampaignBusinessActivity from "./CampaignBusinessActivity";
+import Campaign from "./Campaign";
+import CampaignBusinessType from "./CampaignBusinessType";
+import CampaignLocation from "./CampaingLocation";
+import AntModal from "../../../Modals/Ant";
+function AddCampaign() {
+  const [current, setCurrent] = useState(0);
 
-const validateMessages = {
-  required: '${label} is required!',
-};
+  const [campaignData, setCampaignData] = useState<any>({});
+  const titles: string[] = ['Campaign', 'CampaignBA', 'CampaignBT', 'CampaignL'];
 
-const onFinish = (values: any, id:string) => {
-    console.log(values);
+  const next = () => {
+    current === titles.length - 1 ? onSubmitForm() : setCurrent(current + 1);
+  };
 
-  axios.put('http://localhost:3000/locations/' + id,
-    {
-      region: values.region,
-      city: values.city,
-      secteur: values.secteur,
-      longitude: values.longitude,
-      latitude: values.latitude,
-    },
-  )
-    .then(response => {
-      console.log('Form data sent successfully:', response.data);
-    })
-    .catch(error => {
+
+  const previous = () => {
+    setCurrent(current - 1);
+  };
+
+  const items = titles.map((item) => ({ key: item, title: item }));
+
+  async function onSubmitForm() {
+    try {
+      // send your Campaign data to the 'Campaigns' endpoint
+    } catch (error) {
       console.error('Error sending form data:', error);
-    });
-};
-
-type MyData = {
-  _id: string;
-  region: string;
-  city: string;
-  secteur: string;
-  longitude: number;
-  latitude: number;
-};
+      // Handle error, e.g., show an error message to the user
+    }
+  }
 
 
-interface Props {
-  record: MyData;
-}
+  function onSubmitCampaignBusinessActivity(values: any) {
+    console.log('values', values);
+    console.log('campaigndata', campaignData);
+    axios
+      .post('http://localhost:3000/campaign-business-activities', {
+        businessActivity_ids: values.businessActivity_id,
+        campaign_id: campaignData._id,
+      })
+      .then(response => {
+        console.log('Form data sent successfully:', response.data);
+        next();
+      })
+      .catch(error => {
+        console.error('Error sending form data:', error);
+      });
+  };
 
-const EditLocation: React.FC<Props> = ({ record }) => {
-  const [form] = Form.useForm();
+  function onSubmitCampaignBusinessType(values: any) {
+    console.log('values', values);
+    axios
+      .post('http://localhost:3000/campaign-business-types', {
+        businessType_ids: values.businessType_ids,
+        campaign_id: campaignData._id,
+      })
+      .then(response => {
+        console.log('campaign-business-types data sent successfully:', response.data);
+        next();
+      })
+      .catch(error => {
+        console.error('Error sending campaign-business-types data:', error);
+      });
+  };
+
+  function onSubmitCampaignLocation(values: any) {
+    console.log('values', values);
+    axios
+      .post('http://localhost:3000/campaign-locations', {
+        location_ids: values.location_ids,
+        campaign_id: campaignData._id,
+      })
+      .then(response => {
+        console.log('campaign-locations data sent successfully:', response.data);
+        next();
+      })
+      .catch(error => {
+        console.error('Error sending campaign-locations data:', error);
+      });
+  };
+
   return (
-    <>
-      < AntModal name={'Edit'} >
-
-        <Form
-          {...layout}
-          name="nest-messages"
-          onFinish={(values)=>onFinish(values, record._id)}
-          form={form}
-          style={{ maxWidth: 600 }}
-          validateMessages={validateMessages}
-          className='pr-16 pt-10'
-          initialValues={record}
-          >
-          <Form.Item name={['region']} label="Region" rules={[{ required: true }]}>
-            <Input  />
-          </Form.Item>
-          <Form.Item name={['city']} label="City" rules={[{ required: true }]}>
-            <Input  />
-          </Form.Item>
-          <Form.Item name={['secteur']} label="Secteur" rules={[{ required: true }]}>
-            <Input  />
-          </Form.Item>
-          <Form.Item name={['longitude']} label="Longitude" rules={[{ type: "number", min: 0, max: 99, required: true }]}>
-            <InputNumber  />
-          </Form.Item>
-          <Form.Item name={['latitude']} label="Latitude" rules={[{ type: "number", min: 0, max: 99, required: true }]}>
-            <InputNumber />
-          </Form.Item>
-          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-            <Button type="primary" htmlType="submit" className='bg-main-blue absolute right-0 top-0'>
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </AntModal>
-    </>
+    <AntModal name="Edit">
+      < div className="flex flex-col items-center max-w-screen-md w-full ">
+        <Steps className='max-w-screen-md w-full' current={current} items={items} />
+        <div className="max-w-screen-sm w-full">
+          {current == 0 && <Campaign setCampaignData={setCampaignData} next={next} />}
+          {current == 1 && <CampaignBusinessActivity onSubmit={onSubmitCampaignBusinessActivity} prev={previous} />}
+          {current == 2 && <CampaignBusinessType onSubmit={onSubmitCampaignBusinessType} prev={previous} />}
+          {current == 3 && <CampaignLocation onSubmit={onSubmitCampaignLocation} prev={previous} />}
+        </div>
+      </div>
+    </AntModal>
   );
 }
 
-export default EditLocation;
+export default AddCampaign;

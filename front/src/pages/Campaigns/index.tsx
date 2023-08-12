@@ -14,7 +14,7 @@ function Campaigns() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [data]);
 
   const fetchData = async () => {
     try {
@@ -102,7 +102,7 @@ function Campaigns() {
       // dataIndex: "file",
       // key: "file",
       render: (_: any, record: ICampaign) => (
-        <a  className="text-white p-2 font-semibold rounded-lg bg-main-blue dark:bg-blue-950 hover:dark:bg-blue-900" key={record._id} href={"http://localhost:3000/files/"+record.file}>
+        <a  className="text-white p-2 hover:text-white font-semibold rounded-lg bg-main-blue dark:bg-blue-950 hover:dark:bg-blue-900" key={record._id} href={"http://localhost:3000/files/"+record.file}>
             download
         </a>
       ),

@@ -97,7 +97,7 @@ const EditPlacement: React.FC<Props> = ({ record }) => {
           <Form.Item name={['name']} label="Name" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item name={['business_id']} label="Business Id" rules={[{ required: true }]}>
+          {/* <Form.Item name={['business_id']} label="Business Id" rules={[{ required: true }]}>
             <Select
               showSearch
               placeholder="Select a business"
@@ -106,7 +106,7 @@ const EditPlacement: React.FC<Props> = ({ record }) => {
               options={business.map((item) => ({ value: item._id, label: item.user_id.name }))}
               value={business.length > 0 ? business[0]._id : undefined}
               />
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             <Button type="primary" htmlType="submit" className='bg-main-blue absolute right-0 top-0'>
               Update

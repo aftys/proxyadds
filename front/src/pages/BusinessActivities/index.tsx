@@ -60,11 +60,7 @@ function BusinessActivities() {
       render: (_: any, record: any) => (
         <span className="flex gap-4">
           <EditBusinessActivities record={record} />
-          {/* <Button type="link" onClick={() => handleDelete(record. _id)}>
-        Delete
-      </Button> */}
           <Confirmation handleDelete={() => handleDelete(record._id)} />
-
         </span>
       ),
       className: "dark:bg-dark-bg-main dark:text-gray-300",

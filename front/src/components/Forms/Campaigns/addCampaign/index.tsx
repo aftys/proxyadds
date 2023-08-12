@@ -7,14 +7,8 @@ import CampaignBusinessType from "./CampaignBusinessType";
 import CampaignLocation from "./CampaingLocation";
 function AddCampaign() {
   const [current, setCurrent] = useState(0);
-  const [userId, setUserId] = useState<number>();
-  const [businessId, setBusinessId] = useState<number>();
-
-
 
   const [campaignData, setCampaignData] = useState<any>({});
-  const [businessData, setBusinessData] = useState<any>({});
-  const [placementData, setPlacementData] = useState<any>({});
   const titles: string[] = ['Campaign','CampaignBA', 'CampaignBT', 'CampaignL'];
 
   const next = () => {
@@ -27,26 +21,6 @@ function AddCampaign() {
   };
 
   const items = titles.map((item) => ({ key: item, title: item }));
-
-  // function onSubmitUserInfo(values: any) {
-  //   // setUserData(values);
-  //   next();
-  // }
-
-  // function onSubmitPlacementInfo(){
-  //   next()
-
-  // }
-
-  // function onSubmitBusinessInfo(values: any) {
-  //   setBusinessData(values);
-  //   next();
-  // }
-
-  // function onSubmitPlacementInfo(values: any) {
-  //   setPlacementData(values);
-  //   next();
-  // };
 
    async function onSubmitForm() {
     try {
@@ -115,12 +89,7 @@ function AddCampaign() {
         {current == 1 && <CampaignBusinessActivity onSubmit={onSubmitCampaignBusinessActivity} prev={previous} />}
         {current == 2 && <CampaignBusinessType onSubmit={onSubmitCampaignBusinessType} prev={previous} />}
         {current == 3 && <CampaignLocation onSubmit={onSubmitCampaignLocation} prev={previous} />}
-        {/* {current == 1 && <BusinessInfo onSubmit={onSubmitBusinessInfo} prev={previous} />}
-        {current == 2 && <PlacementInfo onSubmit={onSubmitPlacementInfo} prev={previous} />} */}
-        {/* {current == 2 && <SchedulesInfo onSubmit={onSubmitPlacementInfo}/>} */}
       </div>
-
-
     </div>
   );
 }

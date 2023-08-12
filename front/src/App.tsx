@@ -14,6 +14,7 @@ import Tracking from "./pages/Tracking"
 import Logout from "./pages/Logout"
 import Login from "./pages/Login"
 import Business from "./pages/Business"
+import { GridLoader } from "react-spinners"
 
 function App() {
 
@@ -27,7 +28,7 @@ function App() {
         algorithm: darkMode ? darkAlgorithm : defaultAlgorithm,
       }}>
       <div className={`h-screen w-screen ${darkMode && "dark"}`}>
-        <div className='dark:bg-app bg-gray-100 w-screen min-h-screen relative flex flex-col items-center pl-[85px] pt-[75px] pr-6 '>
+        <div className='dark:bg-app h-screen bg-gray-100 w-screen min-h-screen relative flex flex-col items-center pl-[85px] pt-[75px] pr-6 '>
           <Layout>
             <> 
              <Routes>
@@ -48,6 +49,7 @@ function App() {
               </Routes>
             </>
           </Layout>  
+          
         </div>
 
       </div>

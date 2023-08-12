@@ -31,13 +31,14 @@ function Schedules() {
     try {
       setValue(newValue);
       setSelectedValue(newValue);
+      setIsDayInfoVisible(true);
       const response = await axios.post<Event[]>(
         'http://localhost:3000/schedules/business/' + id + '/day',
         { day: newValue.format('YYYY-MM-DD') }
       );
       setDayInfo(response.data);
       console.log(response.data); // For debugging purposes
-      setIsDayInfoVisible(true);
+      
     } catch (err) {
       console.log(err);
     }
@@ -73,7 +74,7 @@ function Schedules() {
     };
 
     fetchData();
-  }, []);
+  }, [events]);
 
   return (
     <>
@@ -91,12 +92,10 @@ function Schedules() {
           const formattedDate = date.format('YYYY-MM-DD');
           const eventsForDate = events.filter((event) => event.day === formattedDate);
           return (
-            <div className='w-full h-full flex flex-col gap-2'>
-              {/* {eventsForDate.map((event) => (
-                <div key={event._id}>{event.opening_hour} - {event.closing_hour}</div>
-              ))} */}
+            <div className='w-full h-full flex flex-col gap-2 overflow-hidden'>
+             
               {eventsForDate.map((event) => (
-                <div className='bg-main-blue dark:bg-blue-950 hover:dark:bg-blue-900 w-full h-3 rounded-lg' key={event._id} />
+                <div className='bg-main-blue dark:bg-blue-950 hover:dark:bg-blue-900 w-full h-2 rounded-lg' key={event._id} />
               ))}
             </div>
           );
