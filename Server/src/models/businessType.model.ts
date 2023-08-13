@@ -8,6 +8,7 @@ export interface IBusinessType extends Document {
 const BusinessTypeSchema: Schema = new Schema(
   {
     name: { type: String, required: true },
+    activity_id: { type: Schema.Types.ObjectId, ref: 'BusinessActivity', required: true },
     deleted:{ type: Boolean, defaults: false }
   },
   { timestamps: true }

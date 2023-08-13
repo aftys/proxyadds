@@ -18,7 +18,7 @@ function Placements() {
   useEffect(() => {
     fetchData();
 
-  }, [data]); 
+  }, []); 
 
   const fetchData = async () => {
     try {

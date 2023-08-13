@@ -3,6 +3,7 @@ import { Alert, Button, Calendar, Modal, TimePicker, } from 'antd';
 import { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
 import AddEvent from '../../components/Forms/Shcedule/addEvent';
+import BusinessHoursForm from './test';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { RangeValue } from 'rc-picker/lib/interface';
@@ -62,19 +63,22 @@ function Schedules() {
   };
 
   useEffect(() => {
-    // Fetch all events from the backend
-    const fetchData = async () => {
-      try {
-        const response = await axios.get<Event[]>('http://localhost:3000/schedules/business/' + id);
-        setEvents(response.data);
-        console.log(response.data)
-      } catch (error) {
-        console.error('Error fetching events:', error);
-      }
-    };
+    
 
     fetchData();
-  }, [events]);
+  // }, [events]);
+  }, []);
+
+  // Fetch all events from the backend
+  const fetchData = async () => {
+    try {
+      const response = await axios.get<Event[]>('http://localhost:3000/schedules/business/' + id);
+      setEvents(response.data);
+      console.log(response.data)
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    }
+  };
 
   return (
     <>
@@ -102,7 +106,8 @@ function Schedules() {
         }}
       />
       <Modal open={modalAddVisble} onCancel={hideModal} footer={null}>
-        <AddEvent businessId={id} />
+        {/* <AddEvent businessId={id} /> */}
+        < BusinessHoursForm />
       </Modal>
       <Modal open={isDayInfoVisible} onCancel={() => setIsDayInfoVisible(false)} footer={null}>
         <div className='w-full p-6  '>

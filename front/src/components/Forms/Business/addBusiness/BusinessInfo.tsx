@@ -25,23 +25,52 @@ const BusinessInfo: React.FC<Props> = ({ onSubmit, prev, data }) => {
   const [businessActivities, setBusinessActivities] = useState<any[]>([]);
   const [locations, setLocations] = useState<any[]>([]);
   const [cascaderOptions, setCascaderOptions] = useState<any[]>([]);
+  const [selectedBusinessActivity, setSelectedBusinessActivity] = useState<string | null>(null);
+  const [availableBusinessTypes, setAvailableBusinessTypes] = useState<any[]>([]);
+
 
   useEffect(() => {
-    axios.get('http://localhost:3000/business-types')
-      .then((response) => {
-        setBusinessTypes(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching business types:', error);
-      });
-
     axios.get('http://localhost:3000/business-activities')
       .then((response) => {
         setBusinessActivities(response.data);
+        console.log("business activities", response.data);
+
       })
       .catch((error) => {
         console.error('Error fetching business activities:', error);
       });
+  }, []);
+
+  useEffect(() => {
+    if (selectedBusinessActivity) {
+      console.log("selected business activity", selectedBusinessActivity);
+      setAvailableBusinessTypes([]);
+      axios.get('http://localhost:3000/business-types/getBusinessTypesByActivityIds/'+ selectedBusinessActivity)
+        .then((response) => {
+          setAvailableBusinessTypes(response.data);
+          console.log("available business types", response.data);
+        })
+        .catch((error) => {
+          console.error('Error fetching available business types:', error);
+        });
+    }
+  }, [selectedBusinessActivity]);
+  useEffect(() => {
+    // axios.get('http://localhost:3000/business-types')
+    //   .then((response) => {
+    //     setBusinessTypes(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error fetching business types:', error);
+    //   });
+
+    // axios.get('http://localhost:3000/business-activities')
+    //   .then((response) => {
+    //     setBusinessActivities(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error fetching business activities:', error);
+    //   });
 
     // Fetch locations from the server
     axios.get('http://localhost:3000/locations') // Replace '/api/locations' with your actual API endpoint
@@ -97,6 +126,7 @@ const BusinessInfo: React.FC<Props> = ({ onSubmit, prev, data }) => {
     axios.get(`http://localhost:3000/business-activities?search=${searchValue}`)
       .then((response) => {
         setBusinessActivities(response.data);
+        
       })
       .catch((error) => {
         console.error('Error fetching business activities:', error);
@@ -134,17 +164,7 @@ const BusinessInfo: React.FC<Props> = ({ onSubmit, prev, data }) => {
           placeholder="Select a location"
         />
       </Form.Item>
-      <Form.Item label="Business Type" name="business_type_id" rules={[{ required: true }]}>
-        <Select
-          showSearch
-          placeholder="Select a business type"
-          optionFilterProp="children"
-          filterOption={false}
-          onSearch={delayedFetchBusinessTypes}
-          options={businessTypes.map((item) => { return { value: item._id, label: item.name } })}
-        />
-      </Form.Item>
-      <Form.Item label="Business Activity" name="business_activity_id" rules={[{ required: true }]}>
+      {/* <Form.Item label="Business Activity" name="business_activity_id" rules={[{ required: true }]}>
         <Select
           showSearch
           placeholder="Select a business activity"
@@ -154,6 +174,36 @@ const BusinessInfo: React.FC<Props> = ({ onSubmit, prev, data }) => {
           onSearch={delayedFetchBusinessActivities}
         />
       </Form.Item>
+      <Form.Item label="Business Type" name="business_type_id" rules={[{ required: true }]}>
+        <Select
+          showSearch
+          placeholder="Select a business type"
+          optionFilterProp="children"
+          filterOption={false}
+          onSearch={delayedFetchBusinessTypes}
+          options={businessTypes.map((item) => { return { value: item._id, label: item.name } })}
+        />
+      </Form.Item> */}
+      <Form.Item label="Business Activity" name="business_activity_id" rules={[{ required: true }]}>
+        <Select
+          // ... (other select attributes)
+          showSearch
+          placeholder="Select a business activity"
+          optionFilterProp="children"
+          filterOption={false}
+          options={businessActivities.map((item) => { return { value: item._id, label: item.name } })}
+          onSearch={delayedFetchBusinessActivities}
+          onChange={(value) => {setSelectedBusinessActivity(value); console.log("this is the value", value)}}
+        />
+      </Form.Item>
+      <Form.Item label="Business Typ" name="business_type_id" rules={[{ required: true }]}>
+        <Cascader
+          options={availableBusinessTypes.map((item) => ({ value: item._id, label: item.name }))}
+          placeholder="Select a business type"
+          disabled={!selectedBusinessActivity}
+        />
+      </Form.Item>
+      
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
         <Button type="primary" htmlType="submit" className='bg-main-blue w-20  absolute -right-4 top-0'>
           next

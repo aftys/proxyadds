@@ -15,11 +15,13 @@ function BusinessTypes() {
     // Fetch data from the backend when the component mounts and whenever the data state changes
     useEffect(() => {
       fetchData();
-    }, [data]); // Include 'data' in the dependency array to refetch when data state changes
+    }, []); // Include 'data' in the dependency array to refetch when data state changes
   
     const fetchData = async () => {
       await axios.get('http://localhost:3000/business-types')
-      .then((response)=>{setData(response.data);setLoading(false);})
+      .then((response)=>{setData(response.data);setLoading(false);
+        console.log("Business Types data", response.data)
+      })
       .catch((error)=>console.error('Error fetching data:', error))
     };
 
@@ -42,6 +44,7 @@ function BusinessTypes() {
 type MyData = {
   _id: string;
   name: string;
+  activity_id: string;
 };
 
 const customColumns = [
@@ -49,6 +52,14 @@ const customColumns = [
     title: "Name",
     dataIndex: "name",
     key: "neme",
+    width: "30%",
+    className: "dark:bg-dark-bg-main dark:text-gray-300",
+    // Add other custom properties if needed...
+  },
+  {
+    title: "activity",
+    dataIndex: ["activity_id","name"],
+    key: "activity_id",
     width: "30%",
     className: "dark:bg-dark-bg-main dark:text-gray-300",
     // Add other custom properties if needed...
