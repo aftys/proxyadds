@@ -14,14 +14,42 @@ import Tracking from "./pages/Tracking"
 import Logout from "./pages/Logout"
 import Login from "./pages/Login"
 import Business from "./pages/Business"
+
 import { GridLoader } from "react-spinners"
+import { useEffect, useState } from "react"
+import axios from "axios"
+
+
 
 function App() {
 
-  const { darkMode } = useStateContext()
+  
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+    let token = localStorage.getItem("auth-token");
+    if(token === null){
+    localStorage.setItem("auth-token", "");
+    token = "";
+    }
+    const tokenResponse = await axios.post('http://localhost:5000/users/tokenIsValid', null, {headers: {"x-auth-token": token}});
+    if (tokenResponse.data) {
+    const userRes = await axios.get("http://localhost:5000/users/", {
+    headers: { "x-auth-token": token },
+    });
+    setUserData({
+    token,
+    user: userRes.data,
+    });
+    }
+    }
+    checkLoggedIn();
+    }, []);
 
+
+  const { darkMode, userData, setUserData } = useStateContext()
   const { defaultAlgorithm, darkAlgorithm } = theme;
   return (
+
     <ConfigProvider
       theme={{
         token: { colorPrimary: '#22d3ee' },
@@ -32,7 +60,7 @@ function App() {
           <Layout>
             <> 
              <Routes>
-                <Route path="/" element={<Business />} />
+                <Route path="/" element={<Login />} />
                 <Route path="/Businesses" element={<Business />} />
                 <Route path="/Placements" element={<Placements />} />
                 <Route path="/Businesses/:id/Schedules" element={<Schedules />} />
@@ -54,6 +82,7 @@ function App() {
 
       </div>
     </ConfigProvider>
+
   )
 }
 

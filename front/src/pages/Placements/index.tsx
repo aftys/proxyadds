@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import TableGridTest from "../../components/Table";
 import AntModal from "../../components/Modals/Ant";
 import axios from "axios";
 import Confirmation from "../../components/Confirmation";
 import AddPlacement from "../../components/Forms/Placement/addPlacement";
 import EditPlacement from "../../components/Forms/Placement/editPlacement";
-
+import { useNavigate, Link } from 'react-router-dom';
+import { useStateContext } from "../../contexts";
 
 
 
@@ -13,6 +14,13 @@ import EditPlacement from "../../components/Forms/Placement/editPlacement";
 function Placements() {
   const [data, setData] = useState<MyData[]>([]);
   const [loading, setLoading] = useState(true);
+  const { userData } = useStateContext();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!userData.user) navigate('/login');
+  }, [history, userData.user]);
+  
+
 
 
   useEffect(() => {
@@ -22,7 +30,12 @@ function Placements() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/placements');
+      const response = await axios.get('http://localhost:3000/placements',{
+        headers: {
+          'x-auth-token': userData.token, 
+        },
+      }
+      );
       setData(response.data);
       console.log("Placements data", response.data)
       setLoading(false);
@@ -85,10 +98,19 @@ function Placements() {
 
   return (
     <>
+    {userData.user ? (
+      <>
       <AntModal name={'add Placement'} size={"130px"}>
         <AddPlacement />
       </AntModal>
       <TableGridTest loading={loading} columns={customColumns} data={data} />
+      </>
+    ): (
+      <>
+        <h2>You are not logged in</h2>
+        <Link to="/login">Login</Link>
+      </>
+    )}
     </>
   );
 }

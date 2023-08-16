@@ -3,6 +3,12 @@ import React, { createContext, useContext, useState,HTMLAttributes } from 'react
 interface StateContextType {
   darkMode: boolean;
   toggleDarkMode: () => void;
+  userData: UserData;
+  setUserData : (props:UserData) => void;
+}
+interface UserData {
+  token: string | undefined;
+  user: any; // Replace 'any' with an appropriate user type if available
 }
 
 const StateContext = createContext<StateContextType | undefined>(undefined);
@@ -12,6 +18,10 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 export const ContextProvider: React.FC<Props> = ({ children }) => {
   const [darkMode, setDarkMode] = useState(false);
+  const [ userData, setUserData] = useState<UserData>({
+    token: undefined,
+    user: undefined
+    });
 
   const toggleDarkMode = () => {
     setDarkMode(prevDarkMode => !prevDarkMode);
@@ -19,7 +29,7 @@ export const ContextProvider: React.FC<Props> = ({ children }) => {
   };
 
   return (
-    <StateContext.Provider value={{ darkMode, toggleDarkMode }}>
+    <StateContext.Provider value={{ darkMode, toggleDarkMode, userData, setUserData}}>
       {children}
     </StateContext.Provider>
   );

@@ -17,7 +17,9 @@ import placementRouter from './src/routes/placements.router';
 import schedulesRouter from './src/routes/schedules.router';
 import usersRouter from './src/routes/users.router';
 import fileRouter from './src/routes/file.router'
+import login from './src/routes/signIN.router'
 const path = require('path');  // Import the "path" module
+require("dotenv").config();
 
 const app: Express = express();
 
@@ -26,6 +28,7 @@ app.use(express.json());
 app.use('/uploads',express.static('uploads'));
 app.use(cors())
 
+app.use('/login', login);
 app.use('/business-types', businessTypesRouter);
 app.use('/business-activities', businessActivitiesRouter);
 app.use('/locations', locationRouter);
