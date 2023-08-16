@@ -29,8 +29,8 @@ const passwordValidationRules = [
 
 
 
-const CampaignBusinessActivity: React.FC<any>  = ({prev, onSubmit}) => {
-    const [businessActivity, setBusinessActivity] = useState<any[]>([]);
+const CampaignBusinessActivity: React.FC<any>  = ({prev, onSubmit, addBusinessActivity}) => {
+    const [businessActivities, setBusinessActivities] = useState<any[]>([]);
 
   useEffect(() => {
     fetchData();
@@ -39,11 +39,13 @@ const CampaignBusinessActivity: React.FC<any>  = ({prev, onSubmit}) => {
   const fetchData= async () => {
     axios.get('http://localhost:3000/business-activities')
       .then((response) => {
-        setBusinessActivity(response.data);
-        console.log("business-activities", response.data);
+        setBusinessActivities(response.data);
+        console.log("business activities", response.data);
+        addBusinessActivity('ResetValue',true);
+
       })
       .catch((error) => {
-        console.error('Error fetching business-activities: ', error);
+        console.error('Error fetching business activities:', error);
       });
   }
 
@@ -63,8 +65,9 @@ const CampaignBusinessActivity: React.FC<any>  = ({prev, onSubmit}) => {
           optionFilterProp="children"
           mode="multiple"
           filterOption={false}
-          options={businessActivity.map((item) => ({ value: item._id, label: item.name }))}
-          value={businessActivity.length > 0 ? businessActivity[0]._id : undefined}
+          options={businessActivities.map((item) => ({ value: item._id, label: item.name }))}
+          value={businessActivities.length > 0 ? businessActivities[0]._id : undefined}
+          onChange={(value) =>addBusinessActivity(value[value.length - 1])}
         />
       </Form.Item>
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>

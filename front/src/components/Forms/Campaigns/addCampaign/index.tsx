@@ -9,6 +9,17 @@ function AddCampaign() {
   const [current, setCurrent] = useState(0);
 
   const [campaignData, setCampaignData] = useState<any>({});
+  const [businessActivity, setBusinessActivitiy] = useState<any[]>([]);
+  const addBusinessActivity = (newActivity : String[], clearExisting = false) => {
+    if (clearExisting) {
+      setBusinessActivitiy([newActivity]);
+    } else {
+      if (businessActivity[0] === 'ResetValue' ) {
+        businessActivity.shift();
+      }
+      setBusinessActivitiy([...businessActivity, newActivity]);
+    }
+  };
   const titles: string[] = ['Campaign','CampaignBA', 'CampaignBT', 'CampaignL'];
 
   const next = () => {
@@ -86,8 +97,8 @@ function AddCampaign() {
       <Steps className='max-w-screen-md w-full' current={current} items={items} />
       <div className="max-w-screen-sm w-full">
         {current == 0 && <Campaign setCampaignData={setCampaignData } next={next}/>}
-        {current == 1 && <CampaignBusinessActivity onSubmit={onSubmitCampaignBusinessActivity} prev={previous} />}
-        {current == 2 && <CampaignBusinessType onSubmit={onSubmitCampaignBusinessType} prev={previous} />}
+        {current == 1 && <CampaignBusinessActivity  addBusinessActivity={addBusinessActivity} onSubmit={onSubmitCampaignBusinessActivity} prev={previous} />}
+        {current == 2 && <CampaignBusinessType businessActivity={businessActivity} onSubmit={onSubmitCampaignBusinessType}  prev={previous} />}
         {current == 3 && <CampaignLocation onSubmit={onSubmitCampaignLocation} prev={previous} />}
       </div>
     </div>

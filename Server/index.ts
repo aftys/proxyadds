@@ -17,11 +17,13 @@ import placementRouter from './src/routes/placements.router';
 import schedulesRouter from './src/routes/schedules.router';
 import usersRouter from './src/routes/users.router';
 import fileRouter from './src/routes/file.router'
+const path = require('path');  // Import the "path" module
 
 const app: Express = express();
 
 app.use(express.json());
-
+// app.use('/uploads', express.static(__dirname + '/uploads'));
+app.use('/uploads',express.static('uploads'));
 app.use(cors())
 
 app.use('/business-types', businessTypesRouter);

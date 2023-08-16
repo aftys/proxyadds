@@ -35,13 +35,11 @@ const Campaign: React.FC<any> = ({ setCampaignData, next }) => {
       formData.append('url', values.url);
       formData.append('advertiser_id', values.advertiser_id);
       formData.append('file', file!);
+      console.log("this is the file", file!);
+
 
       // Send the POST request using Axios
-      const response = await axios.post('http://localhost:3000/files', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      const response = await axios.post('http://localhost:3000/files', formData)
       console.log('Campaign created:', response.data);
       message.success('File uploaded successfully!');
       setCampaignData(response.data);

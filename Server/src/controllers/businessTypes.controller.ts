@@ -83,11 +83,8 @@ async function getBusinessTypesByActivityIds(req, res) {
     // Find all business types that match the activity ID and are not deleted
     const businessTypes = await BusinessType.find({"activity_id": activityId, deleted: false });
     
-    if (businessTypes.length > 0) {
       res.json(businessTypes);
-    } else {
-      res.status(404).json({ message: 'Business types not found for the given activity ID' });
-    }
+    
   } catch (error) {
     res.status(500).json({ message: 'Error fetching business types' });
   }

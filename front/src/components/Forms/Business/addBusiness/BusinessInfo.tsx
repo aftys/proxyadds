@@ -39,6 +39,15 @@ const BusinessInfo: React.FC<Props> = ({ onSubmit, prev, data }) => {
       .catch((error) => {
         console.error('Error fetching business activities:', error);
       });
+
+
+      axios.get('http://localhost:3000/locations') // Replace '/api/locations' with your actual API endpoint
+      .then((response) => {
+        setLocations(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching locations:', error);
+      });
   }, []);
 
   useEffect(() => {
@@ -55,32 +64,7 @@ const BusinessInfo: React.FC<Props> = ({ onSubmit, prev, data }) => {
         });
     }
   }, [selectedBusinessActivity]);
-  useEffect(() => {
-    // axios.get('http://localhost:3000/business-types')
-    //   .then((response) => {
-    //     setBusinessTypes(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error fetching business types:', error);
-    //   });
 
-    // axios.get('http://localhost:3000/business-activities')
-    //   .then((response) => {
-    //     setBusinessActivities(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error fetching business activities:', error);
-    //   });
-
-    // Fetch locations from the server
-    axios.get('http://localhost:3000/locations') // Replace '/api/locations' with your actual API endpoint
-      .then((response) => {
-        setLocations(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching locations:', error);
-      });
-  }, []);
 
 
   useEffect(() => {
@@ -198,7 +182,7 @@ const BusinessInfo: React.FC<Props> = ({ onSubmit, prev, data }) => {
       </Form.Item>
       <Form.Item label="Business Typ" name="business_type_id" rules={[{ required: true }]}>
         <Cascader
-          options={availableBusinessTypes.map((item) => ({ value: item._id, label: item.name }))}
+          options={availableBusinessTypes?.map((item) => ({ value: item._id, label: item.name }))}
           placeholder="Select a business type"
           disabled={!selectedBusinessActivity}
         />

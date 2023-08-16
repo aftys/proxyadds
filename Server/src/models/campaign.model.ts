@@ -21,7 +21,7 @@ const CampaignSchema: Schema = new Schema(
     budget_max: { type: Number, required: true },
     begin_date: { type: Date, required: true },
     end_date: { type: Date, required: true },
-    file:  { type: Schema.Types.ObjectId, ref: 'GridFSFile', required: true },
+    file:  { type: String, required: true },
     display_hours: { type: String, required: true },
     status: { type: String, enum: CampaignStatus, required: true },
     url: { type: String, required: true },

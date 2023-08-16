@@ -47,6 +47,8 @@ const Business: React.FC<Props> = ({ onSubmit, prev, data }) => {
     }
   }, [selectedBusinessActivity]);
 
+  
+
   return (
     <Form
       // ... (other form attributes)

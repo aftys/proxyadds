@@ -29,23 +29,32 @@ const passwordValidationRules = [
 
 
 
-const CampaignBusinessType: React.FC<any>  = ({prev, onSubmit}) => {
+const CampaignBusinessType: React.FC<any>  = ({prev, onSubmit, businessActivity}) => {
     const [businessType, setBusinessType] = useState<any[]>([]);
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const fetchData= async () => {
-    axios.get('http://localhost:3000/business-types')
-      .then((response) => {
-        setBusinessType(response.data);
-        console.log("business-types", response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching business-activities: ', error);
+  const fetchData = async () => {
+    console.log("businessActivity hahiya", businessActivity);
+    
+    try {
+      const promises = businessActivity.map(async (item: any) => {
+        const response = await axios.get('http://localhost:3000/business-types/getBusinessTypesByActivityIds/' + item);
+        return response.data;
       });
-  }
+  
+      const results = await Promise.all(promises);
+      const combinedData = results.flat(); // Combine data from all requests into a single array
+      
+      setBusinessType(combinedData);
+    } catch (error) {
+      console.error('Error fetching business-activities: ', error);
+    }
+  };
+  
+  
 
   return (
     <Form
@@ -80,6 +89,3 @@ const CampaignBusinessType: React.FC<any>  = ({prev, onSubmit}) => {
 };
 
 export default CampaignBusinessType;
-
-
-

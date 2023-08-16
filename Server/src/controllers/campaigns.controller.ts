@@ -7,56 +7,57 @@ import fs from  'fs';
 
 
 
-const conn = mongoose.connection;
-let gridfs: mongoose.mongo.GridFSBucket;
-conn.once('open', () => {
-    gridfs = new mongoose.mongo.GridFSBucket(conn.db, {
-        bucketName: 'fs'
-    });
-});
+// const conn = mongoose.connection;
+// let gridfs: mongoose.mongo.GridFSBucket;
+// conn.once('open', () => {
+//     gridfs = new mongoose.mongo.GridFSBucket(conn.db, {
+//         bucketName: 'fs'
+//     });
+// });
+
+const fileSizeFormatter = (bytes, decimal) => {
+  if(bytes === 0){
+      return '0 Bytes';
+  }
+  const dm = decimal || 2;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'YB', 'ZB'];
+  const index = Math.floor(Math.log(bytes) / Math.log(1000));
+  return parseFloat((bytes / Math.pow(1000, index)).toFixed(dm)) + ' ' + sizes[index];
+
+}
 
 const createCampaign = async (req: Request, res: Response) => {
-  try {
-    const file = req.file;
-    const filename = file.originalname;
-    console.log(file);
-    console.log('post');
 
-    // Upload the file to GridFS
-    const uploadStream = await gridfs.openUploadStream(filename, { contentType: file.mimetype });
-    const readStream = fs.createReadStream(file.path);
-    readStream.pipe(uploadStream);
+ 
+try {
+  const file = {
+    fileName: req.file.originalname,
+    filePath: req.file.path,
+    fileType: req.file.mimetype,
+    fileSize: fileSizeFormatter(req.file.size, 2) // 0.00
+}
+// await file.save();
+// res.status(201).send('File Uploaded Successfully');
 
-    await new Promise((resolve, reject) => {
-        uploadStream.on('error', (error) => {
-            console.error(error);
-            reject(error);
-        });
+  const { name, budget_max, begin_date, end_date, display_hours, status, url, advertiser_id } = req.body;
+  const newCampaign: ICampaign = new Campaign({
+    name,
+    budget_max,
+    begin_date,
+    end_date,
+    file,
+    display_hours,
+    status,
+    url,
+    advertiser_id,
+    deleted: false,
+  });
+  const savedCampaign = await newCampaign.save();
+  res.status(201).json(savedCampaign);
+} catch (error) {
+  res.status(500).json({ message: 'Error creating campaign' });
+}
 
-        uploadStream.on('finish', () => {
-            console.log("test");
-            const fileId: string = uploadStream.id.toString();
-            const { name, budget_max, begin_date, end_date, display_hours, status, url, advertiser_id } = req.body;
-            const newCampaign: ICampaign = new Campaign({
-                name,
-                budget_max,
-                begin_date,
-                end_date,
-                file: fileId, // Store the file data as a binary buffer
-                display_hours,
-                status:"finished",
-                url,
-                advertiser_id,
-                deleted: false,
-            });
-            console.log(newCampaign)
-            const savedCampaign = newCampaign.save();
-            res.status(200).json(savedCampaign);
-            
-        });
-    });
-
-}catch(err){}
 };
 
 async function getAllCampaigns(req: Request, res: Response){

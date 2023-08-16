@@ -63,25 +63,25 @@ function Campaigns() {
       width: "10%",
       className: "dark:bg-dark-bg-main dark:text-gray-300",
     },
-    {
-      title: "Begin Date",
-      dataIndex: "begin_date",
-      key: "begin_date",
-      width: "10%",
-      className: "dark:bg-dark-bg-main dark:text-gray-300",
-    },
-    {
-      title: "End Date",
-      dataIndex: "end_date",
-      key: "end_date",
-      width: "10%",
-      render: (_: any, record: ICampaign) => (
-        <p>
-          {record.end_date.format('DD/MM/YYYY')}
-        </p>
-      ),
-      className: "dark:bg-dark-bg-main dark:text-gray-300",
-    },
+    // {
+    //   title: "Begin Date",
+    //   dataIndex: "begin_date",
+    //   key: "begin_date",
+    //   width: "10%",
+    //   className: "dark:bg-dark-bg-main dark:text-gray-300",
+    // },
+    // {
+    //   title: "End Date",
+    //   dataIndex: "end_date",
+    //   key: "end_date",
+    //   width: "10%",
+    //   render: (_: any, record: ICampaign) => (
+    //     <p>
+    //       {record.end_date.format('DD/MM/YYYY')}
+    //     </p>
+    //   ),
+    //   className: "dark:bg-dark-bg-main dark:text-gray-300",
+    // },
    
     {
       title: "display hours",
@@ -102,8 +102,8 @@ function Campaigns() {
       // dataIndex: "file",
       // key: "file",
       render: (_: any, record: ICampaign) => (
-        <a  className="text-white p-2 hover:text-white font-semibold rounded-lg bg-main-blue dark:bg-blue-950 hover:dark:bg-blue-900" key={record._id} href={"http://localhost:3000/files/"+record.file}>
-            download
+        <a  className="text-white p-2 hover:text-white font-semibold rounded-lg bg-main-blue dark:bg-blue-950 hover:dark:bg-blue-900" key={record._id} target="_blank" href={"http://localhost:3000/"+record.file}>
+            visite
         </a>
       ),
       width: "10%",

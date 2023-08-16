@@ -1,9 +1,9 @@
 import express from 'express';
 import { uploadFile, getAllFiles, downloadFile } from '../controllers/file.controller';
 import multer from 'multer';
-
+import upload from '../assets/filehelper';
 const router = express.Router();
-const upload = multer({ dest: '/tmp/' });
+// const upload = multer({ dest: '/tmp/' });
 
 // Route for handling file upload
 router.post('/', upload.single('file'), uploadFile);
