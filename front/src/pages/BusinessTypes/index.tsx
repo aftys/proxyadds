@@ -5,12 +5,20 @@ import AddBusinessType from "../../components/Forms/BusinessTypes/addBusinessTyp
 import axios from "axios";
 import Confirmation from "../../components/Confirmation";
 import EditBusinessType from "../../components/Forms/BusinessTypes/editBusinessType"; 
+import { useStateContext } from "../../contexts";
+import { useNavigate } from "react-router-dom";
 
 
 
 function BusinessTypes() {
   const [data, setData] = useState<MyData[]>([]);
   const [loading, setLoading] = useState(true);
+  const { userData } = useStateContext();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!userData.user) navigate('/login');
+  }, [navigate, userData.user]);
+  
 
     // Fetch data from the backend when the component mounts and whenever the data state changes
     useEffect(() => {

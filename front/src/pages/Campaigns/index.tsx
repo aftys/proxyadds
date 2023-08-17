@@ -7,10 +7,18 @@ import Confirmation from "../../components/Confirmation";
 import AddCampaign from "../../components/Forms/Campaigns/addCampaign";
 import EditCampaign from "../../components/Forms/Campaigns/editCampaign";
 import { CampaignStatus } from "../../../../Server/src/enums/campaignStatus.enum";
+import { useStateContext } from "../../contexts";
+import { useNavigate } from "react-router-dom";
 
 function Campaigns() {
   const [data, setData] = useState<ICampaign[]>([]);
   const [loading, setLoading] = useState(true);
+  const { userData } = useStateContext();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!userData.user) navigate('/login');
+  }, [navigate, userData.user]);
+  
 
   useEffect(() => {
     fetchData();

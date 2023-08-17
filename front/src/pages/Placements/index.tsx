@@ -18,7 +18,7 @@ function Placements() {
   const navigate = useNavigate();
   useEffect(() => {
     if (!userData.user) navigate('/login');
-  }, [history, userData.user]);
+  }, [navigate, userData.user]);
   
 
 

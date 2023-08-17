@@ -19,7 +19,7 @@ export const sidebarLinks = [
     { title: "Business activities", icon: <BsActivity /> ,link:'/BusinessActivities'},
     { title: "Parameters", icon: <AiOutlineSetting /> ,link:'/parameters'},
     { title: "Tracking", icon: <BsBarChartLine /> ,link:'/tracking'},
-    { title: "Logout", icon: <RiLogoutCircleRLine /> ,link:'/logout'},
+    // { title: "Logout", icon: <RiLogoutCircleRLine /> ,link:'/logout'},
   ];
 
 

@@ -65,12 +65,12 @@ router.post("/tokenIsValid", async (req: Request, res: Response) => {
   }
 });
 
-// router.get("/", auth, async (req: Request, res: Response) => {
-//   const user = await User.findById(req.user);
-//   res.json({
-//     displayName: user.displayName,
-//     id: user._id,
-//   });
-// });
+router.get("/", auth, async (req: Request, res: Response) => {
+  const user = await User.findById(req.body.user);
+  res.json({
+    displayName: user.name,
+    id: user._id,
+  });
+});
 
 export default router;
