@@ -6,8 +6,7 @@ import User from "../models/user.model";
 
 const router = Router();
 
-
-// Login
+// Common login route for all users
 router.post("/", async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -23,18 +22,22 @@ router.post("/", async (req: Request, res: Response) => {
         .status(400)
         .json({ msg: "No account with this email has been registered." });
 
-    const isMatch = await (bcrypt.compare(password, user.password)) && (user.role === "admin")
+    const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch)
       return res.status(400).json({ msg: "Invalid credentials." });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      const token = jwt.sign({
+        id: user._id,
+        role: user.role === "admin" ? "admin" : "business",
+      }, process.env.JWT_SECRET);
 
     res.json({
       token,
       user: {
         id: user._id,
         name: user.name,
+        role: user.role, // Include the user's role in the response
       },
     });
   } catch (err) {
@@ -42,7 +45,6 @@ router.post("/", async (req: Request, res: Response) => {
     console.log("this is the error", err);
   }
 });
-
 
 // Check if token is valid
 router.post("/tokenIsValid", async (req: Request, res: Response) => {
@@ -65,11 +67,13 @@ router.post("/tokenIsValid", async (req: Request, res: Response) => {
   }
 });
 
+// Common protected route for all users
 router.get("/", auth, async (req: Request, res: Response) => {
   const user = await User.findById(req.body.user);
   res.json({
     displayName: user.name,
     id: user._id,
+    role: user.role, // Include the user's role in the response
   });
 });
 

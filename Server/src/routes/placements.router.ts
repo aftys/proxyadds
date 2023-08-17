@@ -3,10 +3,10 @@ import { createPlacement, getAllPlacements, getPlacementById, updatePlacement, d
 import auth  from '../middlewares/auth';
 const router: Router = Router();
 
-router.post('/', auth, createPlacement);
-router.get('/', auth, getAllPlacements);
-router.get('/:id', auth, getPlacementById);
-router.put('/:id', auth, updatePlacement);
-router.delete('/:id', auth, deletePlacement);
+router.post('/', auth('admin'), createPlacement);
+router.get('/', auth('admin'), getAllPlacements);
+router.get('/:id', auth('admin'), getPlacementById);
+router.put('/:id', auth('admin'), updatePlacement);
+router.delete('/:id', auth('admin'),deletePlacement);
 
 export default router;
