@@ -1,17 +1,16 @@
-import { useEffect, useState, useContext } from "react";
-import TableGridTest from "../../components/Table";
-import AntModal from "../../components/Modals/Ant";
+import { useEffect, useState } from "react";
+import TableGridTest from "../../../components/Table";
+import AntModal from "../../../components/Modals/Ant";
 import axios from "axios";
-import Confirmation from "../../components/Confirmation";
-import AddPlacement from "../../components/Forms/Placement/addPlacement";
-import EditPlacement from "../../components/Forms/Placement/editPlacement";
-import { useNavigate, Link } from 'react-router-dom';
-import { useStateContext } from "../../contexts";
+import Confirmation from "../../../components/Confirmation";
+import AddAdvertiser from "../../../components/Forms/Advertiser/addAdvertiser";
+import EditAdvertiser from "../../../components/Forms/Advertiser/editAdvertiser";
+import { useStateContext } from "../../../contexts";
+import { useNavigate } from "react-router-dom";
 
 
+function BusinessActivities() {
 
-
-function Placements() {
   const [data, setData] = useState<MyData[]>([]);
   const [loading, setLoading] = useState(true);
   const { userData } = useStateContext();
@@ -22,34 +21,35 @@ function Placements() {
   
 
 
-
   useEffect(() => {
     fetchData();
-
   }, []); 
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/placements',{
+      const response = await axios.get('http://localhost:3000/advertisers',{
         headers: {
           'x-auth-token': userData.token, 
         },
-      }
-      );
+      });
       setData(response.data);
-      console.log("Placements data", response.data)
+      console.log(response.data)
       setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
+
   const handleDelete = async (index: any) => {
 
     console.log("Delete row with id:", index);
     try {
-      await axios.delete(`http://localhost:3000/placements/${index}`);
-      fetchData();
+      await axios.delete(`http://localhost:3000/advertisers/${index}`,{
+        headers: {
+          'x-auth-token': userData.token, 
+        },
+      });
     } catch (error) {
       console.error("Error deleting row:", error);
     }
@@ -58,22 +58,39 @@ function Placements() {
   type MyData = {
     _id: string;
     name: string;
-    
   };
 
   const customColumns = [
     {
       title: "Name",
-      dataIndex: "name",
+      dataIndex: ["user_id", "name"],
       key: "name",
       width: "30%",
       className: "dark:bg-dark-bg-main dark:text-gray-300",
     },
     {
-      title: "Business",
-      dataIndex: ["business_id", "user_id"],
-      key: "user_id",
+      title: "Email",
+      dataIndex: ["user_id", "email"],
+      key: "email",
       width: "20%",
+      className: "dark:bg-dark-bg-main dark:text-gray-300",
+    },
+    {
+      title: "Phone",
+      dataIndex: ["user_id", "phone"],
+      key: "phone",
+      className: "dark:bg-dark-bg-main dark:text-gray-300",
+    },
+    {
+      title: "Address",
+      dataIndex: ["user_id", "address"],
+      key: "address",
+      className: "dark:bg-dark-bg-main dark:text-gray-300",
+    },
+    {
+      title: "Activity",
+      dataIndex: ["act_id", "name"],
+      key: "activity",
       className: "dark:bg-dark-bg-main dark:text-gray-300",
     },
     {
@@ -82,7 +99,7 @@ function Placements() {
       key: 'x',
       render: (_: any, record: any) => (
         <span className="flex gap-4">
-          <EditPlacement record={record} />
+          <EditAdvertiser record={record} />
           <Confirmation handleDelete={() => handleDelete(record._id)} />
         </span>
       ),
@@ -94,24 +111,13 @@ function Placements() {
 
 
 
-
-
   return (
     <>
-    {userData.user ? (
-      <>
-      <AntModal name={'add Placement'} size={"130px"}>
-        <AddPlacement />
+      <AntModal name={'add advertiser'} size={"130px"}>
+        <AddAdvertiser />
       </AntModal>
       <TableGridTest loading={loading} columns={customColumns} data={data} />
-      </>
-    ): (
-      <>
-        <h2>You are not logged in</h2>
-        <Link to="/login">Login</Link>
-      </>
-    )}
     </>
   );
 }
-export default Placements;
+export default BusinessActivities;

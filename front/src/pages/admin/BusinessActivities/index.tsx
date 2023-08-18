@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import TableGridTest from "../../components/Table";
-import AntModal from "../../components/Modals/Ant";
-import AddBusinessActivities from "../../components/Forms/BusinessActivities/addBusinessActivities";
+import TableGridTest from "../../../components/Table";
+import AntModal from "../../../components/Modals/Ant";
+import AddBusinessActivities from "../../../components/Forms/BusinessActivities/addBusinessActivities";
 import axios from "axios";
-import Confirmation from "../../components/Confirmation";
-import EditBusinessActivities from "../../components/Forms/BusinessActivities/editBusinessActivities";
-import { useStateContext } from "../../contexts";
+import Confirmation from "../../../components/Confirmation";
+import EditBusinessActivities from "../../../components/Forms/BusinessActivities/editBusinessActivities";
+import { useStateContext } from "../../../contexts";
 import { useNavigate } from "react-router-dom";
 
 

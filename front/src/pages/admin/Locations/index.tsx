@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import TableGridTest from "../../components/Table";
-import AntModal from "../../components/Modals/Ant";
-import LocationForm from "../../components/Forms/Location/addLocation";
+import TableGridTest from "../../../components/Table";
+import AntModal from "../../../components/Modals/Ant";
+import LocationForm from "../../../components/Forms/Location/addLocation";
 import axios from "axios";
-import Confirmation from "../../components/Confirmation";
-import LocationFormEdit from "../../components/Forms/Location/editLocation";
-import { useStateContext } from "../../contexts";
+import Confirmation from "../../../components/Confirmation";
+import LocationFormEdit from "../../../components/Forms/Location/editLocation";
+import { useStateContext } from "../../../contexts";
 import { useNavigate } from "react-router-dom";
 
 const Locations: React.FC = () => {

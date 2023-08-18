@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Alert, Button, Calendar, Modal, TimePicker, } from 'antd';
 import { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
-import AddEvent from '../../components/Forms/Shcedule/addEvent';
+import AddEvent from '../../../components/Forms/Shcedule/addEvent';
 import BusinessHoursForm from './test';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';

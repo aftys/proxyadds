@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import TableGridTest from "../../components/Table";
-import AntModal from "../../components/Modals/Ant";
+import TableGridTest from "../../../components/Table";
+import AntModal from "../../../components/Modals/Ant";
 import axios from "axios";
-import Confirmation from "../../components/Confirmation";
-import LocationFormEdit from "../../components/Forms/Location/editLocation";
-import AddBusiness from "../../components/Forms/Business/addBusiness";
+import Confirmation from "../../../components/Confirmation";
+import LocationFormEdit from "../../../components/Forms/Location/editLocation";
+import AddBusiness from "../../../components/Forms/Business/addBusiness";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "antd";
-import IBusiness from "../../interfaces/Business";
-import EditBusiness from "../../components/Forms/Business/EditBusiness";
+import IBusiness from "../../../interfaces/Business";
+import EditBusiness from "../../../components/Forms/Business/EditBusiness";
 import GridLoader from "react-spinners/GridLoader";
-import { useStateContext } from "../../contexts";
+import { useStateContext } from "../../../contexts";
 
 
 const Business: React.FC = () => {

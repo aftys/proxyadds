@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import TableGridTest from "../../components/Table";
-import AntModal from "../../components/Modals/Ant";
+import TableGridTest from "../../../components/Table";
+import AntModal from "../../../components/Modals/Ant";
 import axios from "axios";
 import { Dayjs } from 'dayjs';
-import Confirmation from "../../components/Confirmation";
-import AddCampaign from "../../components/Forms/Campaigns/addCampaign";
-import EditCampaign from "../../components/Forms/Campaigns/editCampaign";
-import { CampaignStatus } from "../../../../Server/src/enums/campaignStatus.enum";
-import { useStateContext } from "../../contexts";
+import Confirmation from "../../../components/Confirmation";
+import AddCampaign from "../../../components/Forms/Campaigns/addCampaign";
+import EditCampaign from "../../../components/Forms/Campaigns/editCampaign";
+import { CampaignStatus } from "../../../../../Server/src/enums/campaignStatus.enum";
+import { useStateContext } from "../../../contexts";
 import { useNavigate } from "react-router-dom";
 
 function Campaigns() {

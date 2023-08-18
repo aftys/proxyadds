@@ -18,8 +18,13 @@ import schedulesRouter from './src/routes/schedules.router';
 import usersRouter from './src/routes/users.router';
 import fileRouter from './src/routes/file.router'
 import login from './src/routes/signIN.router'
+import CamapignAdsRouter from './src/routes/campaignAds.router'
+
+
 const path = require('path');  // Import the "path" module
 require("dotenv").config();
+
+
 
 const app: Express = express();
 
@@ -45,6 +50,7 @@ app.use('/placements', placementRouter);
 app.use('/schedules', schedulesRouter);
 app.use('/users', usersRouter);
 app.use('/files', fileRouter);
+app.use('/test',CamapignAdsRouter);
 
 const PORT: number = parseInt(process.env.PORT || '3000', 10);
 app.listen(PORT, () => {

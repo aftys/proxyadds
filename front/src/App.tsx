@@ -3,21 +3,20 @@ import {  ConfigProvider, theme } from "antd"
 import Layout from "./components/Layout"
 import { Routes, Route } from "react-router-dom"
 import { BrowserRouter as Router } from "react-router-dom"; // Import BrowserRouter
-import Placements from "./pages/Placements"
-import Schedules from "./pages/Schedules"
-import Advertisers from "./pages/Advertisers"
-import Locations from "./pages/Locations"
-import Campaigns from "./pages/Campaigns"
-import BusinessTypes from "./pages/BusinessTypes"
-import BusinessActivities from "./pages/BusinessActivities"
-import Parameters from "./pages/Parameters"
-import Tracking from "./pages/Tracking"
-import Logout from "./pages/Logout"
-import Login from "./pages/Login"
-import Business from "./pages/Business"
-
+import Placements from "./pages/admin/Placements"
+import Schedules from "./pages/admin/Schedules"
+import Advertisers from "./pages/admin/Advertisers"
+import Locations from "./pages/admin/Locations"
+import Campaigns from "./pages/admin/Campaigns"
+import BusinessTypes from "./pages/admin/BusinessTypes"
+import BusinessActivities from "./pages/admin/BusinessActivities"
+import Parameters from "./pages/admin/Parameters"
+import Tracking from "./pages/admin/Tracking"
+import Login from "./pages/Login";
+import Business from "./pages/admin/business"
+import BusinessPlacement from './pages/business/placements'
 import { GridLoader } from "react-spinners"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import axios from "axios"
 
 
@@ -58,7 +57,7 @@ function App() {
     >
       <div className={`h-screen w-screen ${darkMode && "dark"}`}>
         <Routes>
-          <Route  path="/login"  element={<Login />} /> {/* Login route outside of the layout */}
+          <Route  path="/login"  element={<Login />} /> 
           <Route
             path="/*"
             element={
@@ -77,12 +76,14 @@ function App() {
                     <Route path="/BusinessActivities" element={<BusinessActivities />} />
                     <Route path="/Parameters" element={<Parameters />} />
                     <Route path="/Tracking" element={<Tracking />} />
-                    <Route path="/Logout" element={<Logout />} />
                   </Routes>
                 </Layout>
               </div>
             }
           />
+          <Route path="/">
+              
+          </Route>
         </Routes>
       </div>
     </ConfigProvider>

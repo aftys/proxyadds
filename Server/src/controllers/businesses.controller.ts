@@ -14,6 +14,7 @@ async function createBusiness(req: Request, res: Response) {
       phone,
       address,
       deleted: false,
+      role:'business',
       status: 0,
     });
     const savedUser: IUser = await newUser.save();

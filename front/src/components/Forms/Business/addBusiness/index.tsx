@@ -33,7 +33,7 @@ function AddBusiness() {
   };
 
   async function onSubmitFinal(values:any){
-    setBusinessData({ ...businessData, ...values });
+    setBusinessData({ ...businessData, ...values,role:'business' });
     console.log(businessData)
     await axios.post('http://localhost:3000/businesses',businessData)
     .then((res)=>console.log(res))

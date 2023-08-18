@@ -3,6 +3,8 @@ import { Form, Input, Button, Select } from 'antd';
 import mongodb from 'mongodb';
 import axios from 'axios';
 
+import { useStateContext } from "../../../../contexts";
+
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
@@ -29,9 +31,17 @@ const passwordValidationRules = [
 
 const AddAdvertiser: React.FC = () => {
   const [businessActivities, setBusinessActivities] = useState<any[]>([]);
+  const { userData } = useStateContext();
+
 
   useEffect(() => {
-    axios.get('http://localhost:3000/business-activities')
+    axios.get('http://localhost:3000/business-activities',
+    {
+      headers: {
+        'x-auth-token': userData.token, 
+      },
+    }
+    )
       .then((response) => {
         setBusinessActivities(response.data);
       })
@@ -49,7 +59,13 @@ const AddAdvertiser: React.FC = () => {
         phone: values.phone,
         address: values.address,
         status: 0,
-      });
+        role:'advertiser'
+      }, {
+        headers: {
+          'x-auth-token': userData.token, 
+        },
+      }
+      );
 
       await axios.post('http://localhost:3000/advertisers', {
         act_id: values.act_id,

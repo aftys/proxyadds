@@ -1,0 +1,17 @@
+version: '3'
+services:
+  client:
+    build:
+      context: .
+      dockerfile: front/Dockerfile
+    ports:
+      - '8080:8080'
+  server:
+    build:
+      context: .
+      dockerfile: Server/Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: production
+
