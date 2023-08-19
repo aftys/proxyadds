@@ -1,26 +1,13 @@
 import React, { useState } from "react";
 import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs'
 import { sidebarLinks } from "../../assets";
-import { NavLink, useNavigate } from "react-router-dom";
-import {RiLogoutCircleRLine} from 'react-icons/ri'
-import { useStateContext } from "../../contexts";
+import { NavLink } from "react-router-dom";
+import LougoutConfirmation from '../Confirmation/logoutConfirmation'
+
 
 const Sidebar: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const { setUserData } = useStateContext();
-  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // Clear user data from context and local storage
-    setUserData({
-      token: '',
-      user: null,
-    });
-    localStorage.removeItem('auth-token');
-
-    // Redirect to the login page or any other desired route
-    navigate('/login');
-  };
 
   return (
     <div
@@ -59,7 +46,7 @@ const Sidebar: React.FC = () => {
 
           >
 
-            <NavLink to={link.link} className={({isActive})=>{return `flex   rounded-md p-2 pl-4 h-7 cursor-pointer hover:dark:bg-light-white hover:bg-gray-100 dark:text-gray-300 text-gray-500 text-sm items-center gap-x-4  ${isActive && "bg-[#22d3ee44] " }`;}} >
+            <NavLink to={link.link} className={({ isActive }) => { return `flex   rounded-md p-2 pl-4 h-7 cursor-pointer hover:dark:bg-light-white hover:bg-gray-100 dark:text-gray-300 text-gray-500 text-sm items-center gap-x-4  ${isActive && "bg-[#22d3ee44] "}`; }} >
               {link.icon}
               <span className={`${!open && "hidden"} origin-left duration-400`}>
                 {link.title}
@@ -68,13 +55,10 @@ const Sidebar: React.FC = () => {
           </li>
         ))}
       </ul>
-      <div className="absolute bottom-5 w-full pt-6 flex flex-col gap-0 overflow-hidden">
-      <div onClick={handleLogout} className=" flex rounded-md p-5 pl-4 h-7 cursor-pointer hover:dark:bg-light-white hover:bg-gray-100 dark:text-gray-300 text-gray-500 text-sm items-center gap-x-4 " >  
-          <RiLogoutCircleRLine />
-              <span  className={`${!open && "hidden"} origin-left duration-400`}>
-                Logout
-              </span>
-      </div></div>
+      <div className="absolute bottom-5 left-2 w-[80%] flex flex-col gap-0 overflow-hidden">
+
+        <LougoutConfirmation isSidebarOpen={open}/>
+      </div>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import TableGridTest from "../../../components/Table";
 import AntModal from "../../../components/Modals/Ant";
 import AddBusinessActivities from "../../../components/Forms/BusinessActivities/addBusinessActivities";
 import axios from "axios";
-import Confirmation from "../../../components/Confirmation";
+import Confirmation from "../../../components/Confirmation/deleteConfirmation";
 import EditBusinessActivities from "../../../components/Forms/BusinessActivities/editBusinessActivities";
 import { useStateContext } from "../../../contexts";
 import { useNavigate } from "react-router-dom";
@@ -13,11 +13,7 @@ function BusinessActivities() {
 
   const [data, setData] = useState<MyData[]>([]);
   const [loading, setLoading] = useState(true);
-  const { userData } = useStateContext();
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!userData.user) navigate('/login');
-  }, [navigate, userData.user]);
+
   
 
   // Fetch data from the backend when the component mounts and whenever the data state changes

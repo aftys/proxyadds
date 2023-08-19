@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Select, Button, Cascader } from 'antd';
 import axios from 'axios';
-import debounce from 'lodash.debounce';
 import IBusiness from '../../../../interfaces/Business';
 
 const layout = {
@@ -21,7 +20,6 @@ interface Props {
 
 const BusinessInfo: React.FC<Props> = ({ onSubmit, prev, data }) => {
 
-  const [businessTypes, setBusinessTypes] = useState<any[]>([]);
   const [businessActivities, setBusinessActivities] = useState<any[]>([]);
   const [locations, setLocations] = useState<any[]>([]);
   const [cascaderOptions, setCascaderOptions] = useState<any[]>([]);
@@ -94,31 +92,6 @@ const BusinessInfo: React.FC<Props> = ({ onSubmit, prev, data }) => {
     setCascaderOptions(cascaderOptions);
   }, [locations]);
 
-
-  const delayedFetchBusinessTypes = debounce((searchValue: string) => {
-    axios.get(`http://localhost:3000/business-types?search=${searchValue}`)
-      .then((response) => {
-        setBusinessTypes(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching business types:', error);
-      });
-  }, 300);
-
-
-  const delayedFetchBusinessActivities = debounce((searchValue: string) => {
-    axios.get(`http://localhost:3000/business-activities?search=${searchValue}`)
-      .then((response) => {
-        setBusinessActivities(response.data);
-        
-      })
-      .catch((error) => {
-        console.error('Error fetching business activities:', error);
-      });
-  }, 300);
-
-
-
   return (
     <Form
       {...layout}
@@ -148,26 +121,7 @@ const BusinessInfo: React.FC<Props> = ({ onSubmit, prev, data }) => {
           placeholder="Select a location"
         />
       </Form.Item>
-      {/* <Form.Item label="Business Activity" name="business_activity_id" rules={[{ required: true }]}>
-        <Select
-          showSearch
-          placeholder="Select a business activity"
-          optionFilterProp="children"
-          filterOption={false}
-          options={businessActivities.map((item) => { return { value: item._id, label: item.name } })}
-          onSearch={delayedFetchBusinessActivities}
-        />
-      </Form.Item>
-      <Form.Item label="Business Type" name="business_type_id" rules={[{ required: true }]}>
-        <Select
-          showSearch
-          placeholder="Select a business type"
-          optionFilterProp="children"
-          filterOption={false}
-          onSearch={delayedFetchBusinessTypes}
-          options={businessTypes.map((item) => { return { value: item._id, label: item.name } })}
-        />
-      </Form.Item> */}
+    
       <Form.Item label="Business Activity" name="business_activity_id" rules={[{ required: true }]}>
         <Select
           // ... (other select attributes)
@@ -176,7 +130,6 @@ const BusinessInfo: React.FC<Props> = ({ onSubmit, prev, data }) => {
           optionFilterProp="children"
           filterOption={false}
           options={businessActivities.map((item) => { return { value: item._id, label: item.name } })}
-          onSearch={delayedFetchBusinessActivities}
           onChange={(value) => {setSelectedBusinessActivity(value); console.log("this is the value", value)}}
         />
       </Form.Item>

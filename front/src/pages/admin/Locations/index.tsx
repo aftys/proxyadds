@@ -3,20 +3,13 @@ import TableGridTest from "../../../components/Table";
 import AntModal from "../../../components/Modals/Ant";
 import LocationForm from "../../../components/Forms/Location/addLocation";
 import axios from "axios";
-import Confirmation from "../../../components/Confirmation";
+import Confirmation from "../../../components/Confirmation/deleteConfirmation";
 import LocationFormEdit from "../../../components/Forms/Location/editLocation";
-import { useStateContext } from "../../../contexts";
-import { useNavigate } from "react-router-dom";
 
 const Locations: React.FC = () => {
   const [data, setData] = useState<MyData[]>([]);
   const [loading, setLoading] = useState(true);
-  const { userData } = useStateContext();
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!userData.user) navigate('/login');
-  }, [navigate, userData.user]);
-  
+
 
   // Fetch data from the backend when the component mounts and whenever the data state changes
   useEffect(() => {

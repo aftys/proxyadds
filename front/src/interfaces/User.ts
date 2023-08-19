@@ -1,7 +1,4 @@
-export default interface IUser {
-    email: string;
-    password: string;
-    name: string;
-    phone: string;
-    address: string;
-}
+export default interface  User {
+    token: string | undefined;
+    user: any; // Replace 'any' with an appropriate user type if available
+  }

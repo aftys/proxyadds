@@ -2,10 +2,10 @@ import { useEffect, useState, useContext } from "react";
 import TableGridTest from "../../../components/Table";
 import AntModal from "../../../components/Modals/Ant";
 import axios from "axios";
-import Confirmation from "../../../components/Confirmation";
+import Confirmation from "../../../components/Confirmation/deleteConfirmation";
 import AddPlacement from "../../../components/Forms/Placement/addPlacement";
 import EditPlacement from "../../../components/Forms/Placement/editPlacement";
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useStateContext } from "../../../contexts";
 
 
@@ -15,10 +15,10 @@ function Placements() {
   const [data, setData] = useState<MyData[]>([]);
   const [loading, setLoading] = useState(true);
   const { userData } = useStateContext();
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!userData.user) navigate('/login');
-  }, [navigate, userData.user]);
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   if (!userData.user) navigate('/login');
+  // }, [navigate, userData.user]);
   
 
 
@@ -97,21 +97,14 @@ function Placements() {
 
 
   return (
-    <>
-    {userData.user ? (
+
       <>
       <AntModal name={'add Placement'} size={"130px"}>
         <AddPlacement />
       </AntModal>
       <TableGridTest loading={loading} columns={customColumns} data={data} />
       </>
-    ): (
-      <>
-        <h2>You are not logged in</h2>
-        <Link to="/login">Login</Link>
-      </>
-    )}
-    </>
+    
   );
 }
 export default Placements;

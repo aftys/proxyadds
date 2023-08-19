@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import TableGridTest from "../../../components/Table";
 import AntModal from "../../../components/Modals/Ant";
 import axios from "axios";
-import Confirmation from "../../../components/Confirmation";
+import Confirmation from "../../../components/Confirmation/deleteConfirmation";
 import AddAdvertiser from "../../../components/Forms/Advertiser/addAdvertiser";
 import EditAdvertiser from "../../../components/Forms/Advertiser/editAdvertiser";
 import { useStateContext } from "../../../contexts";
@@ -15,9 +15,11 @@ function BusinessActivities() {
   const [loading, setLoading] = useState(true);
   const { userData } = useStateContext();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!userData.user) navigate('/login');
-  }, [navigate, userData.user]);
+
+  
+  // useEffect(() => {
+  //   if (!userData.user) navigate('/login');
+  // }, [navigate, userData.user]);
   
 
 

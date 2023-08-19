@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import BusinessInfo from './BusinessInfo'
 import UserInfo from './UserInfo'
 import { Steps } from "antd";
 import axios from "axios";
 import PlacementInfo from "./PlacementInfo";
 import IBusiness from "../../../../interfaces/Business";
-import { Await } from "react-router-dom";
 function AddBusiness() {
   const [current, setCurrent] = useState(0);
   const [businessData, setBusinessData] = useState<IBusiness>({});

@@ -16,6 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src","src/pages/admin/business/index.tsx"],
+  "include": ["src","src/pages/admin/Business/index.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

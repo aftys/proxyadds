@@ -38,7 +38,7 @@ function styleOptionsToCssProperties({
   const { darkMode } = useStateContext();
   const defaultBaseColor = darkMode ? 'rgb(27, 38, 61)' : '#e5e7eb';
   const defaultHighlightColor = darkMode ? 'rgb(36, 51, 82)' : '#fff';
-  const style: React.CSSProperties = {};
+  const style:any= {};
 
   if (direction === 'rtl') style['--animation-direction'] = 'reverse';
   if (typeof duration === 'number') style['--animation-duration'] = `${duration}s`;
@@ -70,7 +70,7 @@ export default function Skeleton({
 
   for (const [key, value] of Object.entries(originalPropsStyleOptions)) {
     if (typeof value === 'undefined') {
-      delete propsStyleOptions[key];
+      // delete propsStyleOptions[key];
     }
   }
 

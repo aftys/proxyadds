@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { userProfileData } from '../../../assets';
 import { MdOutlineCancel } from 'react-icons/md';
 import { HiLogout } from 'react-icons/hi';
-import Button from '../Button';
+import Button from '../../Button';
 
 interface ProfileProps {
   close: () => void;

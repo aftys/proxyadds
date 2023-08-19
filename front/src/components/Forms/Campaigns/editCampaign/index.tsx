@@ -6,7 +6,7 @@ import Campaign from "./Campaign";
 import CampaignBusinessType from "./CampaignBusinessType";
 import CampaignLocation from "./CampaingLocation";
 import AntModal from "../../../Modals/Ant";
-function AddCampaign() {
+function EditCampaign(record:any) {
   const [current, setCurrent] = useState(0);
 
   const [campaignData, setCampaignData] = useState<any>({});
@@ -97,4 +97,4 @@ function AddCampaign() {
   );
 }
 
-export default AddCampaign;
+export default EditCampaign;

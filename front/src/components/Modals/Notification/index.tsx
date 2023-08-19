@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Button from '../Button';
+import Button from '../../Button';
 import { MdOutlineCancel } from 'react-icons/md';
 import { notifData } from '../../../assets';
 import moment from 'moment';

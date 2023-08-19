@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import TableGridTest from "../../../components/Table";
 import AntModal from "../../../components/Modals/Ant";
 import axios from "axios";
-import Confirmation from "../../../components/Confirmation";
+import Confirmation from "../../../components/Confirmation/deleteConfirmation";
 import LocationFormEdit from "../../../components/Forms/Location/editLocation";
 import AddBusiness from "../../../components/Forms/Business/addBusiness";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,12 +16,6 @@ import { useStateContext } from "../../../contexts";
 const Business: React.FC = () => {
   const [data, setData] = useState<IBusiness[]>([]);
   const [loading, setLoading] = useState(true);
-  const { userData } = useStateContext();
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!userData.user) navigate('/login');
-  }, [navigate, userData.user]);
-  
 
   useEffect(() => {
     fetchData();

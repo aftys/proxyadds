@@ -34,7 +34,7 @@ function Login() {
       });
 
       localStorage.setItem('auth-token', loginResponse.data.token);
-      navigate('/Businesses');
+      navigate('/admin');
     } catch (err) {
       console.log(err);
     }

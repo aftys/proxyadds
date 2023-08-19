@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Select, Button, Cascader } from 'antd';
 import axios from 'axios';
-import debounce from 'lodash.debounce';
 import IBusiness from '../../../../interfaces/Business';
 
 const layout = {
@@ -82,26 +81,6 @@ const BusinessInfo: React.FC<Props> = ({ onSubmit, prev, data }) => {
   }, [locations]);
 
 
-  const delayedFetchBusinessTypes = debounce((searchValue: string) => {
-    axios.get(`http://localhost:3000/business-types?search=${searchValue}`)
-      .then((response) => {
-        setBusinessTypes(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching business types:', error);
-      });
-  }, 300);
-
-
-  const delayedFetchBusinessActivities = debounce((searchValue: string) => {
-    axios.get(`http://localhost:3000/business-activities?search=${searchValue}`)
-      .then((response) => {
-        setBusinessActivities(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching business activities:', error);
-      });
-  }, 300);
 
 
 
@@ -140,7 +119,6 @@ const BusinessInfo: React.FC<Props> = ({ onSubmit, prev, data }) => {
           placeholder="Select a business type"
           optionFilterProp="children"
           filterOption={false}
-          onSearch={delayedFetchBusinessTypes}
           options={businessTypes.map((item) => { return { value: item._id, label: item.name } })}
         />
       </Form.Item>
@@ -151,7 +129,6 @@ const BusinessInfo: React.FC<Props> = ({ onSubmit, prev, data }) => {
           optionFilterProp="children"
           filterOption={false}
           options={businessActivities.map((item) => { return { value: item._id, label: item.name } })}
-          onSearch={delayedFetchBusinessActivities}
         />
       </Form.Item>
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>

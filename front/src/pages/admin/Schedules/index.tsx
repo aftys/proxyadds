@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
 import { Alert, Button, Calendar, Modal, TimePicker, } from 'antd';
 import { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
-import AddEvent from '../../../components/Forms/Shcedule/addEvent';
-import BusinessHoursForm from './test';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { RangeValue } from 'rc-picker/lib/interface';
+import { MdLabelImportant } from 'react-icons/md';
+import { useEffect, useState } from 'react';
 
 interface Event {
   _id: string;
@@ -106,8 +104,7 @@ function Schedules() {
         }}
       />
       <Modal open={modalAddVisble} onCancel={hideModal} footer={null}>
-        {/* <AddEvent businessId={id} /> */}
-        < BusinessHoursForm />
+
       </Modal>
       <Modal open={isDayInfoVisible} onCancel={() => setIsDayInfoVisible(false)} footer={null}>
         <div className='w-full p-6  '>

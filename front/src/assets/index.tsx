@@ -4,22 +4,19 @@ import { IoMdBusiness } from 'react-icons/io'
 import { BsInboxes } from 'react-icons/bs'
 import { MdOutlinePlace } from 'react-icons/md'
 import { VscTypeHierarchySub } from 'react-icons/vsc'
-import { AiOutlineBarChart,AiOutlineCalendar,AiOutlineNotification } from 'react-icons/ai'
-import {RiLogoutCircleRLine} from 'react-icons/ri'
+import { AiOutlineBarChart,AiOutlineNotification } from 'react-icons/ai'
 
 
 export const sidebarLinks = [
-    { title: "Businesses", icon: <IoMdBusiness /> ,link:'/businesses'},
-    { title: "Placements", icon: <BsInboxes /> ,link:'/placements'},
-    // { title: "Schedules", icon: <AiOutlineCalendar />,link:'/schedules' },
-    { title: "Advertisers ", icon: <AiOutlineNotification /> ,link:'/advertisers'},
-    { title: "Locations", icon: <MdOutlinePlace /> ,link:'/locations'},
-    { title: "Campaigns", icon: <AiOutlineBarChart />,link:'/campaigns' },
-    { title: "Business types ", icon: <VscTypeHierarchySub /> ,link:'/BusinessTypes'},
-    { title: "Business activities", icon: <BsActivity /> ,link:'/BusinessActivities'},
-    { title: "Parameters", icon: <AiOutlineSetting /> ,link:'/parameters'},
-    { title: "Tracking", icon: <BsBarChartLine /> ,link:'/tracking'},
-    // { title: "Logout", icon: <RiLogoutCircleRLine /> ,link:'/logout'},
+    { title: "Businesses", icon: <IoMdBusiness /> ,link:'/admin/businesses'},
+    { title: "Placements", icon: <BsInboxes /> ,link:'/admin/placements'},
+    { title: "Advertisers ", icon: <AiOutlineNotification /> ,link:'/admin/advertisers'},
+    { title: "Locations", icon: <MdOutlinePlace /> ,link:'/admin/locations'},
+    { title: "Campaigns", icon: <AiOutlineBarChart />,link:'/admin/campaigns' },
+    { title: "Business types ", icon: <VscTypeHierarchySub /> ,link:'/admin/BusinessTypes'},
+    { title: "Business activities", icon: <BsActivity /> ,link:'/admin/BusinessActivities'},
+    { title: "Parameters", icon: <AiOutlineSetting /> ,link:'/admin/parameters'},
+    { title: "Tracking", icon: <BsBarChartLine /> ,link:'/admin/tracking'},
   ];
 
 

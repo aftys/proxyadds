@@ -3,21 +3,15 @@ import TableGridTest from "../../../components/Table";
 import AntModal from "../../../components/Modals/Ant";
 import axios from "axios";
 import { Dayjs } from 'dayjs';
-import Confirmation from "../../../components/Confirmation";
+import Confirmation from "../../../components/Confirmation/deleteConfirmation";
 import AddCampaign from "../../../components/Forms/Campaigns/addCampaign";
 import EditCampaign from "../../../components/Forms/Campaigns/editCampaign";
 import { CampaignStatus } from "../../../../../Server/src/enums/campaignStatus.enum";
-import { useStateContext } from "../../../contexts";
-import { useNavigate } from "react-router-dom";
 
 function Campaigns() {
   const [data, setData] = useState<ICampaign[]>([]);
   const [loading, setLoading] = useState(true);
-  const { userData } = useStateContext();
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!userData.user) navigate('/login');
-  }, [navigate, userData.user]);
+
   
 
   useEffect(() => {
@@ -69,28 +63,8 @@ function Campaigns() {
       dataIndex: "budget_max",
       key: "budget_max",
       width: "10%",
-      className: "dark:bg-dark-bg-main dark:text-gray-300",
+      className: "dark:bg-dark-bg-main dark:text-gray-300",                                   
     },
-    // {
-    //   title: "Begin Date",
-    //   dataIndex: "begin_date",
-    //   key: "begin_date",
-    //   width: "10%",
-    //   className: "dark:bg-dark-bg-main dark:text-gray-300",
-    // },
-    // {
-    //   title: "End Date",
-    //   dataIndex: "end_date",
-    //   key: "end_date",
-    //   width: "10%",
-    //   render: (_: any, record: ICampaign) => (
-    //     <p>
-    //       {record.end_date.format('DD/MM/YYYY')}
-    //     </p>
-    //   ),
-    //   className: "dark:bg-dark-bg-main dark:text-gray-300",
-    // },
-   
     {
       title: "display hours",
       dataIndex: "display_hours",
@@ -123,7 +97,7 @@ function Campaigns() {
       key: "x",
       render: (_: any, record: ICampaign) => (
         <span className="flex gap-4">
-          <EditCampaign record={record} />
+          <EditCampaign record={record as any} />
           <Confirmation handleDelete={() => handleDelete(record._id)} />
         </span>
       ),

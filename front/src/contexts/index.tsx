@@ -1,14 +1,11 @@
 import React, { createContext, useContext, useState,HTMLAttributes } from 'react';
+import User from '../interfaces/User';
 
 interface StateContextType {
   darkMode: boolean;
   toggleDarkMode: () => void;
-  userData: UserData;
-  setUserData : (props:UserData) => void;
-}
-interface UserData {
-  token: string | undefined;
-  user: any; // Replace 'any' with an appropriate user type if available
+  userData: User;
+  setUserData : (props:User) => void;
 }
 
 const StateContext = createContext<StateContextType | undefined>(undefined);
@@ -18,10 +15,14 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 export const ContextProvider: React.FC<Props> = ({ children }) => {
   const [darkMode, setDarkMode] = useState(false);
-  const [ userData, setUserData] = useState<UserData>({
+  const [ userData, setUser] = useState<User>({
     token: undefined,
     user: undefined
     });
+  const setUserData=(user:User)=>{
+    if(user.token) localStorage.setItem("auth-user",user.token );
+    setUser(user)
+  }
 
   const toggleDarkMode = () => {
     setDarkMode(prevDarkMode => !prevDarkMode);
