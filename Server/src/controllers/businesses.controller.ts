@@ -10,7 +10,7 @@ async function createBusiness(req: Request, res: Response) {
     const newUser: IUser = new User({
       email,
       password,
-      name,
+      name:name,
       phone,
       address,
       deleted: false,

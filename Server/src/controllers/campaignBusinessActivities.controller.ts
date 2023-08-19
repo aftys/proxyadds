@@ -7,8 +7,8 @@ async function createCampaignBusinessActivity(req: Request, res: Response) {
     const { businessActivity_ids, campaign_id } = req.body;
   
     const businessActivities: Partial<ICampaignBusinessActivity>[] = businessActivity_ids.map(
-      (businessActivity_id: number) => ({
-        businessActivity_id,
+      (business_ativity_id: number) => ({
+        business_activity_id:business_ativity_id,
         campaign_id,
         deleted: false,
       })
@@ -20,6 +20,7 @@ async function createCampaignBusinessActivity(req: Request, res: Response) {
 
     res.status(201).json(savedCampaignBusinessActivities);
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: 'Error creating campaign business activity' });
   }
 }

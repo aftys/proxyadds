@@ -6,8 +6,8 @@ async function createCampaignBusinessType(req: Request, res: Response) {
   try {
     const { businessType_ids, campaign_id } = req.body;
     const businessTypes: Partial<ICampaignBusinessType>[] = businessType_ids.map(
-      (businesstype_id: number) => ({
-        businesstype_id,
+      (business_type_id: number) => ({
+        business_type_id,
         campaign_id,
         deleted: false,
       })
@@ -17,13 +17,14 @@ async function createCampaignBusinessType(req: Request, res: Response) {
     );
     res.status(201).json(savedCampaignBusinessActivities);
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: 'Error creating campaign business type' });
   }
 }
 
 async function getAllCampaignBusinessTypes(req: Request, res: Response) {
   try {
-    const campaignBusinessTypes: ICampaignBusinessType[] = await CampaignBusinessType.find({ deleted: false }).populate('businesstype_id').populate('campaign_id');
+    const campaignBusinessTypes: ICampaignBusinessType[] = await CampaignBusinessType.find({ deleted: false }).populate('business_type_id').populate('campaign_id');
     res.json(campaignBusinessTypes);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching campaign business types' });
@@ -33,7 +34,7 @@ async function getAllCampaignBusinessTypes(req: Request, res: Response) {
 async function getCampaignBusinessTypeById(req: Request, res: Response) {
   try {
     const campaignBusinessTypeId = req.params.id;
-    const campaignBusinessType: ICampaignBusinessType | null = await CampaignBusinessType.findById(campaignBusinessTypeId).where({ deleted: false }).populate('businesstype_id').populate('campaign_id');
+    const campaignBusinessType: ICampaignBusinessType | null = await CampaignBusinessType.findById(campaignBusinessTypeId).where({ deleted: false }).populate('business_type_id').populate('campaign_id');
     if (campaignBusinessType) {
       res.json(campaignBusinessType);
     } else {

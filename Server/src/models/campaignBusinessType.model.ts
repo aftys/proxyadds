@@ -1,14 +1,14 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface ICampaignBusinessType extends Document {
-  businesstype_id: number;
+  business_type_id: number;
   campaign_id: number;
   deleted:boolean;
 }
 
 const CampaignBusinessTypeSchema: Schema = new Schema(
   {
-    businesstype_id: { type: Schema.Types.ObjectId, ref: 'BusinessType', required: true },
+    business_type_id: { type: Schema.Types.ObjectId, ref: 'BusinessType', required: true },
     campaign_id: { type: Schema.Types.ObjectId, ref: 'Campaign', required: true },
     deleted:{ type: Boolean, defaults: false }
   },
@@ -18,5 +18,5 @@ const CampaignBusinessTypeSchema: Schema = new Schema(
 export default mongoose.model<ICampaignBusinessType>(
   "CampaignBusinessType",
   CampaignBusinessTypeSchema,
-  "campaign_businesstypes"
+  "campaign_business_types"
 );

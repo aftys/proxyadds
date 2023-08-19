@@ -12,6 +12,7 @@ async function createUser(req: Request, res: Response) {
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: 'Error creating user' });
   }
 }
