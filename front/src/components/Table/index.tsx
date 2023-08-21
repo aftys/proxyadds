@@ -119,7 +119,7 @@ type Props<DataType extends object> = {
 
   return (
     <Table
-      className="dark:border-0 border-gray-200 border dark:bg-dark-bg-main  rounded-md overflow-hidden"
+      className=" border-gray-200 dark:border-gray-700 border bg-white dark:bg-dark-bg-main  rounded-md overflow-hidden"
       pagination={{ pageSize: 6 }}
       columns={columns}
       dataSource={data}

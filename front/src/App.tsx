@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import { ConfigProvider, theme } from "antd";
 import AdminLayout from "./components/Layout/AdminLayout";
@@ -8,36 +6,8 @@ import Login from "./pages/Login";
 import { useStateContext } from "./contexts";
 
 function App() {
-  const { darkMode, userData, setUserData } = useStateContext();
+  const { darkMode } = useStateContext();
   const { defaultAlgorithm, darkAlgorithm } = theme;
-  const checkLoggedIn = async () => {
-    try {
-      const token = localStorage.getItem("auth-user")
-      if (token) {
-        console.log(token)
-        const tokenResponse = await axios.post(
-          "http://localhost:3000/login/tokenIsValid",
-          null,
-          { headers: { "x-auth-token": token } }
-        );
-        if (tokenResponse.data) {
-          const userRes = await axios.get("http://localhost:3000/login/", {
-            headers: { "x-auth-token": token },
-          });
-          setUserData({
-            token: token,
-            user: userRes.data,
-          });
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    checkLoggedIn();
-  }, []);
 
   return (
     <ConfigProvider

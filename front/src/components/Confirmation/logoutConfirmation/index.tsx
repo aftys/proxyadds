@@ -20,7 +20,7 @@ const LougoutConfirmation: React.FC<Props> = ({ isSidebarOpen }) => {
             token: '',
             user: null,
         });
-        localStorage.removeItem('auth-token');
+        localStorage.setItem('auth-token','');
 
         // Redirect to the login page or any other desired route
         navigate('/login');

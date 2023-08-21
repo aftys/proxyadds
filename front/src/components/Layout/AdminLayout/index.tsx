@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../Sidebar";
 import Navbar from "../../Navbar";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -13,18 +13,52 @@ import Parameters from "../../../pages/admin/Parameters";
 import Tracking from "../../../pages/admin/Tracking";
 import Campaigns from "../../../pages/admin/Campaigns";
 import { useStateContext } from "../../../contexts";
+import axios from "axios";
 
 function AdminLayout() {
-  const { userData } = useStateContext();
+  const { userData, setUserData } = useStateContext();
+
   const navigate = useNavigate();
-  React.useEffect(() => {
-    if (!userData.user || userData.user.role !== 'admin') navigate('/login');
-  }, [userData.token]);
+
+  const checkLoggedIn = async () => {
+    try {
+      const token = localStorage.getItem("auth-token");
+      if (token) {
+        const tokenResponse = await axios.post(
+          "http://localhost:3000/login/tokenIsValid",
+          null,
+          { headers: { "x-auth-token": token } }
+        );
+        if (tokenResponse.data) {
+          const userRes = await axios.get("http://localhost:3000/login/", {
+            headers: { "x-auth-token": token },
+          });
+          setUserData({
+            token: token,
+            user: userRes.data,
+          });
+          console.log("test")
+          if (userRes.data.role !== "admin") {
+            navigate("/login");
+          }
+        } else {
+          navigate("/login");
+        }
+      } else {
+        navigate("/login");
+      }
+    } catch (error) {
+      navigate("/login");
+    }
+  };
+
+  useEffect(() => {
+    checkLoggedIn();
+  }, []);
+
 
   return (
     <>
-      {
-        (userData.user && userData.user.role === 'admin') &&
         <div className='dark:bg-app h-screen bg-gray-100 w-screen min-h-screen relative flex flex-col items-center pl-[85px] pt-[75px] pr-6 '>
           <Sidebar />
           <Navbar />
@@ -44,9 +78,7 @@ function AdminLayout() {
             </Routes>
           </main>
         </div>
-      }
     </>
-
   );
 }
 
