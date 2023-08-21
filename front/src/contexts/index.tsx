@@ -14,15 +14,15 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   children: React.ReactElement;
 }
 export const ContextProvider: React.FC<Props> = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(false);
-  const [ userData, setUser] = useState<User>({
+  const [darkMode, setDarkMode] = useState(true);
+  const [ userData, setUserData] = useState<User>({
     token: undefined,
     user: undefined
     });
-  const setUserData=(user:User)=>{
-    if(user.token) localStorage.setItem("auth-user",user.token );
-    setUser(user)
-  }
+  // const setUserData=(user:User)=>{
+  //   if(user.token) localStorage.setItem("auth-user",user.token );
+  //   setUser(user)
+  // }
 
   const toggleDarkMode = () => {
     setDarkMode(prevDarkMode => !prevDarkMode);

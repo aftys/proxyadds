@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, Select } from 'antd';
 import mongodb from 'mongodb';
 import axios from 'axios';
+import ICampaign from '../../../../interfaces/Campaign';
 
 const layout = {
   labelCol: { span: 8 },
@@ -28,8 +29,13 @@ const passwordValidationRules = [
 ];
 
 
+interface Props {
+  onSubmit: (values: any) => void;
+  prev: () => void;
+  data: ICampaign
+}
 
-const CampaignBusinessType: React.FC<any>  = ({prev, onSubmit, businessActivity}) => {
+const CampaignBusinessType: React.FC<Props>  = ({prev, onSubmit, data}) => {
     const [businessType, setBusinessType] = useState<any[]>([]);
 
   useEffect(() => {
@@ -37,10 +43,9 @@ const CampaignBusinessType: React.FC<any>  = ({prev, onSubmit, businessActivity}
   }, []);
 
   const fetchData = async () => {
-    console.log("businessActivity hahiya", businessActivity);
     
     try {
-      const promises = businessActivity.map(async (item: any) => {
+      const promises = data.business_activity_ids.map(async (item: any) => {
         const response = await axios.get('http://localhost:3000/business-types/getBusinessTypesByActivityIds/' + item);
         return response.data;
       });
@@ -54,6 +59,10 @@ const CampaignBusinessType: React.FC<any>  = ({prev, onSubmit, businessActivity}
     }
   };
   
+
+  const initialValues={
+    business_type_ids:data.business_type_ids
+  }
   
 
   return (
@@ -64,8 +73,9 @@ const CampaignBusinessType: React.FC<any>  = ({prev, onSubmit, businessActivity}
       style={{ maxWidth: 600 }}
       validateMessages={validateMessages}
       className='pr-16 pt-10'
+      initialValues={initialValues}
     >
-      <Form.Item label="BusinessType Id" name="businessType_ids" rules={[{ required: true }]}>
+      <Form.Item label="BusinessType Id" name="business_type_ids" rules={[{ required: true }]}>
         <Select
           showSearch
           placeholder="Select a Business Type"

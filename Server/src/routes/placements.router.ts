@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { createPlacement, getAllPlacements, getPlacementById, updatePlacement, deletePlacement } from '../controllers/placements.controller';
-import auth  from '../middlewares/auth';
+import { createPlacement, getAllPlacements,getPlacementsByBusinessId, getPlacementById, updatePlacement, deletePlacement } from '../controllers/placements.controller';
 const router: Router = Router();
 
-router.post('/', auth('admin'), createPlacement);
-router.get('/', auth('admin'), getAllPlacements);
-router.get('/:id', auth('admin'), getPlacementById);
-router.put('/:id', auth('admin'), updatePlacement);
-router.delete('/:id', auth('admin'),deletePlacement);
+router.post('/', createPlacement);
+router.get('/', getAllPlacements);
+router.get('/business/:user_id', getPlacementsByBusinessId);
+router.get('/:id', getPlacementById);
+router.put('/:id', updatePlacement);
+router.delete('/:id',deletePlacement);
 
 export default router;

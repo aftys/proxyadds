@@ -34,21 +34,22 @@ export const uploadFile = async (req: Request, res: Response) => {
     //     const savedFile = await file.save();
       // res.status(201).send('File Uploaded Successfully');
       
-        const { name, budget_max, begin_date, end_date, display_hours, status, url, advertiser_id } = req.body;
-        const newCampaign: ICampaign = new Campaign({
-          name,
-          budget_max,
-          begin_date,
-          end_date,
-          file: req.file.path,
-          display_hours,
-          status,
-          url,
-          advertiser_id,
-          deleted: false,
-        });
-        const savedCampaign = await newCampaign.save();
-        res.status(201).json(savedCampaign);
+        // const { name, budget_max, begin_date, end_date, display_hours, status, url, advertiser_id } = req.body;
+        // const newCampaign: ICampaign = new Campaign({
+        //   name,
+        //   budget_max,
+        //   begin_date,
+        //   end_date,
+        //   file: req.file.path,
+        //   display_hours,
+        //   status,
+        //   url,
+        //   advertiser_id,
+        //   deleted: false,
+        // });
+        // const savedCampaign = await newCampaign.save();
+        // res.status(201).json(savedCampaign);
+        console.log(req.file.originalname)    
       } catch (error) {
         res.status(500).json({ message: 'Error creating campaign' });
         console.log(error);

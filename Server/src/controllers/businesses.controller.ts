@@ -3,13 +3,15 @@ import { IBusiness } from '../models/business.model';
 import Business from '../models/business.model';
 import User, { IUser } from '../models/user.model';
 import Placement, { IPlacement } from '../models/placement.model';
-
+import bcrypt from 'bcrypt'
 async function createBusiness(req: Request, res: Response) {
   try {
     const { name, email, password, phone, address, placement, location_id, longitude, altitude, business_type_id, business_activity_id } = req.body;
+    const salt = await bcrypt.genSalt();
+    const passwordCrypt= await bcrypt.hash(password, salt);
     const newUser: IUser = new User({
       email,
-      password,
+      password:passwordCrypt,
       name:name,
       phone,
       address,

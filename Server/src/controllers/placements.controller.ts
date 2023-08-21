@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { IPlacement } from '../models/placement.model';
 import Placement from '../models/placement.model';
+import Business from '../models/business.model';
 
 async function createPlacement(req: Request, res: Response) {
   try {
@@ -19,6 +20,21 @@ async function getAllPlacements(req: Request, res: Response) {
     res.json(placements);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching placements' });
+  }
+}
+
+async function getPlacementsByBusinessId(req: Request, res: Response)  {
+  try {
+    const {user_id} = req.params;
+    const business=await Business.findOne({user_id:user_id})
+    const placement: IPlacement[] | null = await Placement.find({"business_id":business._id}).where({ deleted: false }).populate('business_id');
+    if (placement) {
+      res.json(placement);
+    } else {
+      res.status(404).json({ message: 'Placement not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching placement' });
   }
 }
 
@@ -77,6 +93,7 @@ async function deletePlacement(req: Request, res: Response) {
 export {
   createPlacement,
   getAllPlacements,
+  getPlacementsByBusinessId,
   getPlacementById,
   updatePlacement,
   deletePlacement,

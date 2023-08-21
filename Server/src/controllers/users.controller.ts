@@ -7,8 +7,8 @@ async function createUser(req: Request, res: Response) {
   try {
     const { email, password, name, phone, address, status, role } = req.body;
     const salt = await bcrypt.genSalt();
-    const passwordHash = await bcrypt.hash(password, salt);
-    const newUser: IUser = new User({ email, password: passwordHash, name, phone, address, status, role, deleted: false });
+    const passwordCrypt= await bcrypt.hash(password, salt);
+    const newUser: IUser = new User({ email, password: passwordCrypt, name, phone, address, status, role, deleted: false });
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);
   } catch (error) {

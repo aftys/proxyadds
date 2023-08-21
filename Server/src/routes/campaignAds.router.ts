@@ -4,6 +4,6 @@ import { Router } from 'express';
 
 const router: Router = Router();
 
-router.get('/', getPlacementCamapaigns);
+router.get('/:user_id', getPlacementCamapaigns);
 
 export default router;

@@ -1,31 +1,38 @@
-import { useEffect, useState } from "react"
+import React, { useState } from "react";
 import { Steps } from "antd";
 import axios from "axios";
 import CampaignBusinessActivity from "./CampaignBusinessActivity";
 import Campaign from "./Campaign";
 import CampaignBusinessType from "./CampaignBusinessType";
 import CampaignLocation from "./CampaingLocation";
+import ICampaign from "../../../../interfaces/Campaign";
+import dayjs from "dayjs";
+
+
 function AddCampaign() {
   const [current, setCurrent] = useState(0);
 
-  const [campaignData, setCampaignData] = useState<any>({});
-  const [businessActivity, setBusinessActivitiy] = useState<any[]>([]);
-  const addBusinessActivity = (newActivity : String[], clearExisting = false) => {
-    if (clearExisting) {
-      setBusinessActivitiy([newActivity]);
-    } else {
-      if (businessActivity[0] === 'ResetValue' ) {
-        businessActivity.shift();
-      }
-      setBusinessActivitiy([...businessActivity, newActivity]);
-    }
-  };
-  const titles: string[] = ['Campaign','CampaignBA', 'CampaignBT', 'CampaignL'];
+  const [campaignData, setCampaignData] = useState<ICampaign & Record<string, any>>({
+    advertiser_id: "",
+    begin_date: dayjs(),
+    budget_max: "",
+    business_activity_ids: [],
+    business_type_ids: [],
+    display_hours: "",
+    end_date: dayjs(),
+    file: null,
+    location_ids: [],
+    name: "",
+    status: "actif",
+    url: "",
+  });
+  const titles: string[] = ['Campaign', 'CampaignBA', 'CampaignBT', 'CampaignL'];
 
   const next = () => {
-    current === titles.length - 1 ? onSubmitForm() : setCurrent(current + 1);
+    if (current < titles.length - 1) {
+      setCurrent(current + 1);
+    }
   };
-
 
   const previous = () => {
     setCurrent(current - 1);
@@ -33,73 +40,39 @@ function AddCampaign() {
 
   const items = titles.map((item) => ({ key: item, title: item }));
 
-   async function onSubmitForm() {
+  const onSubmit = (values: any) => {
+    setCampaignData({ ...campaignData, ...values });
+    next();
+  };
+
+  const onSubmitCampaign = (values: any, file: File | null) => {
+    setCampaignData({ ...campaignData, ...values, file: file });
+    next();
+  };
+
+  const onSubmitFinal = async (values: any) => {
+    const data={ ...campaignData, ...values };
+    console.log(campaignData);
     try {
-      // send your Campaign data to the 'Campaigns' endpoint
+      const formData = new FormData();
+      for (const key in data) {
+        formData.append(key, campaignData[key]);
+      }
+      const response = await axios.post("http://localhost:3000/campaigns", formData);
+      console.log(response);
     } catch (error) {
-      console.error('Error sending form data:', error);
-      // Handle error, e.g., show an error message to the user
+      console.error(error);
     }
-  }
-
-
-  function onSubmitCampaignBusinessActivity(values: any){
-    console.log('values', values);
-    console.log('campaigndata', campaignData);
-    axios
-    .post('http://localhost:3000/campaign-business-activities', {
-      businessActivity_ids: values.businessActivity_id,
-      campaign_id: campaignData._id,
-    })
-    .then(response => {
-      console.log('Form data sent successfully:', response.data);
-      next();
-    })
-    .catch(error => {
-      console.error('Error sending form data:', error);
-    });
-  };
-
-  function onSubmitCampaignBusinessType(values: any){
-    console.log('values', values);
-    axios
-    .post('http://localhost:3000/campaign-business-types', {
-      businessType_ids: values.businessType_ids,
-      campaign_id: campaignData._id,
-    })
-    .then(response => {
-      console.log('campaign-business-types data sent successfully:', response.data);
-      next();
-    })
-    .catch(error => {
-      console.error('Error sending campaign-business-types data:', error);
-    });
-  };
-
-  function onSubmitCampaignLocation(values: any){
-    console.log('values', values);
-    axios
-    .post('http://localhost:3000/campaign-locations', {
-      location_ids: values.location_ids,
-      campaign_id: campaignData._id,
-    })
-    .then(response => {
-      console.log('campaign-locations data sent successfully:', response.data);
-      next();
-    })
-    .catch(error => {
-      console.error('Error sending campaign-locations data:', error);
-    });
   };
 
   return (
-    < div className="flex flex-col items-center max-w-screen-md w-full ">
-      <Steps className='max-w-screen-md w-full' current={current} items={items} />
+    <div className="flex flex-col items-center max-w-screen-md w-full">
+      <Steps className="max-w-screen-md w-full" current={current} items={items} />
       <div className="max-w-screen-sm w-full">
-        {current == 0 && <Campaign setCampaignData={setCampaignData } next={next}/>}
-        {current == 1 && <CampaignBusinessActivity  addBusinessActivity={addBusinessActivity} onSubmit={onSubmitCampaignBusinessActivity} prev={previous} />}
-        {current == 2 && <CampaignBusinessType businessActivity={businessActivity} onSubmit={onSubmitCampaignBusinessType}  prev={previous} />}
-        {current == 3 && <CampaignLocation onSubmit={onSubmitCampaignLocation} prev={previous} />}
+        {current === 0 && <Campaign onSubmit={onSubmitCampaign} data={campaignData} />}
+        {current === 1 && <CampaignBusinessActivity onSubmit={onSubmit} data={campaignData} prev={previous} />}
+        {current === 2 && <CampaignBusinessType onSubmit={onSubmit} data={campaignData} prev={previous} />}
+        {current === 3 && <CampaignLocation onSubmit={onSubmitFinal} prev={previous} />}
       </div>
     </div>
   );

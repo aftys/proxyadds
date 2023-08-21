@@ -4,7 +4,7 @@ import Campaign from "../models/campaign.model";
 
 async function getPlacementCamapaigns(req: Request, res: Response) {
     try {
-        const { user_id } = req.body;
+        const { user_id } = req.params;
         const business: IBusiness = await Business.findOne({ user_id, deleted: false });
         const { business_type_id, business_activity_id, location_id } = business;
         console.log( business_type_id, business_activity_id, location_id )

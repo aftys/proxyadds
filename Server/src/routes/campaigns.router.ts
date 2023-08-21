@@ -6,10 +6,10 @@ import {
   updateCampaign,
   deleteCampaign,
 } from '../controllers/campaigns.controller';
-// import { upload } from '../assets/filehelper.js';
+import upload from '../assets/filehelper';
 const router: Router = Router();
 
-router.post('/', createCampaign);
+router.post('/',upload.single('file'), createCampaign);
 router.get('/', getAllCampaigns);
 router.get('/:id', getCampaignById);
 router.put('/:id', updateCampaign);

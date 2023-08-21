@@ -10,7 +10,7 @@ const router = Router();
 router.post("/", async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
-
+    console.log({email,password})
     // validate
     if (!email || !password)
       return res.status(400).json({ msg: "Not all fields have been entered." });
@@ -22,7 +22,8 @@ router.post("/", async (req: Request, res: Response) => {
         .status(400)
         .json({ msg: "No account with this email has been registered." });
 
-    const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password);
+        // const isMatch =password===user.password;
 
     if (!isMatch)
       return res.status(400).json({ msg: "Invalid credentials." });

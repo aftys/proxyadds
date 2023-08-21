@@ -2,15 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Form, Input, Select, Button, DatePicker, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
-
+import ICampaign from '../../../../interfaces/Campaign';
 
 const { Option } = Select;
 
-const Campaign: React.FC<any> = ({ setCampaignData, next }) => {
-  const [form] = Form.useForm();
-  const [file, setFile] = useState<File | null>(null);
-  const [advertisers, setAdvertisers] = useState<any[]>([])
+interface Props {
+  onSubmit: (values:any,file:File|null) => void;
+  data: ICampaign;
+}
 
+const Campaign: React.FC<Props> = ({ onSubmit, data }) => {
+  const [file, setFile] = useState<any>(null);
+  const [advertisers, setAdvertisers] = useState<any[]>([]);
 
   useEffect(() => {
     axios.get('http://localhost:3000/advertisers')
@@ -20,34 +23,7 @@ const Campaign: React.FC<any> = ({ setCampaignData, next }) => {
       .catch((error) => {
         console.error('Error fetching advertisers:', error);
       });
-  }
-  );
-
-  const handleSubmit = async (values: any) => {
-    try {
-      const formData = new FormData();
-      formData.append('name', values.name);
-      formData.append('budget_max', values.budget_max);
-      formData.append('begin_date', values.begin_date.format('YYYY-MM-DD'));
-      formData.append('end_date', values.end_date.format('YYYY-MM-DD'));
-      formData.append('display_hours', values.display_hours);
-      formData.append('status', values.status);
-      formData.append('url', values.url);
-      formData.append('advertiser_id', values.advertiser_id);
-      formData.append('file', file!);
-      
-      const response = await axios.post('http://localhost:3000/files', formData)
-
-      message.success('File uploaded successfully!');
-      setCampaignData(response.data);
-      next();
-    }
-    catch (error) {
-      console.error('Error creating campaign:', error);
-      message.error('Error uploading file');
-    }
-  }
-
+  }, []);
 
   const handleFileChange = (info: any) => {
     if (info.fileList.length > 0) {
@@ -57,10 +33,12 @@ const Campaign: React.FC<any> = ({ setCampaignData, next }) => {
     }
   };
 
+  const initialValues = { ...data };
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">File Upload</h1>
-      <Form form={form} onFinish={handleSubmit}>
+      <Form initialValues={initialValues} onFinish={(values)=>onSubmit(values,file)}>
         <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please enter a name' }]}>
           <Input />
         </Form.Item>
@@ -94,10 +72,26 @@ const Campaign: React.FC<any> = ({ setCampaignData, next }) => {
             optionFilterProp="children"
             filterOption={false}
             options={
-              advertisers.map((item) => { return { value: item._id, label: item.user_id.name } })}
+              advertisers.map((item) => ({ value: item._id, label: item.user_id.name }))
+            }
           />
         </Form.Item>
-        <Form.Item label="File" name="file">
+        <Form.Item
+          label="File"
+          name="file"
+          rules={[
+            {
+              required: true,
+              message: 'Please select a file',
+              validator: (_, value) => {
+                if (file !== null) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(new Error('Please select a file'));
+              },
+            },
+          ]}
+        >
           <Upload onChange={handleFileChange} beforeUpload={() => false}>
             <Button icon={<UploadOutlined />}>Select File</Button>
           </Upload>

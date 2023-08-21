@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, Select } from 'antd';
 import axios from 'axios';
+import ICampaign from '../../../../interfaces/Campaign';
 
 const layout = {
   labelCol: { span: 8 },
@@ -28,18 +29,22 @@ const passwordValidationRules = [
 
 
 
-const CampaignLocation: React.FC<any>  = ({prev, onSubmit}) => {
-    const [location, setLocation] = useState<any[]>([]);
+interface Props {
+  onSubmit: (values: any) => void;
+  prev: () => void;
+}
+
+const CampaignLocation: React.FC<Props> = ({ prev, onSubmit }) => {
+  const [location, setLocation] = useState<any[]>([]);
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const fetchData= async () => {
+  const fetchData = async () => {
     axios.get('http://localhost:3000/locations')
       .then((response) => {
         setLocation(response.data);
-        console.log("campaign-locations", response.data);
       })
       .catch((error) => {
         console.error('Error fetching campaign-locations: ', error);
@@ -72,7 +77,7 @@ const CampaignLocation: React.FC<any>  = ({prev, onSubmit}) => {
         </Button>
         <Button onClick={prev} className='bg-main-blue text-white absolute  w-20 -left-32 top-0'>
           previous
-        </Button> 
+        </Button>
       </Form.Item>
     </Form>
   );
