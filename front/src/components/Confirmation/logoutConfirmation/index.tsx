@@ -28,7 +28,7 @@ const LougoutConfirmation: React.FC<Props> = ({ isSidebarOpen }) => {
 
     return (
         <>
-            <div className='text-white w-full bg-main-blue dark:bg-blue-950 dark:bg-blue-950 flex rounded-md p-5  h-7  text-gray-500 text-sm items-center gap-x-4' onClick={() => setOpen(true)}>
+            <div className='absolute bottom-5 flex   rounded-xl py-5 pl-4 h-7  cursor-pointer dark:bg-light-white bg-gray-100 dark:text-gray-300 text-gray-500 text-sm items-center gap-x-4 w-full ' onClick={() => setOpen(true)}>
                 <RiLogoutCircleRLine />
                 <span className={`${!isSidebarOpen && "hidden"} origin-left duration-400`}>
                     Logout

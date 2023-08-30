@@ -8,7 +8,7 @@ export interface ICampaignBusinessActivity extends Document {
 
 const CampaignBusinessActivitySchema: Schema = new Schema(
   {
-    business_activity_id: { type: Schema.Types.ObjectId, ref: 'BusinessActivity', required: true },
+    business_activity_id: { type: Schema.Types.ObjectId, ref: 'BusinessActivity', length: 11},
     campaign_id: { type: Schema.Types.ObjectId, ref: 'Campaign', required: true },
     deleted:{ type: Boolean, defaults: false }
   },

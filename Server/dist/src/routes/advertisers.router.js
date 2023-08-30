@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const advertisers_controller_1 = require("../controllers/advertisers.controller");
+// import auth  from '../middlewares/auth';
+const router = (0, express_1.Router)();
+router.post('/', advertisers_controller_1.createAdvertiser);
+router.get('/', advertisers_controller_1.getAllAdvertisers);
+router.get('/:id', advertisers_controller_1.getAdvertiserById);
+router.put('/:id', advertisers_controller_1.updateAdvertiser);
+router.delete('/:id', advertisers_controller_1.deleteAdvertiser);
+exports.default = router;

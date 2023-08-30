@@ -56,7 +56,7 @@ function AddCampaign() {
     try {
       const formData = new FormData();
       for (const key in data) {
-        formData.append(key, campaignData[key]);
+        formData.append(key, data[key]);
       }
       const response = await axios.post("http://localhost:3000/campaigns", formData);
       console.log(response);

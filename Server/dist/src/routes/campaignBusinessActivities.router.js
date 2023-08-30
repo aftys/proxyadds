@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const campaignBusinessActivities_controller_1 = require("../controllers/campaignBusinessActivities.controller");
+const router = (0, express_1.Router)();
+router.post('/', campaignBusinessActivities_controller_1.createCampaignBusinessActivity);
+router.get('/', campaignBusinessActivities_controller_1.getAllCampaignBusinessActivities);
+router.get('/:id', campaignBusinessActivities_controller_1.getCampaignBusinessActivityById);
+router.put('/:id', campaignBusinessActivities_controller_1.updateCampaignBusinessActivity);
+router.delete('/:id', campaignBusinessActivities_controller_1.deleteCampaignBusinessActivity);
+exports.default = router;

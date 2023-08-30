@@ -21,7 +21,6 @@ import login from './src/routes/signIN.router'
 import CamapignAdsRouter from './src/routes/campaignAds.router'
 
 
-const path = require('path');  // Import the "path" module
 require("dotenv").config();
 
 
@@ -29,7 +28,7 @@ require("dotenv").config();
 const app: Express = express();
 
 app.use(express.json());
-// app.use('/uploads', express.static(__dirname + '/uploads'));
+app.use(express.urlencoded({ extended: true }));
 app.use('/uploads',express.static('uploads'));
 app.use(cors())
 

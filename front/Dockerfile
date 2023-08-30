@@ -1,21 +1,13 @@
-# Utiliser une image de base Node.js
-FROM node:18-alpine
+FROM node:16.6-alpine AS builder
+WORKDIR /app
+COPY . .
+RUN yarn
+RUN yarn build
 
-# Définir le répertoire de travail
-WORKDIR /app/front
-
-# Copier package.json et package-lock.json
-COPY front/package*.json ./
-
-# Installer les dépendances
-RUN npm install
-
-# Copier le reste du code client
-COPY front/ .
-
-
-# Démarrer le serveur client en utilisant Vite
-
-CMD ["npm", "run", "dev"]
-# Exposer le port du client
-EXPOSE 8080
+FROM node:16.6-alpine
+WORKDIR /app
+COPY package.json .
+COPY --from=builder /app/dist ./dist
+RUN npm i -g serve
+EXPOSE 3000
+CMD ["serve","-s","dist","-p","3000"]

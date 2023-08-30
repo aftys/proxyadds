@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const placements_controller_1 = require("../controllers/placements.controller");
+const router = (0, express_1.Router)();
+router.post('/', placements_controller_1.createPlacement);
+router.get('/', placements_controller_1.getAllPlacements);
+router.get('/business/:user_id', placements_controller_1.getPlacementsByBusinessId);
+router.get('/:id', placements_controller_1.getPlacementById);
+router.put('/:id', placements_controller_1.updatePlacement);
+router.delete('/:id', placements_controller_1.deletePlacement);
+exports.default = router;

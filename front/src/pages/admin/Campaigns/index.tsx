@@ -6,8 +6,13 @@ import { Dayjs } from 'dayjs';
 import Confirmation from "../../../components/Confirmation/deleteConfirmation";
 import AddCampaign from "../../../components/Forms/Campaigns/addCampaign";
 import EditCampaign from "../../../components/Forms/Campaigns/editCampaign";
-import { CampaignStatus } from "../../../../../Server/src/enums/campaignStatus.enum";
 
+enum CampaignStatus {
+  ACTIF = "actif",
+  PENDING = "pending",
+  INACTIF = "inactif",
+  FINISHED = "finished",
+}
 function Campaigns() {
   const [data, setData] = useState<ICampaign[]>([]);
   const [loading, setLoading] = useState(true);

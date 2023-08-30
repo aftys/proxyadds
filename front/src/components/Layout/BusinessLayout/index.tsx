@@ -49,9 +49,9 @@ function BusinessLayout() {
 
   return (
     <>
-        <div className='dark:bg-app h-screen bg-gray-100 w-screen min-h-screen relative flex flex-col items-center pl-[85px] pt-[75px] pr-6 '>
+        <div className='dark:bg-app  bg-gray-100 w-screen min-h-screen relative flex flex-col items-center pl-[85px] py-[75px] pr-6 '>
           <Navbar />
-          <main className="flex flex-col gap-4 ">
+          <main className="flex flex-col gap-4 p-32 ">
             <Routes>
               <Route index element={<Placements />} />
               <Route path="/Placements" element={<Placements />} />
