@@ -4,18 +4,30 @@ import Tracking from '../models/trackings.model';
 
 async function createTracking(req: Request, res: Response) {
   try {
-    const { type, date, display_time, campaign_id } = req.body;
+    const { type, date, display_time,placement_id, campaign_id } = req.body;
     const newTracking: ITracking = new Tracking({
       type,
       date,
       display_time,
       campaign_id,
+      placement_id,
       deleted: false,
     });
     const savedTracking = await newTracking.save();
     res.status(201).json(savedTracking);
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: 'Error creating tracking' });
+  }
+}
+
+async function getTrackingsByCampaignId(req: Request, res: Response) {
+  try {
+    const campaignId=req.params.campaignId
+    const trackings: ITracking[] = await Tracking.find({ deleted: false,campaign_id:campaignId }).populate('campaign_id');
+    res.json(trackings);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching trackings' });
   }
 }
 
@@ -86,4 +98,5 @@ export {
   getTrackingById,
   updateTracking,
   deleteTracking,
+  getTrackingsByCampaignId
 };

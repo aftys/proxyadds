@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { BsFillArrowLeftCircleFill, BsFillArrowRightCircleFill } from 'react-icons/bs'
 import { sidebarLinks } from "../../assets";
 import { NavLink } from "react-router-dom";
 import LougoutConfirmation from '../Confirmation/logoutConfirmation'
@@ -16,17 +15,7 @@ const Sidebar: React.FC = () => {
       className={`${open ? "w-[230px]" : "w-[70px] "
         } bg-white dark:bg-dark-bg-main  border-r-[1px] dark:border-gray-700 border-gray-200 h-screen p-3  pt-8 flex flex-col gap-4 fixed left-0 top-0 z-50 duration-300`}
     >
-      {/* {open ?
-        <BsFillArrowLeftCircleFill
-          className="absolute cursor-pointer -right-3 top-9 w-7 h-7 border-dark-purple bg-white
-        border-2 rounded-full "
-          onClick={() => setOpen(false)} /> :
-        <BsFillArrowRightCircleFill
-          className="absolute cursor-pointer -right-3 top-9 w-7 h-7 border-dark-purple bg-white
-        border-2 rounded-full "
-          onClick={() => setOpen(true)}
-        />
-      } */}
+
 
       <div className="flex gap-x-4 items-center">
         <img
@@ -47,7 +36,7 @@ const Sidebar: React.FC = () => {
             key={index}
 
           >
-            <NavLink to={link.link} className={({ isActive }) => { return `flex   rounded-xl p-2 pl-4 h-7 cursor-pointer dark:bg-light-white bg-gray-100 dark:text-gray-300 text-gray-500 text-sm items-center gap-x-4  ${isActive && "dark:bg-[#22d3ee44] "}`; }} >
+            <NavLink to={link.link} className={({ isActive }) => { return `flex   rounded-xl p-2 pl-4 h-7 cursor-pointer  dark:text-gray-300 text-gray-500 text-sm items-center gap-x-4  ${isActive ? "bg-[#22d3ee44]  dark:bg-blue-950" :"dark:bg-light-white bg-gray-100"}`; }} >
               {link.icon}
               <span className={`${!open && "hidden"} origin-left duration-400`}>
                 {link.title}

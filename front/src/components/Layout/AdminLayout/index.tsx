@@ -10,10 +10,11 @@ import Locations from "../../../pages/admin/Locations";
 import BusinessTypes from "../../../pages/admin/BusinessTypes";
 import BusinessActivities from "../../../pages/admin/BusinessActivities";
 import Parameters from "../../../pages/admin/Parameters";
-import Tracking from "../../../pages/admin/Tracking";
+import ListTrackings from "../../../pages/admin/ListTracking";
 import Campaigns from "../../../pages/admin/Campaigns";
 import { useStateContext } from "../../../contexts";
 import axios from "axios";
+import CampaignTrackings from "../../../pages/admin/CampaignTrackings";
 
 function AdminLayout() {
   const { userData, setUserData } = useStateContext();
@@ -74,7 +75,8 @@ function AdminLayout() {
               <Route path="/BusinessTypes" element={<BusinessTypes />} />
               <Route path="/BusinessActivities" element={<BusinessActivities />} />
               <Route path="/Parameters" element={<Parameters />} />
-              <Route path="/Tracking" element={<Tracking />} />
+              <Route path="/tracking" element={<ListTrackings />} />
+              <Route path="/tracking/:id" element={<CampaignTrackings />} />
             </Routes>
           </main>
         </div>

@@ -12,28 +12,43 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTracking = exports.updateTracking = exports.getTrackingById = exports.getAllTrackings = exports.createTracking = void 0;
+exports.getTrackingsByCampaignId = exports.deleteTracking = exports.updateTracking = exports.getTrackingById = exports.getAllTrackings = exports.createTracking = void 0;
 const trackings_model_1 = __importDefault(require("../models/trackings.model"));
 function createTracking(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { type, date, display_time, campaign_id } = req.body;
+            const { type, date, display_time, placement_id, campaign_id } = req.body;
             const newTracking = new trackings_model_1.default({
                 type,
                 date,
                 display_time,
                 campaign_id,
+                placement_id,
                 deleted: false,
             });
             const savedTracking = yield newTracking.save();
             res.status(201).json(savedTracking);
         }
         catch (error) {
+            console.log(error);
             res.status(500).json({ message: 'Error creating tracking' });
         }
     });
 }
 exports.createTracking = createTracking;
+function getTrackingsByCampaignId(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const campaignId = req.params.campaignId;
+            const trackings = yield trackings_model_1.default.find({ deleted: false, campaign_id: campaignId }).populate('campaign_id');
+            res.json(trackings);
+        }
+        catch (error) {
+            res.status(500).json({ message: 'Error fetching trackings' });
+        }
+    });
+}
+exports.getTrackingsByCampaignId = getTrackingsByCampaignId;
 function getAllTrackings(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

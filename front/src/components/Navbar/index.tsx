@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
                     <BsSearch onClick={() => handleClick('search')} className="fill-[#22d3ee] w-[34px] h-[34px] p-[6px] rounded-full border-2 overflow-visible border-gray-300 dark:border-blue-950" />
                     <IoIosNotificationsOutline onClick={() => handleClick('notif')} className="fill-[#22d3ee] w-[34px] h-[34px] p-[2px] rounded-full border-2 overflow-visible border-gray-300 dark:border-blue-950" />
                     <Switcher/>
-                    <img src={"https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"} onClick={() => handleClick('profile')} className="w-[34px] h-[34px] rounded-full border-2 border-gray-300 dark:border-blue-950" />
+                    <img src={"https://th.bing.com/th/id/R.fa0ca630a6a3de8e33e03a009e406acd?rik=UOMXfynJ2FEiVw&riu=http%3a%2f%2fwww.clker.com%2fcliparts%2ff%2fa%2f0%2fc%2f1434020125875430376profile.png&ehk=73x7A%2fh2HgYZLT1q7b6vWMXl86IjYeDhub59EZ8hF14%3d&risl=&pid=ImgRaw&r=0"} onClick={() => handleClick('profile')} className="w-[34px] h-[34px] rounded-full border-2 border-gray-300 dark:border-blue-950" />
                
             </nav>
             <AnimatePresence mode="wait">

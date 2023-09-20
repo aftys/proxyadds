@@ -29,18 +29,18 @@ export default function Placements() {
                 {data.map((placement, idx) => (
                     <div 
                     key={idx}
-                        className="block rounded-lg bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+                        className="block py-4 flex flex-col gap-4 rounded-lg bg-white dark:bg-dark-bg-main border-[1px] dark:border-gray-700 border-gray-200">
                         <div
-                            className="border-b-2 border-neutral-100 px-6 py-3 dark:border-neutral-600 dark:text-neutral-50">
+                            className="px-4 flex justify-center dark:border-neutral-600 dark:text-neutral-50">
                             {placement.name}
                         </div>
-                        <div className="p-6">
+                        <div className="px-4 flex justify-center ">
                             <Link to={"/business/placements/" + placement._id}>
                                 <button
                                     type="button"
                                     className="inline-block rounded bg-primary px-6 text-black pb-2 pt-2.5 text-xs font-medium uppercase leading-normal bg-cyan-600 dark:text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                                 >
-                                    click
+                                    display
                                 </button>
                             </Link>
                         </div>

@@ -2,7 +2,7 @@ import { Router } from 'express';
 import {
   createTracking,
   getAllTrackings,
-  getTrackingById,
+  getTrackingsByCampaignId,
   updateTracking,
   deleteTracking,
 } from '../controllers/trackings.controller';
@@ -11,7 +11,7 @@ const router: Router = Router();
 
 router.post('/', createTracking);
 router.get('/', getAllTrackings);
-router.get('/:id', getTrackingById);
+router.get('/:campaignId', getTrackingsByCampaignId);
 router.put('/:id', updateTracking);
 router.delete('/:id', deleteTracking);
 

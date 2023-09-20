@@ -15,20 +15,17 @@ const LougoutConfirmation: React.FC<Props> = ({ isSidebarOpen }) => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Clear user data from context and local storage
         setUserData({
             token: '',
             user: null,
         });
         localStorage.setItem('auth-token','');
-
-        // Redirect to the login page or any other desired route
         navigate('/login');
     };
 
     return (
         <>
-            <div className='absolute bottom-5 flex   rounded-xl py-5 pl-4 h-7  cursor-pointer dark:bg-light-white bg-gray-100 dark:text-gray-300 text-gray-500 text-sm items-center gap-x-4 w-full ' onClick={() => setOpen(true)}>
+            <div className='absolute bottom-5 flex   rounded-xl py-5 pl-4 h-7  cursor-pointer dark:bg-blue-950 bg-[#22d3ee] dark:text-gray-300 text-gray-500 text-sm items-center gap-x-4 w-full ' onClick={() => setOpen(true)}>
                 <RiLogoutCircleRLine />
                 <span className={`${!isSidebarOpen && "hidden"} origin-left duration-400`}>
                     Logout

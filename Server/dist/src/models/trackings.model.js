@@ -28,7 +28,8 @@ const TrackingSchema = new mongoose_1.Schema({
     type: { type: String, required: true },
     date: { type: Date, required: true },
     display_time: { type: String, required: true },
-    campaign_id: { type: mongoose_1.Schema.Types.ObjectId, ref: 'BusinessType', required: true },
+    campaign_id: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Campaign', required: true },
+    placement_id: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Placement', required: true },
     deleted: { type: Boolean, defaults: false }
 }, { timestamps: true });
 exports.default = mongoose_1.default.model("Tracking", TrackingSchema, "trackings");

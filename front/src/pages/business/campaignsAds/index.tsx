@@ -41,17 +41,19 @@ const CampaignAds: React.FC = () => {
     };
 
     const sendTracking=async(campaignId:string)=>{
+        console.log(campaignId);
         try {
             const response = await axios.post(
-                "http://localhost:3000/trakings/" + userData.user.id,{
+                "http://localhost:3000/trackings",{
                     campaign_id:campaignId,
                     placement_id:placementId,
                     date:new Date(),
-                    display_time:'15'
+                    display_time:'15',
+                    type:'test'
                 }
             );
-            setData(response.data);
             console.log(response.data);
+
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -62,9 +64,9 @@ const CampaignAds: React.FC = () => {
     return (
         <>
             <Link to="/business/placements">
-                <button>placements</button>
+                <button className="bg-white z-50 h-10 fixed top-4 left-4">placements</button>
             </Link>
-            <div>
+            <div className="fixed z-40 w-screen h-screen bg-black top-0 bottom-0 left-0 right-0">
 
                 <div>
                     {data[currentIndex] && `http://localhost:3000/${data[currentIndex].file}`.endsWith(".mp4") ? (
@@ -72,9 +74,9 @@ const CampaignAds: React.FC = () => {
                             <source src={data[currentIndex] && `http://localhost:3000/${data[currentIndex].file}`} type="video/mp4" />
                         </video>
                     ) : (
-                        <img className="fixed z-50 top-0 bottom-0 left-0 right-0" src={data[currentIndex]  && `http://localhost:3000/${data[currentIndex].file}`} alt={`Media ${currentIndex}`} />
+                        <img className="fixed   w-full top-0 bottom-0 left-0 right-0 object-cover bg-black"  src={data[currentIndex]  && `http://localhost:3000/${data[currentIndex].file}`} alt={`Media ${currentIndex}`} />
                     )}
-                </div>
+                </div>fixed top-4 left-4
             </div>
         </>
     );

@@ -5,7 +5,6 @@ import axios from "axios";
 import Confirmation from "../../../components/Confirmation/deleteConfirmation";
 import AddPlacement from "../../../components/Forms/Placement/addPlacement";
 import EditPlacement from "../../../components/Forms/Placement/editPlacement";
-import { useNavigate } from 'react-router-dom';
 import { useStateContext } from "../../../contexts";
 
 
@@ -15,12 +14,6 @@ function Placements() {
   const [data, setData] = useState<MyData[]>([]);
   const [loading, setLoading] = useState(true);
   const { userData } = useStateContext();
-  // const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!userData.user) navigate('/login');
-  // }, [navigate, userData.user]);
-  
-
 
 
   useEffect(() => {

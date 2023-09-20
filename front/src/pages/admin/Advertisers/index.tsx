@@ -6,7 +6,6 @@ import Confirmation from "../../../components/Confirmation/deleteConfirmation";
 import AddAdvertiser from "../../../components/Forms/Advertiser/addAdvertiser";
 import EditAdvertiser from "../../../components/Forms/Advertiser/editAdvertiser";
 import { useStateContext } from "../../../contexts";
-import { useNavigate } from "react-router-dom";
 
 
 function BusinessActivities() {
@@ -14,13 +13,7 @@ function BusinessActivities() {
   const [data, setData] = useState<MyData[]>([]);
   const [loading, setLoading] = useState(true);
   const { userData } = useStateContext();
-  const navigate = useNavigate();
 
-  
-  // useEffect(() => {
-  //   if (!userData.user) navigate('/login');
-  // }, [navigate, userData.user]);
-  
 
 
   useEffect(() => {
